@@ -9,4 +9,4 @@ Author: [IEA Wind Task 37 Team] (mailto:pietro.bortolotti@nrel.gov)
 This software is a version 1.0
 
 ## Documentation
-An IEA technical report is in preparation. In the meanwhile, see local documentation in the `docs`-directory or access the online version at <http://windIO.github.io/IEAWindTask37/>
+An IEA technical report is in preparation. In the meanwhile, see local documentation in the `docs`-directory or access the online version at <https://windio.readthedocs.io/>
