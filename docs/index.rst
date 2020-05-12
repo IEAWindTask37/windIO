@@ -6,10 +6,17 @@
 Welcome to windIO's documentation!
 ==================================
 
+.. only:: html
+
+Frameworks defining the inputs and outputs for systems engineering MDAO of wind turbine and plants.
+
+    Author: `IEA Wind Task 37 Team <mailto:pietro.bortolotti@nrel.gov>`_
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   intro
 
 
 Indices and tables
