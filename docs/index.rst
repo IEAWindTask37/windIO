@@ -16,9 +16,9 @@ Frameworks defining the inputs and outputs for systems engineering MDAO of wind 
    :maxdepth: 2
    :caption: Contents:
 
-   intro
-   turbine
-   plant
+   source/intro
+   source/turbine
+   source/plant
 
 
 Indices and tables
