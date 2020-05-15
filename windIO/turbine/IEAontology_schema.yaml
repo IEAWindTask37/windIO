@@ -751,7 +751,7 @@ properties:
                 alp0:
                     type: number
                     description: Fracture angle under pure transverse compression. It is used by NuMAD from Sandia National Laboratories
-                    unit: deg
+                    unit: rad
                 A: 
                     description: Fatigue S/N curve fitting parameter S=A*N^(-1/m)
                     oneOf:
