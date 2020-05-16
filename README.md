@@ -10,7 +10,9 @@ This software is a version 1.0
 
 ## Documentation
 
-An IEA technical report is in preparation. In the meanwhile, see local documentation in the `docs`-directory or access the online version at <https://windio.readthedocs.io/>
+The online documentation can be accessed here <https://windio.readthedocs.io/>
+
+An IEA technical report is in preparation.
 
 ## Example and unit testing
 
