@@ -14,6 +14,9 @@ An IEA technical report is in preparation. In the meanwhile, see local documenta
 
 ## Example and unit testing
 
-An example of a turbine yaml file can be found here test/turbine_example.yaml
-The file is validated using the jsonschema library (https://github.com/Julian/jsonschema) and it is unit-tested on travis. The status of travis can be checked here https://travis-ci.com/github/IEAWindTask37/windIO
+An example of a turbine yaml file can be found here test/turbine_example.yaml.
+
+The file is validated using the jsonschema library (https://github.com/Julian/jsonschema) and it is unit-tested on travis. 
+
+The status of travis can be checked here https://travis-ci.com/github/IEAWindTask37/windIO
 
