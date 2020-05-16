@@ -3,6 +3,11 @@ Assembly
 
 The field :code:`assembly` includes five entries that aim at describing the overall configuration of the wind turbine:
 
+.. literalinclude:: ../../test/turbine_example.yaml
+    :start-after: # Assembly
+    :end-before: # Control
+
+The entries are:
    -  :code:`turbine_class`: String specifying the IEA wind class. The entry should be :code:`I`, :code:`II`, :code:`III`, or :code:`IV`. 
    -  :code:`turbulence_class`: String specifying the IEA turbulence class. The entry should be :code:`A`, :code:`B`, or :code:`C`. 
    -  :code:`drivetrain`: String specifying the drivetrain configuration. This is intended to inform a automated interpreter of the yaml about the data specified in the field :code:`drivetrain`

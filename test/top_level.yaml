@@ -1,0 +1,11 @@
+# Top level entries of the IEA Wind Task 37 wind turbine ontology
+name: turbine_001
+description: Reference wind turbine for project XYZ
+components:
+airfoils:
+materials:
+assembly:
+control:
+environment:
+costs:
+# EOF

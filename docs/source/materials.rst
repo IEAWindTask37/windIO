@@ -1,8 +1,13 @@
 Materials
 ------------
 
-windIO defines a material database, which consists of a list of entries each marked by a dash. Each material can be described with the following mechanical properties.
+windIO defines a material database, which consists of a list of entries each marked by a dash. 
 
+.. literalinclude:: ../../test/turbine_example.yaml
+    :start-after: # Materials
+    :end-before: # Assembly
+
+Each material can be described with the following mechanical properties.
     - :code:`name`: String identifying the name of the material
     - :code:`description`: Optional string to describe the material
     - :code:`source`: Optional string to describe the origin of the material, for example referencing a report or a paper
@@ -37,6 +42,3 @@ The schema enforces that the fields :code:`name`, :code:`orth`, :code:`rho`, :co
 For composites, direction 1 is aligned with the main fiber direction, direction 2 is in the plane transverse to the fibers, and direction 3 is perspendicular to the laminate plane. 
 
 
-.. literalinclude:: ../../IEA-3.4-130-RWT/yaml/IEA-3.4-130-RWT.yaml
-    :start-after: airfoil_position:
-    :end-before: elastic_properties_mb:
