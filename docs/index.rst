@@ -8,7 +8,8 @@ Welcome to windIO's documentation!
 
 .. only:: html
 
-Frameworks defining the inputs and outputs for systems engineering MDAO of wind turbine and plants.
+The repository defines two frameworks defining the inputs and outputs for systems engineering MDAO of wind turbine and plants. The frameworks are implemented in two json-schemas, one for the turbine and one for the plant, to enforce an ontology of how the data should be organized. The reference wind turbines designed within work package 2 of the IEA Wind Task 37 are checked against the schema through unit testing.
+
 
     Author: `IEA Wind Task 37 Team <mailto:pietro.bortolotti@nrel.gov>`_
 
@@ -16,7 +17,6 @@ Frameworks defining the inputs and outputs for systems engineering MDAO of wind 
    :maxdepth: 2
    :caption: Contents:
 
-   source/intro
    source/turbine
    source/plant
 
