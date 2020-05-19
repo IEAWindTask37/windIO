@@ -1,5 +1,6 @@
+*******************
 Assembly
-------------
+*******************
 
 The field :code:`assembly` includes five entries that aim at describing the overall configuration of the wind turbine:
 
