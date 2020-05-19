@@ -9,3 +9,11 @@ control:
 environment:
 costs:
 # EOF
+# Components
+components:
+  blade:
+  hub:
+  nacelle:
+  tower:
+  foundation:
+# EOF2

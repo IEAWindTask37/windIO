@@ -4,6 +4,7 @@ description: version from May 15th, 2020
 components:
     # Blade
     blade:
+        # Blade - Outer Shape BEM
         outer_shape_bem:
             airfoil_position:
                 grid: [0.0, 0.4, 0.8,  1.0]
@@ -26,7 +27,8 @@ components:
                     values: [0.0, 0.0]
                 z: &id003
                     grid: [0.0, 1.0]
-                    values: [0.0, 63.0]        
+                    values: [0.0, 63.0]
+        # Blade - Elastic properties
         elastic_properties_mb:
             six_x_six:
                 reference_axis:
@@ -44,6 +46,7 @@ components:
                     values:
                        -  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
                        -  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        # Internal Structure 2D FEM
         internal_structure_2d_fem:
             reference_axis:
                 x: *id001
