@@ -21,7 +21,7 @@ components:
             reference_axis:
                 x: &id001
                     grid: [0.0, 0.2, 0.7, 1.0]
-                    values: [0.0, 0.0, -1.0, -2.50000]     
+                    values: [0.0, 0.0, -1.0, -2.5]     
                 y: &id002
                     grid: [0.0, 1.0]
                     values: [0.0, 0.0]
@@ -248,11 +248,11 @@ components:
     hub:
         outer_shape_bem:
           diameter: 4.
-          cone_angle: 0.05235987755982988 # 3 deg
+          cone_angle: 0.0523 # 3 deg
           drag_coefficient: 0.5
         elastic_properties_mb:
-            system_mass: 21834.716867929812
-            system_inertia: [57184.54013864302, 57184.54013864302, 57184.54013864302, 0.0, 0.0, 0.0]
+            system_mass: 21834.7
+            system_inertia: [57184.5, 57184.5, 57184.5, 0.0, 0.0, 0.0]
     # Nacelle
     nacelle:
         outer_shape_bem:
@@ -264,10 +264,10 @@ components:
           height: 5.
           drag_coefficient: 0.5
         elastic_properties_mb:
-            above_yaw_mass: 118260.09202070764
-            yaw_mass: 3130.530723760047
-            inertia: [50326.076305017035, 691063.468639195, 640737.392334178, 0.0, 6092.953878068473, 0.0]
-            center_mass: [1.7906873173985147, 0.0, 0.33923417101303527]
+            above_yaw_mass: 118260.1
+            yaw_mass: 3130.5
+            inertia: [50326.1, 691063.5, 640737.4, 0.0, 6093.0, 0.0]
+            center_mass: [1.791, 0.0, 0.339]
         drivetrain:
           gear_ratio: 97
           shaft_ratio: 0.1
