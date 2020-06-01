@@ -173,6 +173,7 @@ components:
             yaw_mass: 3130.5
             inertia: [50326.1, 691063.5, 640737.4, 0.0, 6093.0, 0.0]
             center_mass: [1.791, 0.0, 0.339]
+        # end nacelle
         drivetrain:
           gear_ratio: 97
           shaft_ratio: 0.1
