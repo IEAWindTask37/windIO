@@ -17,3 +17,9 @@ components:
   tower:
   foundation:
 # EOF2
+# Structure
+internal_structure_2d_fem:
+  reference_axis:
+  webs:
+  layers:
+# EOF3
