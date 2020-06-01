@@ -108,7 +108,7 @@ components:
                       grid: [0.1, 0.94]
                       values: [0.042, 0.246]
                   rotation:
-                      fixed: &twist
+                      fixed: twist
                   side: suction
                # Layer 4
                -  name: LE_reinf
