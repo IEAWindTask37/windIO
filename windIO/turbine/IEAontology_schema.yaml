@@ -339,7 +339,7 @@ properties:
                         description: Inputs to WISDEM specific drivetrain sizing tool DriveSE https://www.nrel.gov/docs/fy15osti/63008.pdf
                         required:
                             - gear_ratio
-                            - efficiency
+                            - generator_efficiency
                         properties:                              
                             gear_ratio:
                                 type: number
