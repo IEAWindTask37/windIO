@@ -347,9 +347,15 @@ properties:
                                 unit: none
                                 minimum: 1
                                 maximum: 1000
-                            efficiency:
+                            gearbox_efficiency:
                                 type: number
-                                description: Efficiency of the drivetrain system, which combines generator and gearbox efficiencies.
+                                description: Efficiency of the gearbox system.
+                                unit: none
+                                minimum: 0.8
+                                maximum: 1.
+                            generator_efficiency:
+                                type: number
+                                description: Efficiency of the generator system.
                                 unit: none
                                 minimum: 0.8
                                 maximum: 1.
