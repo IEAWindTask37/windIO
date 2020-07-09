@@ -158,6 +158,7 @@ components:
         elastic_properties_mb:
             system_mass: 21834.7
             system_inertia: [57184.5, 57184.5, 57184.5, 0.0, 0.0, 0.0]
+            system_center_mass: [5.0, 0.0, 0.0]
     # Nacelle
     nacelle:
         outer_shape_bem:
@@ -185,7 +186,8 @@ components:
           hss_input_length: 1.5
           distance_hub2mb: 1.912
           yaw_motors_number: 1
-          efficiency: 0.955
+          gearbox_efficiency: 0.95
+          generator_efficiency: 0.98
     # Tower
     tower:
         outer_shape_bem:
@@ -217,6 +219,12 @@ components:
     # Foundation
     foundation:
         height: 0.
+    # RNA
+    RNA:
+        elastic_properties_mb:
+            mass: 1.E+7
+            inertia: [1.E+7, 0.0, 0.0, 0.0, 0.0, 0.0]
+            center_mass: [1., 0.0, 0.5]
 # Airfoils
 airfoils:
    -  name: DU08-W-210
