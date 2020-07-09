@@ -265,6 +265,16 @@ properties:
                                     maxItems: 6
                                     uniqueItems: false
                                     minimum: 0
+                            system_center_mass:
+                                type: array
+                                description: Center of mass of the hub system. Work in progress.
+                                items: 
+                                    type: number
+                                    unit: m
+                                    minItems: 3
+                                    maxItems: 3
+                                    uniqueItems: false
+                                    minimum: 0
             nacelle:
                 type: object
                 properties: 
@@ -456,6 +466,41 @@ properties:
                         unit: meter
                         minimum: 0
                         maximum: 100
+            RNA:
+                type: object
+                properties: 
+                    elastic_properties_mb:                    
+                        type: object
+                        required:
+                            - mass
+                            - inertia
+                            - center_mass
+                        properties:                              
+                            mass:
+                                type: number
+                                description: Mass of the rotor nacelle assembly.
+                                unit: kg
+                                minimum: 0
+                            inertia:
+                                type: array
+                                description: Inertia of the rotor nacelle assembly, expressed in the yaw coordinate system.
+                                items: 
+                                    type: number
+                                    unit: kgm2
+                                    minItems: 6
+                                    maxItems: 6
+                                    uniqueItems: false
+                                    minimum: 0
+                            center_mass:
+                                type: array
+                                description: Center of mass of the rotor nacelle assembly, expressed in the yaw coordinate system.
+                                items: 
+                                    type: number
+                                    unit: m
+                                    minItems: 3
+                                    maxItems: 3
+                                    uniqueItems: false
+                                    minimum: 0
     airfoils:
         type: array
         description: Database of airfoils
