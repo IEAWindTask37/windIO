@@ -199,6 +199,10 @@ The field :code:`hub` describes the hub system from an aeroelastic perspective, 
 :code:`system_inertia` : Array (6) of floats, kg*m2
     Mass moments of inertia of the hub system. Ixx, Iyy, Izz, Ixy, Ixz, Iyz are expressed around the hub center in hub-aligned coordinate system, which has x aligned with the main shaft pointing from the rotor apex towards the nacelle. Iyy and Izz are usually identical.
 
+:code:`system_center_mass` : Array (3) of floats, m
+    Coordinates of the center of mass of the hub. Work in progress.
+
+
 Nacelle
 ================
 
@@ -270,7 +274,13 @@ So far, :code:`foundation` is the simplest component with a single input describ
 
 .. literalinclude:: ../../test/turbine_example.yaml
     :start-after: # Foundation
-    :end-before: # Airfoils
+    :end-before: # RNA
 
 :code:`height` : Float, m 
     Height of the foundation. Distance between ground and tower base.
+
+RNA
+================
+The equivalent elastic properties of the rotor-nacelle assembly are work in progress.
+    :start-after: # RNA
+    :end-before: # Airfoils
