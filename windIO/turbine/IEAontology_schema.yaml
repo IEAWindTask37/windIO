@@ -501,6 +501,591 @@ properties:
                                     maxItems: 3
                                     uniqueItems: false
                                     minimum: 0
+            floating_platform:
+                description: Ontology definition for floating platforms (substructures) suitable for use with the WEIS co-design analysis tool
+                type: object
+                required: 
+                    - name
+                    - components
+                properties:
+                    name: 
+                        description: Name of the floating platform
+                        type: string
+                    components: 
+                        type: object
+                        required:
+                            - joints
+                            - members
+                        optional:
+                            - rigid_bodies
+                        properties: 
+                            joints: 
+                                type: array
+                                items:
+                                    type: object
+                                    required:
+                                        - name
+                                        - location
+                                    optional:
+                                        - reactions_global
+                                        - reactions_local
+                                    properties:
+                                        name:
+                                            description: Unique name of the joint (node) 
+                                            type: string
+                                        location:
+                                            description: x, y, and z coordinates of this node in the global coordinate system.
+                                            type: array
+                                            items:
+                                                type: number
+                                                minItems: 3
+                                                unit: m
+                                                minimum: 0
+                                        reactions_global:
+                                            type: object
+                                            description: If this joint/node is a boundary condition in the global coordinate system, then specify which DOFs are free (True) or fixed (False).  If not specified, default is all entries are False
+                                            required:
+                                                - Rx
+                                                - Ry
+                                                - Rz
+                                                - Rxx
+                                                - Ryy
+                                                - Rzz
+                                            optional:
+                                                - Euler
+                                            properties:
+                                                Rx: &rxn
+                                                    type: boolean
+                                                Ry: *rxn
+                                                Rz: *rxn
+                                                Rxx: *rxn
+                                                Ryy: *rxn
+                                                Rzz: *rxn
+                                                Euler: &euler
+                                                    description: Euler angles [alpha, beta, gamma] that describe the rotation of the Reaction coordinate system relative to the global coordinate system α is a rotation around the z axis, β is a rotation around the x' axis, γ is a rotation around the z" axis.
+                                                    type: array
+                                                    items:
+                                                        type: number
+                                                        minItems: 3
+                                                        maxItems: 3
+                                        reactions_local:
+                                            # TODO: How to do carabiner type joints that only support tension and not compression?
+                                            type: object
+                                            description: If this joint is compliant is certain DOFs, then specify which are compliant (True) in the member/element coordinate system).  If not specified, default is all entries are False (completely rigid).  For instance, a ball joint would be Rx=Ry=Rz=False, Rxx=Ryy=Rzz=True
+                                            required:
+                                                - Rx
+                                                - Ry
+                                                - Rz
+                                                - Rxx
+                                                - Ryy
+                                                - Rzz
+                                            optional:
+                                                - Euler
+                                            properties:
+                                                Rx: *rxn
+                                                Ry: *rxn
+                                                Rz: *rxn
+                                                Rxx: *rxn
+                                                Ryy: *rxn
+                                                Rzz: *rxn
+                                                Euler: *euler
+                            members: 
+                                type: array
+                                items:
+                                    type: object
+                                    required:
+                                        - name
+                                        - joint1
+                                        - joint2
+                                        - outer_shape
+                                        - internal_structure
+                                    optional:
+                                        # TODO: Move these to the modeling file?
+                                        - hydrodynamic_approach
+                                        - Ca
+                                        - Cp
+                                        - Cd
+                                    properties:
+                                        name:
+                                            description: Name of the member
+                                            type: string
+                                        joint1: &jointid
+                                            type: string
+                                            description: Name of joint/node connection
+                                        joint2: *jointid
+                                        outer_shape:                    
+                                            type: object
+                                            required:
+                                                - shape
+                                            if:
+                                                # If shape == circular, then we need to specify the outer diameter
+                                                properties:
+                                                    shape:
+                                                        const: circular
+                                            then:
+                                                required:
+                                                    - outer_diameter
+                                            if:
+                                                # If shape == polygonal, then we need to specify the side lengths
+                                                properties:
+                                                    shape:
+                                                        const: polygonal
+                                            then:
+                                                required:
+                                                    - side_lengths1
+                                                    - side_lengths2
+                                                optional:
+                                                    - rotation
+                                                    - angles
+                                            properties:
+                                                shape:
+                                                    type: string
+                                                    enum:
+                                                        - circular
+                                                        - polygonal
+                                                outer_diameter:
+                                                    description: Two values describing diameter at joint1 and joint2
+                                                    type: array
+                                                    items:
+                                                        type: number
+                                                        minItems: 2
+                                                        maxItems: 2
+                                                        unit: m
+                                                        minimum: 0
+                                                side_lengths1: &sl
+                                                    description: Polygon side lengths at joint1
+                                                    type: array
+                                                    items:
+                                                        type: number
+                                                        minItems: 3
+                                                        unit: m
+                                                        minimum: 0
+                                                side_lengths2: *sl
+                                                    # description: Polygon side lengths at joint2
+                                                angles:
+                                                    description: Polygon angles with the ordering such that angle[i] is between side_length[i] and side_length[i+1]
+                                                    type: array
+                                                    items:
+                                                        type: number
+                                                        minItems: 3
+                                                        unit: rad
+                                                        minimum: 0
+                                                rotation:
+                                                    type: number
+                                                    description: Angle between principle axes of the cross-section and the member coordinate system.  Essentially the rotation of the member if both joints were placed on the global x-y axis with the first side length along the z-axis
+                                                    unit: rad
+                                        internal_structure:
+                                            type: object
+                                            required:
+                                                - outfitting_factor
+                                                - layers
+                                            optional:
+                                                - ring_stiffeners
+                                                - longitudinal_stiffeners
+                                                - bulkhead
+                                                - ballast
+                                            properties:
+                                                outfitting_factor:
+                                                    type: number
+                                                    description: Scaling factor for the member mass to account for auxiliary structures, such as elevator, ladders, cables, platforms, fasteners, etc
+                                                    unit: none
+                                                    minimum: 1.0
+                                                layers:
+                                                    type: array
+                                                    description: Material layer properties
+                                                    items:
+                                                        type: object
+                                                        required:
+                                                            - name
+                                                            - material
+                                                            - thickness
+                                                        properties:
+                                                            name:
+                                                                type: string
+                                                                description: structural component identifier
+                                                            material: &material
+                                                                type: string
+                                                                description: material identifier
+                                                            thickness:
+                                                                type: array
+                                                                description: thickness of the laminate at joint1 and joint2
+                                                                items:
+                                                                    type: number
+                                                                    minItems: 2
+                                                                    maxItems: 2
+                                                                    unit: m
+                                                                    minimum: 0
+                                                ring_stiffeners: &stiffener
+                                                    type: array
+                                                    items:
+                                                        type: object
+                                                        required:
+                                                            - material
+                                                            - flange_height
+                                                            - flange_width
+                                                            - web_height
+                                                            - web_thickness
+                                                            - locations
+                                                        properties:
+                                                            material: *material
+                                                            flange_height:
+                                                                type: number
+                                                                unit: m
+                                                                minimum: 0
+                                                            flange_width:
+                                                                type: number
+                                                                unit: m
+                                                                minimum: 0
+                                                            web_height:
+                                                                type: number
+                                                                unit: m
+                                                                minimum: 0
+                                                            web_thickness:
+                                                                type: number
+                                                                unit: m
+                                                                minimum: 0
+                                                            locations: #PB: grid is confusing, I suggest switching to locations
+                                                                description: Non-dimensional grid from 0..1 (joint1-joint2) the specifies the stiffener locations
+                                                                $ref: "#/definitions/distributed_data/grid_nd"
+                                                longitudinal_stiffeners: *stiffener # "Grid" here will have to mean something different
+                                                bulkhead:
+                                                    type: object
+                                                    required:
+                                                        - material
+                                                        - thickness
+                                                    properties:
+                                                        material: *material
+                                                        thickness:
+                                                            type: object
+                                                            description: thickness of the bulkhead at non-dimensional locations of the member [0..1]
+                                                            required:
+                                                                - grid
+                                                                - values
+                                                            properties: 
+                                                                grid: 
+                                                                    $ref: "#/definitions/distributed_data/grid_nd"
+                                                                values: 
+                                                                    $ref: "#/definitions/distributed_data/length"
+                                                ballast:
+                                                    type: array
+                                                    description: Different types of permanent and/or variable ballast
+                                                    items:
+                                                        type: object
+                                                        required:
+                                                            - variable_flag
+                                                        if:
+                                                            # If permanent ballast, then need to specify total volume
+                                                            properties:
+                                                                variable_flag:
+                                                                    const: False
+                                                        then:
+                                                            required:
+                                                                - material
+                                                                - volume
+                                                        properties:
+                                                            variable_flag:
+                                                                type: boolean
+                                                                description: If true, then this ballast is variable and adjusted by control system.  If false, then considered permanent
+                                                            material: *material
+                                                            volume:
+                                                                type: number
+                                                                description: Total volume of ballast (permanent ballast only)
+                                                                unit: m^3
+                                                                minimum: 0                                          
+                                        hydrodynamic_approach: &hydro
+                                            # TODO: Move these to the modeling file?
+                                            description: How should this member be modeled?
+                                            type: string
+                                            enum:
+                                                - strip
+                                                - potential
+                                                - both
+                                        Ca: &ca
+                                            # TODO: Move these to the modeling file?
+                                            description: Added mass coefficient
+                                            type: number
+                                        Cp: &cp
+                                            # TODO: Move these to the modeling file?
+                                            description: Pressure coefficient
+                                            type: number
+                                        Cd: &cd
+                                            # TODO: Move these to the modeling file?
+                                            description: Drag coefficient
+                                            type: number
+                            rigid_bodies:
+                                type: array
+                                descriptions: Additional point masses at joints with user-customized properties
+                                items:
+                                    type: object
+                                    required:
+                                        - joint1
+                                        - mass
+                                        - cost
+                                        - cm_offset
+                                        - moments_of_inertia
+                                    optional:
+                                        - hydrodynamic_approach
+                                        - Ca
+                                        - Cp
+                                        - Cd
+                                    properties:
+                                        joint1: *jointid
+                                        mass:
+                                            description: Mass of this rigid body
+                                            unit: kg
+                                            type: number
+                                            minimum: 0
+                                        cost:
+                                            description: Cost of this rigid body
+                                            unit: USD
+                                            type: number
+                                            minimum: 0
+                                        cm_offset:
+                                            description: Offset from joint location to center of mass (CM) of body in dx, dy, dz
+                                            type: array
+                                            items:
+                                                type: number
+                                                unit: m
+                                                maxItems: 3
+                                                minItems: 3
+                                        moments_of_inertia:
+                                            description: Moments of inertia around body CM in Ixx, Iyy, Izz
+                                            type: array
+                                            items:
+                                                type: number
+                                                unit: kg*m^2
+                                                maxItems: 3
+                                                minItems: 3
+                                                minimum: 0
+                                        hydrodynamic_approach: *hydro
+                                        Ca: *ca
+                                        Cp: *cp
+                                        Cd: *cd
+            mooring:
+                # Will insert mooring schema that we agreed to here or will keep as separate file
+                description: Ontology definition for mooring systems suitable for use with the WEIS co-design analysis tool
+                type: object
+                required: 
+                    - name
+                    - nodes
+                    - lines
+                    - line_types
+                    - anchor_types
+                properties:
+                    name: 
+                        description: Name of the mooring system
+                        type: string
+                    nodes: 
+                        type: array
+                        description: List of nodes in the mooring system
+                        items:
+                            type: object
+                            required:
+                                - node_id
+                                - node_type
+                                - location
+                            optional:
+                                - node_mass
+                                - node_volume
+                                - drag_area
+                                - added_mass
+                                - anchor_id
+                                - anchor_type # PB: Was this the anchor id?
+                                - fairlead_type
+                            if:
+                                # If node_type == fixed, then we need to specify the anchor_type
+                                properties:
+                                    node_type:
+                                        const: fixed
+                            then:
+                                required:
+                                    - anchor_id #PB: but that was not listed above...
+                            if:
+                                # If node_type == vessel, then we need to specify the fairlead_type
+                                properties:
+                                    node_type:
+                                        const: vessel
+                            then:
+                                required:
+                                    - fairlead_type
+                            properties:
+                                node_id:
+                                    type: number # or string?
+                                    description: ID of this node for use in line segment
+                                node_type:
+                                    type: string
+                                    enum:
+                                        - fixed
+                                        - connection
+                                        - vessel
+                                location:
+                                    type: array # I don't think we need to define x, y, and z explicitely
+                                    description: – Coordinates x, y, and z of the connection (relative to inertial reference frame if Fixed or Connect, relative to platform reference frame if Vessel). In the case of Connect nodes, it is simply an initial guess for position before MoorDyn calculates the equilibrium initial position. 
+                                    type: array
+                                    items: 
+                                        type: number
+                                        unit: meter
+                                        minItems: 3
+                                        maxItems: 3
+                                        minimum: 0.0
+                                anchor_id:
+                                    type: number
+                                    description: ID of anchor from anchor_type list
+                                fairlead_type:
+                                    type: string
+                                    enum:
+                                        - rigid
+                                        - actuated
+                                        - ball
+                                node_mass:
+                                    type: number
+                                    units: kilogram
+                                    description: Clump weight mass
+                                    minimum: 0.0
+                                node_volume:
+                                    type: number
+                                    units: meter^3
+                                    description: Floater volume
+                                    minimum: 0.0
+                                drag_area:
+                                    type: number
+                                    units: meter^2
+                                    description: Product of drag coefficient and projected area (assumed constant in all directions) to calculate a drag force for the node
+                                    minimum: 0.0
+                                added_mass:
+                                    type: number
+                                    description: Added mass coefficient used along with node volume to calculate added mass on node
+                    lines:
+                        type: array
+                        description: List of all mooring line properties in the mooring system
+                        items:
+                            type: object
+                            required:
+                                - line_id
+                                - line_type
+                                - unstretched_length
+                                - node1_id
+                                - node2_id 
+                            properties:
+                                line_id:
+                                    type: number # or string?
+                                    description: ID of this line
+                                line_type:
+                                    type: string
+                                    description: Reference to line type material database # PB: is this a material? if so I'd call it simply material
+                                unstretched_length:
+                                    type: number
+                                    units: meter
+                                    description: length of line segment prior to tensioning
+                                    minimum: 0.0
+                                node1_id:
+                                    type: number #or string
+                                    description: node id of first line connection
+                                node2_id:
+                                    type: number #or string
+                                    description: node id of second line connection
+                    line_types:
+                        type: array
+                        description: List of mooring line properties used in the system
+                        items:
+                            type: object
+                            required:
+                                - name
+                                - diameter
+                                - mass_density
+                                - stiffness
+                                - breaking_load
+                                - cost
+                                - transverse_added_mass # Optional? Ask MattH    <<< I'm not sure if these should be optional or required... will think/discuss more.
+                                - tangential_added_mass # Optional? Ask MattH
+                                - transverse_drag # Optional? Ask MattH
+                                - tangential_drag # Optional? Ask MattH
+                            optional:
+                                - damping
+                            properties:
+                                name:
+                                    type: string
+                                    description: Name of material or line type to be referenced by line segments
+                                diameter:
+                                    type: number
+                                    units: meter
+                                    description: the volume-equivalent diameter of the line – the diameter of a cylinder having the same displacement per unit length
+                                    minimum: 0.0
+                                mass_density:
+                                    type: number
+                                    unit: kilogram/meter
+                                    description: mass per unit length (in air)
+                                    minimum: 0.0
+                                stiffness:
+                                    type: number
+                                    unit: Newton
+                                    description: axial line stiffness, product of elasticity modulus and cross-sectional area
+                                    minimum: 0.0
+                                cost:
+                                    type: number
+                                    unit: USD/meter
+                                    description: cost per unit length
+                                    minimum: 0.0
+                                breaking_load:
+                                    type: number
+                                    unit: Newton
+                                    description: line break tension
+                                    minimum: 0.0
+                                damping:
+                                    type: number
+                                    unit: Newton * second
+                                    description: internal damping (BA)
+                                transverse_added_mass:
+                                    type: number
+                                    description: transverse added mass coefficient (with respect to line displacement)
+                                    minimum: 0.0
+                                tangential_added_mass:
+                                    type: number
+                                    description: tangential added mass coefficient (with respect to line displacement)
+                                    minimum: 0.0
+                                transverse_drag:
+                                    type: number
+                                    description: transverse drag coefficient (with respect to frontal area, d*l)
+                                    minimum: 0.0
+                                tangential_drag:
+                                    type: number
+                                    description: tangential drag coefficient (with respect to surface area, π*d*l)
+                                    minimum: 0.0
+                    anchor_types:
+                        type: array
+                        description: List of anchor properties used in the system
+                        items:
+                            type: object
+                            required:
+                                - name
+                                - mass
+                                - cost
+                                - max_lateral_load
+                                - max_vertical_load
+                            properties:
+                                name:
+                                    type: string
+                                    description: Name of anchor to be referenced by anchor_id in Nodes section #PB: is anchor_id an integer or a string?
+                                mass:
+                                    type: number
+                                    unit: kilogram
+                                    description: mass of the anchor
+                                    minimum: 0.0
+                                cost:
+                                    type: number
+                                    unit: USD
+                                    description: cost of the anchor
+                                    minimum: 0.0
+                                max_lateral_load:
+                                    type: number
+                                    unit: Newton
+                                    description: Maximum lateral load (parallel to the sea floor) that the anchor can support
+                                    minimum: 0.0
+                                max_vertical_load:
+                                    type: number
+                                    unit: Newton
+                                    description: Maximum vertical load (perpendicular to the sea floor) that the anchor can support
+                                    minimum: 0.0
     airfoils:
         type: array
         description: Database of airfoils
@@ -970,13 +1555,13 @@ properties:
                 maximum: 5
             max_pitch:
                 type: number
-                description: Maximum pitch angle, where the default is 90 degrees. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                description: Maximum pitch angle, where the default is pi/2 radians. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
                 unit: rad
                 minimum: 0
                 maximum: 2.
             min_pitch:
                 type: number
-                description: Minimum pitch angle, where the default is 0 degrees. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                description: Minimum pitch angle, where the default is 0 radians. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
                 unit: rad
                 minimum: -0.5
                 maximum: 1.
