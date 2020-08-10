@@ -744,7 +744,7 @@ properties:
                                                                 type: number
                                                                 unit: m
                                                                 minimum: 0
-                                                            locations: #PB: grid is confusing, I suggest switching to locations
+                                                            locations: #PB: grid is confusing, I suggest switching to locations # GB: Sounds good
                                                                 description: Non-dimensional grid from 0..1 (joint1-joint2) the specifies the stiffener locations
                                                                 $ref: "#/definitions/distributed_data/grid_nd"
                                                 longitudinal_stiffeners: *stiffener # "Grid" here will have to mean something different
@@ -889,8 +889,7 @@ properties:
                                 - node_volume
                                 - drag_area
                                 - added_mass
-                                - anchor_id
-                                - anchor_type # PB: Was this the anchor id?
+                                - anchor_type
                                 - fairlead_type
                             if:
                                 # If node_type == fixed, then we need to specify the anchor_type
@@ -899,7 +898,7 @@ properties:
                                         const: fixed
                             then:
                                 required:
-                                    - anchor_id #PB: but that was not listed above...
+                                    - anchor_type
                             if:
                                 # If node_type == vessel, then we need to specify the fairlead_type
                                 properties:
@@ -928,9 +927,9 @@ properties:
                                         minItems: 3
                                         maxItems: 3
                                         minimum: 0.0
-                                anchor_id:
-                                    type: number
-                                    description: ID of anchor from anchor_type list
+                                anchor_type:
+                                    type: string
+                                    description: Name of anchor type from anchor_type list
                                 fairlead_type:
                                     type: string
                                     enum:
@@ -972,7 +971,7 @@ properties:
                                     description: ID of this line
                                 line_type:
                                     type: string
-                                    description: Reference to line type material database # PB: is this a material? if so I'd call it simply material
+                                    description: Reference to line type database # PB: is this a material? if so I'd call it simply material #GB: I tried to get the group to just add mooring line types to the materials database, but they pushed back.  Mooring line properties from manufacturers and for analysis are usually reported per unit length.  Both Matt Hall and Jason really like the current MoorDyn/MAP input file and don't want to change that on the users.
                                 unstretched_length:
                                     type: number
                                     units: meter
@@ -1065,7 +1064,7 @@ properties:
                             properties:
                                 name:
                                     type: string
-                                    description: Name of anchor to be referenced by anchor_id in Nodes section #PB: is anchor_id an integer or a string?
+                                    description: Name of anchor to be referenced by anchor_id in Nodes section
                                 mass:
                                     type: number
                                     unit: kilogram
