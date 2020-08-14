@@ -5,14 +5,15 @@
 
 
 $schema: "http://json-schema.org/draft-07/schema#"
-$id: WEIS_Controlontology_v00
-title: WEIS control ontology
-description: Control ontology definition draft for WEIS milestone
+$id: WEIS_ControlOntology_v00
+title: WEIS Control Ontology
+description: Control ontology draft for WEIS
 type: object
 required: 
     - name
     - control
     - actuators
+    # - sensors
 # additionalProperties: true
 properties:
     name: 
@@ -24,6 +25,9 @@ properties:
             - pitch
             - generator
         optional:
+            # in avrSWAP, but not used as much
+            - yaw   # rate  
+            # not currently in OpenFAST/avrSWAP
             - tower_TMD
             - hull_TMD
             - active_tension
@@ -140,6 +144,7 @@ properties:
             - freq_avoidance
             - soft_cut_out
             - user_defined_mods
+            - user_defined_OL
             - user_dylib
             - user_simulink
         properties:
@@ -230,7 +235,7 @@ properties:
 
                     twr_feedback:
                         type: object
-                        description: Platform velocity feedback using nacelle IMU
+                        description: Tower velocity feedback using nacelle IMU
                         required:
                             - gain
                         optional:
@@ -242,36 +247,7 @@ properties:
                                 unit: seconds
                             filter:
                                 $ref: "#definitions/filter"
-                                description: Nacelle IMU filter, used to remove noise or amplify tower load.  Usally a HPF or InvertedNotch Filter
-                                # required:
-                                #     - num
-                                #     - den
-                                #     - dt
-                                # properties:
-                                #     num:
-                                #         $ref: "#definitions/filter/filt_num"
-                                #     den:
-                                #         $ref: "#definitions/filter/filt_den"
-                                #     dt:
-                                #         $ref: "#definitions/filter/filt_dt"
-                    
-                    OL_BP:
-                        type: object
-                        description: Open-loop timeseries of blade pitch commands  # to override other control?
-                        required:
-                            - time
-                            - value
-                            - optimize
-                        properties:
-                            time:
-                                $ref: "#definitions/timeseries/time"
-                            value:  
-                                $ref: "#definitions/timeseries/value"
-                            optimize:
-                                type: boolean
-                                description: If true, optimize open loop blade pitch   # DZ: based on what? need more help here
-
-
+                                description: Nacelle IMU filter, used to remove noise or amplify tower load.  Usally a HPF or Inverted Notch Filter
                     IPC:
                         type: object
                         description: Individual pitch control (IPC) using the mulitblade coordinate (MBC) transform
@@ -309,31 +285,9 @@ properties:
                             IPC_filt_1P:
                                 $ref: "#definitions/filter"
                                 description: Filter between tilt/yaw load and tilt/yaw pitch, usually a notch to reduce 3P, 6P frequency.
-                                # required:
-                                #         - num
-                                #         - den
-                                #         - dt
-                                # properties:
-                                #     num:
-                                #         $ref: "#definitions/filter/filt_num"
-                                #     den:
-                                #         $ref: "#definitions/filter/filt_den"
-                                #     dt:
-                                #         $ref: "#definitions/filter/filt_dt"
                             IPC_filt_2P:
                                 $ref: "#definitions/filter"
                                 description: Filter between tilt/yaw load and tilt/yaw pitch, usually a notch to reduce 3P, 6P frequency.
-                                # required:
-                                #         - num
-                                #         - den
-                                #         - dt
-                                # properties:
-                                #     num:
-                                #         $ref: "#definitions/filter/filt_num"
-                                #     den:
-                                #         $ref: "#definitions/filter/filt_den"
-                                #     dt:
-                                #         $ref: "#definitions/filter/filt_dt"
 
             torque:
                 type: object
@@ -342,8 +296,6 @@ properties:
                     - tsr
                     - VS_zeta
                     - VS_omega      # DZ: I'm not sure how "required" these are or where the line is around "strongly encouraged"
-                # optional:
-                    # - OL_TQ
                 properties:
                     control_type:
                         type: string
@@ -358,33 +310,18 @@ properties:
                         unit: none
                         minimum: 0
                         maximum: 15
-
                     VS_zeta:
                         type: number
                         description: Torque controller desired damping ratio. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
                         unit: none
                         minimum: 0
                         maximum: 5
-
                     VS_omega:
                         type: number
                         description: Torque controller desired natural frequency. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
                         unit: rad/s
                         minimum: 0
                         maximum: 5
-
-                    # OL_TQ:
-                    #     type: object
-                    #     description: Open-loop torque command
-                    #     required:
-                    #         - time
-                    #         - value
-                    #     properties:
-                    #         time:
-                    #             $ref: "#definitions/timeseries/time"
-                    #         value:
-                    #             $ref: "#definitions/timeseries/value"
-
 
             setpoint_smooth:
                 type: object
@@ -425,6 +362,8 @@ properties:
                             - yaw
                             - gen_speed
                             - wind_speed
+                            - plt_pitch
+                            - nac_IMU
                     limit_value:
                         type: number
                         description: When limit_type > limit_value, shutdown is initiated  # all the limit_types are greater than limits...but I suppose there could be less than limits
@@ -469,7 +408,7 @@ properties:
                         maximum: 0.001
                     turb_intensity:
                         type: number
-                        description: Turbulence intensity defined in usual way, parameterizes EKF process noise for wind, Default = .14
+                        description: Turbulence intensity defined in usual way, parameterizes EKF process noise for wind, Default = 0.14
                         minimum: 0
                         maximum: 0.5
                     turb_length_scale:
@@ -522,16 +461,8 @@ properties:
                         enum:
                             - gen_speed
                     OL_R:
-                        type: object
                         description: Open loop power reference, for soft start-up, etc.
-                        required:
-                            - time
-                            - R
-                        properties:
-                            time:
-                                $ref: "#definitions/timeseries/time"
-                            R: 
-                                $ref: "#definitions/timeseries/value"
+                        $ref: "#definitions/timeseries"
                     reference_control:
                         type: object
                         description: Control power reference R
@@ -584,7 +515,7 @@ properties:
 
             freq_avoidance:
                 type: object
-                description: changes to speed setpoint used to avoid certain turbine natural frequencies
+                description: Changes generator speed setpoint to avoid turbine natural frequencies
                 required:
                     - list_of_freqs
                 optional:
@@ -609,7 +540,7 @@ properties:
 
             soft_cut_out:
                 type: object
-                description: Power reference at high wind speeds (lookup table)
+                description: Upper limit of power reference at high wind speeds (lookup table)
                 required:
                     - wind_speeds
                     - power_reference
@@ -645,13 +576,8 @@ properties:
                         type: array
                         description: List of sensors used as control inputs, could be any OpenFAST output(?)  # DZ: within ROSCO, probably not...needs to be in avrSWAP
                         items:
-                            type: string
-                            enum:
-                                - gen_speed
-                                - nac_IMU
-                                - wind_speed_estimate
-                                - gust_measure
-                                # work on this!!
+                            sensor:
+                                $ref: "#definitions/sensor"
                     actuators:
                         type: array
                         description: List of actuators used as control outputs
@@ -661,25 +587,7 @@ properties:
                     control_model:
                         type: object
                         description: Linear model of controller in state-space form # MIMO harder to clearly define in transfer function form
-                        # can this whole thing be replaced by $ref: "#definitions/state_space" ?  Yes
                         $ref: "#definitions/state_space"
-                        # required:
-                        #     - C_ss
-                        #     # - C_A
-                        #     # - C_B
-                        #     # - C_C
-                        #     # - C_D
-                        # properties:
-                        #     C_ss:
-                        #         $ref: "#definitions/state_space"
-                            # C_A:
-                            #     $ref: "#definitions/state_space/ss_A"
-                            # C_B:
-                            #     $ref: "#definitions/state_space/ss_B"
-                            # C_C:
-                            #     $ref: "#definitions/state_space/ss_C"
-                            # C_D:
-                            #     $ref: "#definitions/state_space/ss_D"
                     activator:
                         $ref: "#definitions/activator"
 
@@ -694,14 +602,7 @@ properties:
                     - activator
                 properties:
                     sensor:
-                        type: string
-                        description: Sensor used as control input, could be any OpenFAST output(?)  # DZ: within ROSCO, probably not...needs to be in avrSWAP
-                        enum:
-                            - gen_speed
-                            - nac_IMU
-                            - wind_speed_estimate
-                            - gust_measure
-                            # work on this!!
+                        $ref: "#definitions/sensor"
                     actuator:
                         $ref: "#definitions/actuator"
                     control_model:
@@ -711,9 +612,9 @@ properties:
                     activator:
                         $ref: "#definitions/activator"
             
-            user_defined_OL:   # now OL_BP and _TQ are redundant, remove?
+            user_defined_OL: 
                 type: object
-                desctiption: User defined open loop signal to a defined actuator.  Add channels later?
+                desctiption: User defined open loop signal to a defined actuator, only 1 for now
                 required:
                     - actuator
                     - timeseries
@@ -758,6 +659,11 @@ properties:
                     sim_param_file:
                         type: string
                         description: Path to matlab script with simulation parameters
+    
+    # I'm not sure we include sensors as it's own thing, seems like "measurement" and processing happen in user_defined_*
+    # sensors:
+    #     type: object
+    #     required: 
 
 # keeping for anything useful and bc it will probably be used in overall schema
 definitions:
@@ -766,17 +672,41 @@ definitions:
         description: Actuator used as control output
         enum:
             - pitch
-            - torque
-            # work on this!!
+            - torque   #called generator above, keep consistent?
+            - tower_TMD
+            - hull_TMD
+            - active_tension
+            - passive_weather_vane
+            - passive_buoy_can
     sensor:
         type: string
-        description: Sensor used as control input, could be any OpenFAST output(?)  # DZ: within ROSCO, probably not...needs to be in avrSWAP
+        description: Sensor used as control input, could be any OpenFAST output (in Simluink), enumerating avrSWAP now  # DZ: within ROSCO, probably not...needs to be in avrSWAP
         enum:
             - gen_speed
             - nac_IMU
             - wind_speed_estimate
             - gust_measure
-            # work on this!!
+            - RootMyc1
+            - RootMyc2
+            - RootMyc3
+            - RootMyT   # MBC of above
+            - RootMyY   # MBC of above
+            - azimuth
+            - YawBrTAxp
+            - YawBrTAyp
+            - RootMxc1
+            - RootMxc2
+            - RootMxc3
+            - LSSTipMya
+            - LSSTipMza
+            - LSSTipMxa
+            - LSSTipMys
+            - LSSTipMzs
+            - YawBrMyn
+            - YawBrMzn
+            - NcIMURAxs  # avrSWAP names don't always match OpenFAST output names
+            - NcIMURAzs
+            # No platform info from avrSWAP, will they be added?
     filter:
         type: object
         description: Linear transfer function model of a filter
