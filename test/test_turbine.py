@@ -27,25 +27,6 @@ class TestRegression(unittest.TestCase):
 
         return None 
 
-    def test_control(self):
-
-        path2yaml = os.path.dirname( os.path.realpath(__file__) ) + os.sep + "control_example.yaml"
-        # Read the input yaml
-        with open(path2yaml, 'r') as myfile:
-            inputs = myfile.read()
-
-        # Read the schema
-        with open(path2_cont_schema, 'r') as myfile:
-            schema = myfile.read()
-
-        # Run the validate class from the jsonschema library
-        validate(yaml.load(inputs, Loader=yaml.FullLoader), yaml.load(schema, Loader=yaml.FullLoader))
-
-        # Move it to a dictionary called wt_data
-        wt_data = yaml.load(inputs, Loader=yaml.FullLoader)
-
-        return None 
-
 
 def suite():
     suite = unittest.TestSuite()
