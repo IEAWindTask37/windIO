@@ -33,11 +33,13 @@ control:
         ps_percent: 0.8    
         IPC:
             IPC_gain_1P: 1.0e+5
-            IPC_phase_1P: 30
+            IPC_phase_1P: .2
             IPC_filt_1P:
-                num: [1,1,2]
-                den: [1,2,4]
-                dt: .125
+                filt_type: user_defined
+                filt_def:
+                    num: [1,1,2]
+                    den: [1,2,4]
+                    dt: .125
         OL_BP:
             time: [0,1,2]
             value: [1,1,5]
@@ -55,7 +57,7 @@ control:
             time: [10,10]
             pitch: [10,20]
 
-    user_defined_SS:
+    user_defined_SS_1:
         sensors: ["gen_speed"]
         actuators: ["pitch"]
         control_model:
@@ -67,14 +69,14 @@ control:
             wind_speeds: [10,20]
             act_gain   : [1,1]
 
-    user_defined_TF:
+    user_defined_TF_1:
         sensor: "wind_speed_estimate"
         actuator: "torque"
         control_model:
             num: [1,1]
             den: [2,3]
 
-    user_defined_OL:
+    user_defined_OL_1:
         actuator: "pitch"
         timeseries:
             time: [0,10,20]
