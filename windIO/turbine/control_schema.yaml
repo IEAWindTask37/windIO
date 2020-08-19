@@ -17,7 +17,7 @@ required:
 # additionalProperties: true
 properties:
     name: 
-        description: Name of the turbine
+        description: Name of the controller
         type: string
     actuators:
         type: object
@@ -221,17 +221,6 @@ properties:
                             filter:
                                 $ref: "#definitions/filter"
                                 description: Nacelle IMU filter, used to remove tower natural frequency.  Usally a LPF or Notch Filter
-                                # required:
-                                #     - num
-                                #     - den
-                                #     - dt
-                                # properties:
-                                #     num:
-                                #         $ref: "#definitions/filter/filt_num"
-                                #     den:
-                                #         $ref: "#definitions/filter/filt_den"
-                                #     dt:
-                                #         $ref: "#definitions/filter/filt_dt"
 
                     twr_feedback:
                         type: object
@@ -263,25 +252,25 @@ properties:
                             IPC_gain_1P:
                                 type: number
                                 description: Integral gain of 1P feedback
-                                unit: deg./Nm
+                                unit: rad/Nm
                                 minimum: 0
                             IPC_gain_2P:
                                 type: number
                                 description: Integral gain of 2P feedback
-                                unit: deg./Nm
+                                unit: rad/Nm
                                 minimum: 0
                             IPC_phase_1P:
                                 type: number
                                 description: Phase lag of 1P IPC feedback
-                                unit: deg.
-                                minimum: -180
-                                maximum: 180   # should we be using standard units? probably
+                                unit: rad
+                                minimum: -3.14
+                                maximum: 3.14   
                             IPC_phase_2P:
                                 type: number
                                 description: Phase lag of 2P IPC feedback
-                                unit: deg.
-                                minimum: -180
-                                maximum: 180   # should we be using standard units? probably
+                                unit: rad
+                                minimum: -3.14
+                                maximum: 3.14   
                             IPC_filt_1P:
                                 $ref: "#definitions/filter"
                                 description: Filter between tilt/yaw load and tilt/yaw pitch, usually a notch to reduce 3P, 6P frequency.
@@ -434,12 +423,12 @@ properties:
                     yaw_filt_fast:
                         type: number
                         description: Corner frequency for fast low pass filter, Default = 1.0 Hz
-                        unit: Hz
+                        unit: rad/s
                         minimum: 0.000001
                     yaw_filt_slow:
                         type: number
                         description: Corner frequency for slow low pass filter, Default = 1/60 Hz
-                        unit: Hz
+                        unit: rad/s
                         minimum: 0.000000001
                     yaw_rate:
                         type: number
@@ -562,7 +551,7 @@ properties:
                             minItems: 1
                             uniqueItems: false
 
-            user_defined_SS:
+            user_defined_SS_1: &uss
                 type: object
                 description: User defined state-space linear controllers within ROSCO, only 1 for now
                 required:
@@ -591,7 +580,12 @@ properties:
                     activator:
                         $ref: "#definitions/activator"
 
-            user_defined_TF:
+            user_defined_SS_2: *uss
+            user_defined_SS_3: *uss
+            user_defined_SS_4: *uss
+            user_defined_SS_5: *uss   # can add more...
+
+            user_defined_TF_1: &u_tf
                 type: object
                 description: User defined transfer function linear controllers within ROSCO, only 1 for now
                 required:
@@ -608,11 +602,15 @@ properties:
                     control_model:
                         type: object
                         description: Linear model of controller in transfer function form, SISO only # MIMO harder to clearly define in transfer function form
-                        $ref: "#definitions/filter"
+                        $ref: "#definitions/filter/filt_def/user_defined"
                     activator:
                         $ref: "#definitions/activator"
+            user_defined_TF_2: *u_tf
+            user_defined_TF_3: *u_tf
+            user_defined_TF_4: *u_tf
+            user_defined_TF_5: *u_tf    # can add more...
             
-            user_defined_OL: 
+            user_defined_OL_1: &u_ol
                 type: object
                 desctiption: User defined open loop signal to a defined actuator, only 1 for now
                 required:
@@ -624,7 +622,11 @@ properties:
                     actuator:
                         $ref: "#definitions/actuator"
                     timeseries:
-                        $ref: "#definitions/timeseries"
+                        $ref: "#definitions/timeseries"           
+            user_defined_OL_2: *u_ol
+            user_defined_OL_3: *u_ol
+            user_defined_OL_4: *u_ol
+            user_defined_OL_5: *u_ol    # can add more...
 
             user_dylib:
                 type: object
@@ -709,30 +711,59 @@ definitions:
             # No platform info from avrSWAP, will they be added?
     filter:
         type: object
-        description: Linear transfer function model of a filter
+        description: Linear filter, could be a LPF, HPF, NF, INF, or user_defined
         required:
-            - num
-            - den
-        num:
-            type: array
-            description: Numerator coefficients of linear filter
-            items:
-                type: number
-                unit: none
-                minItems: 0
-                uniqueItems: false
-        den:
-            type: array
-            description: Numerator coefficients of linear filter
-            items:
-                type: number
-                unit: none
-                minItems: 1
-                uniqueItems: false
-        dt:
-            type: number
-            description: Sampling rate of filter, -1 for continuous   # DZ: will probably convert all to dt of simulation... not sure how to handle this 
-            minimum: -1
+            - filt_type
+            - filt_def
+        filt_type:
+            type: string
+            description: Type of filter used, could be a LPF, HPF, NF, INF, or user_defined
+            enum:
+                - LPF
+                - HPF
+                - NF
+                - INF
+                - user_defined
+        filt_def:
+            LPF:
+                type: object
+                description: Low pass filter
+                required:
+                    - omega
+                    - order
+                optional:
+                    - damping
+            HPF:
+            NF:
+            INF:
+            user_defined:
+                type: object
+                description: User defined filter
+                required:
+                    - num
+                    - den
+                optional:
+                    - dt
+                num:
+                    type: array
+                    description: Numerator coefficients of linear filter
+                    items:
+                        type: number
+                        unit: none
+                        minItems: 0
+                        uniqueItems: false
+                den:
+                    type: array
+                    description: Numerator coefficients of linear filter
+                    items:
+                        type: number
+                        unit: none
+                        minItems: 1
+                        uniqueItems: false
+                dt:
+                    type: number
+                    description: Sampling rate of filter, -1 for continuous   # DZ: will probably convert all to dt of simulation... not sure how to handle this 
+                    minimum: -1
 
     state_space:
         type: object
