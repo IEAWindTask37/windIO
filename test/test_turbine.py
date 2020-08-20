@@ -3,8 +3,7 @@ import os
 from jsonschema import validate
 import yaml
 
-path2_turb_schema = os.path.dirname( os.path.dirname( os.path.realpath(__file__) ) ) + os.sep + 'windIO' + os.sep + 'turbine' + os.sep + "IEAontology_schema.yaml"
-path2_cont_schema = os.path.dirname( os.path.dirname( os.path.realpath(__file__) ) ) + os.sep + 'windIO' + os.sep + 'turbine' + os.sep + "control_schema.yaml"
+path2schema = os.path.dirname( os.path.dirname( os.path.realpath(__file__) ) ) + os.sep + 'windIO' + os.sep + 'turbine' + os.sep + "IEAontology_schema.yaml"
 
 class TestRegression(unittest.TestCase):
     
@@ -16,7 +15,7 @@ class TestRegression(unittest.TestCase):
             inputs = myfile.read()
 
         # Read the schema
-        with open(path2_turb_schema, 'r') as myfile:
+        with open(path2schema, 'r') as myfile:
             schema = myfile.read()
 
         # Run the validate class from the jsonschema library
