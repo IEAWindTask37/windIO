@@ -15,6 +15,7 @@ required:
     - airfoils
     - materials
     - assembly
+    - actuators
     - control
     - environment
     - costs
@@ -1457,137 +1458,264 @@ properties:
                 unit: none
                 minimum: 0
                 maximum: 10
+    actuators:
+        type: object
+        required:
+            - pitch
+            - generator
+        optional:
+            # in avrSWAP, but not used as much
+            - yaw   # rate  
+            # not currently in OpenFAST/avrSWAP
+            - tower_TMD
+            - hull_TMD
+            - active_tension
+            - passive_weather_vane  # not sure what this is, project?
+            - passive_buoy_can
+        properties:
+            pitch:
+                type: object
+                required:
+                    - pitch_act_bw
+                    - max_pitch_rate
+                    - fine_pitch         # maybe take out and put in control part
+                    - max_pitch         # DZ to Pietro: what if some things we can easily set to defaults, like this
+                    - min_pitch         # not sure this is required, seems extra
+                properties:
+                    fine_pitch:         # DZ: changed from pitch, might want to go in pitch control
+                        type: number
+                        description: Optimal pitch angle of the wind turbine. As default, it is maintained constant in region II.
+                        unit: rad
+                        minimum: -10
+                        maximum: 10
+                    max_pitch_rate: 
+                        type: number
+                        description: Maximum pitch rate of the rotor blades.
+                        unit: rad/s
+                        minimum: 0
+                        maximum: 0.2
+                    pitch_act_bw:
+                        type: number
+                        description: Bandwidth of 2nd order LPF representing pitch actuators
+                        unit: rad/s
+                        minimum: 0
+                        maximum: 100
+                    max_pitch:
+                        type: number
+                        description: Maximum pitch angle, where the default is 90 degrees. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        unit: rad
+                        minimum: 0
+                        maximum: 2.
+                    min_pitch:
+                        type: number
+                        description: Minimum pitch angle, where the default is 0 degrees. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        unit: rad
+                        minimum: -0.5
+                        maximum: 1.
+            generator:
+                type: object
+                required:
+                    - rated_power
+                    - max_torque_rate
+                    - minOmega
+                    - maxOmega
+                properties:
+                    rated_power:
+                        type: number
+                        description: Nameplate power of the turbine, i.e. the rated electrical output of the generator.
+                        unit: W
+                        minimum: 0
+                    minOmega:
+                        type: number
+                        description: Minimum rotor speed of the wind turbine.
+                        unit: rad/s
+                        minimum: 0
+                        maximum: 2
+                    maxOmega:
+                        type: number
+                        description: Maximum rotor speed of the wind turbine.
+                        unit: rad/s
+                        minimum: 0
+                        maximum: 10
+                    max_torque_rate:
+                        type: number
+                        description: Maximum torque rate of the wind turbine generator.
+                        unit: Nm/s
+                        minimum: 1000
+                        maximum: 100000000
+                    vs_minspd:
+                        type: number
+                        description: Minimum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO) # DZ: how is this different from minOmega?
+                        unit: rad/s
+                        minimum: 0
+                        maximum: 5
+            tower_TMD:
+                type: object
+                # required:
+                # properties:
+            hull_TMD:
+                type: object
+                # required:
+                # properties:
+            active_tension:
+                type: object
+                # required:
+                # properties:
+            passive_weather_vane:
+                type: object
+                # required:
+                # properties:
+            passive_buoy_can:
+                type: object
+                # required:
+                # properties:
     control:
         type: object
         required:
-            - rated_power
-            - Vin
-            - Vout
-            - tsr
+            - supervisory
             - pitch
-            - maxTS
-            - max_pitch_rate
-            - max_torque_rate
+            - torque
+        optional:
+            - setpoint_smooth
+            - shutdown     # might need to be required?
+            - yaw 
+            - power_control
+            - freq_avoidance
+            - soft_cut_out
+            - user_defined_mods
+            - user_defined_OL
+            - user_dylib
+            - user_simulink
         properties:
-            rated_power:
-                type: number
-                description: Nameplate power of the turbine, i.e. the rated electrical output of the generator.
-                unit: W
-                minimum: 0
-            Vin:
-                type: number
-                description: Cut-in wind speed of the wind turbine.
-                unit: m/s
-                minimum: 0
-                maximum: 10
-            Vout:
-                type: number
-                description: Cut-out wind speed of the wind turbine.
-                unit: m/s
-                minimum: 0
-                maximum: 50
-            minOmega:
-                type: number
-                description: Minimum rotor speed of the wind turbine.
-                unit: rad/s
-                minimum: 0
-                maximum: 2
-            maxOmega:
-                type: number
-                description: Maximum rotor speed of the wind turbine.
-                unit: rad/s
-                minimum: 0
-                maximum: 10
-            tsr:
-                type: number
-                description: Rated tip speed ratio of the wind turbine. As default, it is maintained constant in region II.
-                unit: none
-                minimum: 0
-                maximum: 15
+            supervisory:
+                type: object
+                required:
+                    - Vin
+                    - Vout
+                    - maxTS
+                properties:
+                    Vin:
+                        type: number
+                        description: Cut-in wind speed of the wind turbine.
+                        unit: m/s
+                        minimum: 0
+                        maximum: 10
+                    Vout:
+                        type: number
+                        description: Cut-out wind speed of the wind turbine.
+                        unit: m/s
+                        minimum: 0
+                        maximum: 50
+                    maxTS:
+                        type: number
+                        description: Maximum allowable blade tip speed.
+                        unit: m/s
+                        minimum: 60
+                        maximum: 120
+
             pitch:
-                type: number
-                description: Rated pitch angle of the wind turbine. As default, it is maintained constant in region II.
-                unit: rad
-                minimum: -10
-                maximum: 10
-            maxTS:
-                type: number
-                description: Maximum allowable blade tip speed.
-                unit: m/s
-                minimum: 60
-                maximum: 120
-            max_pitch_rate:
-                type: number
-                description: Maximum pitch rate of the rotor blades.
-                unit: rad/s
-                minimum: 0
-                maximum: 0.2
-            max_torque_rate:
-                type: number
-                description: Maximum torque rate of the wind turbine generator.
-                unit: Nm/s
-                minimum: 1000
-                maximum: 10000000
-            PC_zeta:
-                type: number
-                description: Pitch controller desired damping ratio. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: none
-                minimum: 0
-                maximum: 5
-            PC_omega:
-                type: number
-                description: Pitch controller desired natural frequency. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: rad/s
-                minimum: 0
-                maximum: 5
-            VS_zeta:
-                type: number
-                description: Torque controller desired damping ratio. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: none
-                minimum: 0
-                maximum: 5
-            VS_omega:
-                type: number
-                description: Torque controller desired natural frequency. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: rad/s
-                minimum: 0
-                maximum: 5
-            max_pitch:
-                type: number
-                description: Maximum pitch angle, where the default is pi/2 radians. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: rad
-                minimum: 0
-                maximum: 2.
-            min_pitch:
-                type: number
-                description: Minimum pitch angle, where the default is 0 radians. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: rad
-                minimum: -0.5
-                maximum: 1.
-            vs_minspd:
-                type: number
-                description: Minimum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: rad/s
-                minimum: 0
-                maximum: 5
-            ss_vsgain:
-                type: number
-                description: Torque controller setpoint smoother gain bias percentage. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: none
-                minimum: 0
-                maximum: 1
-            ss_pcgain:
-                type: number
-                description: Pitch controller setpoint smoother gain bias percentage. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: none
-                minimum: 0
-                maximum: 1
-            ps_percent:
-                type: number
-                description: Percent peak shaving. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                unit: none
-                minimum: 0
-                maximum: 1
+                type: object
+                required:
+                    - PC_omega
+                    - PC_zeta
+                optional:
+                    - ps_percent
+                    - fl_feedback
+                    - OL_BP  # open loop placeholder
+                    - IPC
+                properties:
+                    PC_omega:
+                        type: number
+                        description: Pitch controller desired natural frequency. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        unit: rad/s
+                        minimum: 0
+                        maximum: 5
+                    
+                    PC_zeta:
+                        type: number
+                        description: Pitch controller desired damping ratio. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        unit: none
+                        minimum: 0
+                        maximum: 5
+                    
+                    ps_percent:
+                        type: number
+                        description: Percent peak shaving. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        unit: none
+                        minimum: 0
+                        maximum: 1
+                    
+                    fl_feedback:
+                        type: object
+                        description: Platform velocity feedback using nacelle IMU
+                        required:
+                            - gain
+                        optional:
+                            - filter
+                        properties:
+                            gain:
+                                type: number
+                                description: Platform velocity feedback gain used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                                unit: seconds
+                            filter:
+                                $ref: "#definitions/filter"
+                                description: Nacelle IMU filter, used to remove tower natural frequency.  Usally a LPF or Notch Filter
+
+                    twr_feedback:
+                        type: object
+                        description: Tower velocity feedback using nacelle IMU
+                        required:
+                            - gain
+                        optional:
+                            - filter
+                        properties:
+                            gain:
+                                type: number
+                                description: Tower velocity feedback gain used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                                unit: seconds
+                            filter:
+                                $ref: "#definitions/filter"
+                                description: Nacelle IMU filter, used to remove noise or amplify tower load.  Usally a HPF or Inverted Notch Filter
+                    IPC:
+                        type: object
+                        description: Individual pitch control (IPC) using the mulitblade coordinate (MBC) transform
+                        required: 
+                            - IPC_gain_1P
+                        optional: 
+                            - IPC_gain_2P
+                            - IPC_phase_1P
+                            - IPC_phase_2P
+                            - IPC_filt_1P
+                            - IPC_filt_2P 
+                        properties:
+                            IPC_gain_1P:
+                                type: number
+                                description: Integral gain of 1P feedback
+                                unit: rad/Nm
+                                minimum: 0
+                            IPC_gain_2P:
+                                type: number
+                                description: Integral gain of 2P feedback
+                                unit: rad/Nm
+                                minimum: 0
+                            IPC_phase_1P:
+                                type: number
+                                description: Phase lag of 1P IPC feedback
+                                unit: rad
+                                minimum: -3.14
+                                maximum: 3.14   
+                            IPC_phase_2P:
+                                type: number
+                                description: Phase lag of 2P IPC feedback
+                                unit: rad
+                                minimum: -3.14
+                                maximum: 3.14   
+                            IPC_filt_1P:
+                                $ref: "#definitions/filter"
+                                description: Filter between tilt/yaw load and tilt/yaw pitch, usually a notch to reduce 3P, 6P frequency.
+                            IPC_filt_2P:
+                                $ref: "#definitions/filter"
+                                description: Filter between tilt/yaw load and tilt/yaw pitch, usually a notch to reduce 3P, 6P frequency.
     environment:
         type: object
         required:
@@ -1695,6 +1823,10 @@ properties:
                 minimum: 0
                 maximum: 10000
 definitions:
+
+
+
+
     distributed_data:
         grid_nd: 
             type: array
@@ -2353,4 +2485,200 @@ definitions:
                                 description: Stiffness matrix 6x6, only upper diagonal reported line by line (21 elements), specified at each grid point
                                 minItems: 21
                                 maxItems: 21
-                                uniqueItems: false                                      
+                                uniqueItems: false              
+                                
+    actuator:
+        type: string
+        description: Actuator used as control output
+        enum:
+            - pitch
+            - torque   #called generator above, keep consistent?
+            - tower_TMD
+            - hull_TMD
+            - active_tension
+            - passive_weather_vane
+            - passive_buoy_can
+    sensor:
+        type: string
+        description: Sensor used as control input, could be any OpenFAST output (in Simluink), enumerating avrSWAP now  # DZ: within ROSCO, probably not...needs to be in avrSWAP
+        enum:
+            - gen_speed
+            - nac_IMU
+            - wind_speed_estimate
+            - gust_measure
+            - RootMyc1
+            - RootMyc2
+            - RootMyc3
+            - RootMyT   # MBC of above
+            - RootMyY   # MBC of above
+            - azimuth
+            - YawBrTAxp
+            - YawBrTAyp
+            - RootMxc1
+            - RootMxc2
+            - RootMxc3
+            - LSSTipMya
+            - LSSTipMza
+            - LSSTipMxa
+            - LSSTipMys
+            - LSSTipMzs
+            - YawBrMyn
+            - YawBrMzn
+            - NcIMURAxs  # avrSWAP names don't always match OpenFAST output names
+            - NcIMURAzs
+            # No platform info from avrSWAP, will they be added?
+    filter:
+        type: object
+        description: Linear filter, could be a LPF, HPF, NF, INF, or user_defined
+        required:
+            - filt_type
+            - filt_def
+        filt_type:
+            type: string
+            description: Type of filter used, could be a LPF, HPF, NF, INF, or user_defined
+            enum:
+                - LPF
+                - HPF
+                - NF
+                - INF
+                - user_defined
+        filt_def:
+            LPF:
+                type: object
+                description: Low pass filter
+                required:
+                    - omega
+                    - order
+                optional:
+                    - damping
+            HPF:
+            NF:
+            INF:
+            user_defined:
+                type: object
+                description: User defined filter
+                required:
+                    - num
+                    - den
+                optional:
+                    - dt
+                num:
+                    type: array
+                    description: Numerator coefficients of linear filter
+                    items:
+                        type: number
+                        unit: none
+                        minItems: 0
+                        uniqueItems: false
+                den:
+                    type: array
+                    description: Numerator coefficients of linear filter
+                    items:
+                        type: number
+                        unit: none
+                        minItems: 1
+                        uniqueItems: false
+                dt:
+                    type: number
+                    description: Sampling rate of filter, -1 for continuous   # DZ: will probably convert all to dt of simulation... not sure how to handle this 
+                    minimum: -1
+
+    state_space:
+        type: object
+        description: Linear state space model
+        required:
+            - ss_A
+            - ss_B
+            - ss_C
+            - ss_D
+        ss_A:
+            type: array
+            description: A matrix of linear state space model, flattened with n_states^2 elements
+            items:
+                type: number
+                unit: none
+                minItems: 1
+                uniqueItems: false
+        ss_B:
+            type: array
+            description: B matrix of linear state space model, flattened with n_states x n_inputs elements
+            items:
+                type: number
+                unit: none
+                minItems: 1
+                uniqueItems: false        
+        ss_C:
+            type: array
+            description: C matrix of linear state space model, flattened with n_outputs x n_states elements
+            items:
+                type: number
+                unit: none
+                minItems: 1
+                uniqueItems: false        
+        ss_D:
+            type: array
+            description: D matrix of linear state space model, flattened with n_outputs x n_inputs elements
+            items:
+                type: number
+                unit: none
+                minItems: 1
+                uniqueItems: false        
+        # DZ: might be a good idea to check the number of states
+        ss_dt:
+            type: number
+            description: Sampling rate of filter, -1 for continuous   # DZ: will probably convert all to dt of simulation... not sure how to handle this 
+            minimum: -1
+    
+    timeseries:
+        type: object
+        description: Array of time, value pairs  # DZ: can we check that the number of elements are equal?
+        required:
+            - time
+            - value
+        optional:
+            - filename
+        time:
+            type: array
+            description: Time in timeseries
+            items: 
+                type: number
+                unit: seconds
+                minItems: 1
+                uniqueItems: true   # probably?
+        value:
+            type: array
+            description: Value in timeseries
+            items:
+                type: number
+                unit: none  #any
+                minItems: 1
+                uniqueItems: false
+                # can we check that number of elements are equal?
+        filename:
+            type: string
+            description: Name of file with timeseries data
+
+    activator:
+        type: object
+        description: Gain used to enable/disable control elements, can be used partially
+        required:
+            - wind_speeds
+            - act_gain
+        wind_speeds:
+            type: array
+            description: Array of wind speed breakpoints for activators
+            items:
+                type: number
+                unit: m/s
+                minItems: 1
+                uniqueItems: true
+        act_gain:
+            type: array
+            description: Array of gains from 0 to 1, enabling/disabling control element
+            items:
+                type: number
+                unit: none
+                minItems: 1
+                uniqueItems: false
+                minimum: 0
+                maximum: 1

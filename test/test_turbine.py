@@ -26,6 +26,7 @@ class TestRegression(unittest.TestCase):
 
         return None 
 
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestRegression))
