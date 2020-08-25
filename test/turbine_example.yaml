@@ -450,6 +450,11 @@ control:
         ss_vsgain: 1    
         ss_pcgain: .001 
 
+    soft_cut_out:
+        wind_speeds: [0,10,20,40]
+        power_reference: [1,1,.7,0]
+
+
     shutdown:
         limit_type: pitch
         limit_value:  .3
