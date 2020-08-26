@@ -1658,7 +1658,7 @@ properties:
                                 description: Platform velocity feedback gain used by the ROSCO controller (https://github.com/NREL/ROSCO)
                                 unit: seconds
                             filter:
-                                $ref: "#definitions/filter"
+                                $ref: "#/definitions/filter"
                                 description: Nacelle IMU filter, used to remove tower natural frequency.  Usally a LPF or Notch Filter
 
                     twr_feedback:
@@ -1674,7 +1674,7 @@ properties:
                                 description: Tower velocity feedback gain used by the ROSCO controller (https://github.com/NREL/ROSCO)
                                 unit: seconds
                             filter:
-                                $ref: "#definitions/filter"
+                                $ref: "#/definitions/filter"
                                 description: Nacelle IMU filter, used to remove noise or amplify tower load.  Usally a HPF or Inverted Notch Filter
                     IPC:
                         type: object
@@ -1711,10 +1711,10 @@ properties:
                                 minimum: -3.14
                                 maximum: 3.14   
                             IPC_filt_1P:
-                                $ref: "#definitions/filter"
+                                $ref: "#/definitions/filter"
                                 description: Filter between tilt/yaw load and tilt/yaw pitch, usually a notch to reduce 3P, 6P frequency.
                             IPC_filt_2P:
-                                $ref: "#definitions/filter"
+                                $ref: "#/definitions/filter"
                                 description: Filter between tilt/yaw load and tilt/yaw pitch, usually a notch to reduce 3P, 6P frequency.
 
             torque:
@@ -1808,18 +1808,18 @@ properties:
                             - pitch
                         properties:
                             time:
-                                $ref: "#definitions/timeseries/time"
+                                $ref: "#/definitions/timeseries/time"
                             pitch:
-                                $ref: "#definitions/timeseries/value"
+                                $ref: "#/definitions/timeseries/value"
                     open_loop_pwr:
                         required:
                             - time
                             - power
                         properties:
                             time:
-                                $ref: "#definitions/timeseries/time"
+                                $ref: "#/definitions/timeseries/time"
                             power: 
-                                $ref: "#definitions/timeseries/value"
+                                $ref: "#/definitions/timeseries/value"
 
             wind_speed_estimator:
                 type: object
@@ -1890,7 +1890,7 @@ properties:
                             - gen_speed
                     OL_R:
                         description: Open loop power reference, for soft start-up, etc.
-                        $ref: "#definitions/timeseries"
+                        $ref: "#/definitions/timeseries"
                     reference_control:
                         type: object
                         description: Control power reference R
@@ -2005,19 +2005,19 @@ properties:
                         description: List of sensors used as control inputs, could be any OpenFAST output(?)  # DZ: within ROSCO, probably not...needs to be in avrSWAP
                         items:
                             sensor:
-                                $ref: "#definitions/sensor"
+                                $ref: "#/definitions/sensor"
                     actuators:
                         type: array
                         description: List of actuators used as control outputs
                         items:
                             actuator:
-                                $ref: "#definitions/actuator"
+                                $ref: "#/definitions/actuator"
                     control_model:
                         type: object
                         description: Linear model of controller in state-space form # MIMO harder to clearly define in transfer function form
-                        $ref: "#definitions/state_space"
+                        $ref: "#/definitions/state_space"
                     activator:
-                        $ref: "#definitions/activator"
+                        $ref: "#/definitions/activator"
 
             user_defined_SS_2: *uss
             user_defined_SS_3: *uss
@@ -2035,15 +2035,15 @@ properties:
                     - activator
                 properties:
                     sensor:
-                        $ref: "#definitions/sensor"
+                        $ref: "#/definitions/sensor"
                     actuator:
-                        $ref: "#definitions/actuator"
+                        $ref: "#/definitions/actuator"
                     control_model:
                         type: object
                         description: Linear model of controller in transfer function form, SISO only # MIMO harder to clearly define in transfer function form
-                        $ref: "#definitions/filter/filt_def/user_defined"
+                        $ref: "#/definitions/filter/filt_def/user_defined"
                     activator:
-                        $ref: "#definitions/activator"
+                        $ref: "#/definitions/activator"
             user_defined_TF_2: *u_tf
             user_defined_TF_3: *u_tf
             user_defined_TF_4: *u_tf
@@ -2059,9 +2059,9 @@ properties:
                     - optimize
                 properties:
                     actuator:
-                        $ref: "#definitions/actuator"
+                        $ref: "#/definitions/actuator"
                     timeseries:
-                        $ref: "#definitions/timeseries"           
+                        $ref: "#/definitions/timeseries"           
             user_defined_OL_2: *u_ol
             user_defined_OL_3: *u_ol
             user_defined_OL_4: *u_ol
