@@ -2018,12 +2018,10 @@ properties:
                         $ref: "#/definitions/state_space"
                     activator:
                         $ref: "#/definitions/activator"
-
             user_defined_SS_2: *uss
             user_defined_SS_3: *uss
             user_defined_SS_4: *uss
-            user_defined_SS_5: *uss   # can add more...
-
+            user_defined_SS_5: *uss
             user_defined_TF_1: &u_tf
                 type: object
                 description: User defined transfer function linear controllers within ROSCO, only 1 for now
@@ -2047,8 +2045,7 @@ properties:
             user_defined_TF_2: *u_tf
             user_defined_TF_3: *u_tf
             user_defined_TF_4: *u_tf
-            user_defined_TF_5: *u_tf    # can add more...
-            
+            user_defined_TF_5: *u_tf  
             user_defined_OL_1: &u_ol
                 type: object
                 desctiption: User defined open loop signal to a defined actuator, only 1 for now
@@ -2065,8 +2062,7 @@ properties:
             user_defined_OL_2: *u_ol
             user_defined_OL_3: *u_ol
             user_defined_OL_4: *u_ol
-            user_defined_OL_5: *u_ol    # can add more...
-
+            user_defined_OL_5: *u_ol 
             user_dylib:
                 type: object
                 description: User defined dynamic library. # Not sure how to define parameters/input
