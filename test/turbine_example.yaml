@@ -21,7 +21,7 @@ components:
             reference_axis:
                 x: &id001
                     grid: [0.0, 0.2, 0.7, 1.0]
-                    values: [0.0, 0.0, -1.0, -2.5]     
+                    values: [0.0, 0.0, -1.0, -2.5]
                 y: &id002
                     grid: [0.0, 1.0]
                     values: [0.0, 0.0]
@@ -199,7 +199,7 @@ components:
                     grid: [0.0, 1.0]
                     values: [0.0, 0.0]
                 z:
-                    grid: &grid_tower [0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.] 
+                    grid: &grid_tower [0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.]
                     values: [0.0, 10.80, 21.61, 32.41, 43.22, 54.02, 64.82, 75.63, 86.43, 97.23, 108.00]
             outer_diameter:
                 grid: *grid_tower
@@ -219,12 +219,6 @@ components:
     # Foundation
     foundation:
         height: 0.
-    # RNA
-    RNA:
-        elastic_properties_mb:
-            mass: 1.E+7
-            inertia: [1.E+7, 0.0, 0.0, 0.0, 0.0, 0.0]
-            center_mass: [1., 0.0, 0.5]
     # Floating platform
     floating_platform:
         name: Example of floating platform
@@ -232,15 +226,7 @@ components:
             joints:
                 - name: joint_number_one
                   location: [0., 0., 0.]
-                  reactions_global:
-                    Rx: False
-                    Ry: False
-                    Rz: False
-                    Rxx: False
-                    Ryy: False
-                    Rzz: False
-                    Euler: [0., 0., 0.]
-                  reactions_local:
+                  reactions:
                     Rx: False
                     Ry: False
                     Rz: False
@@ -326,7 +312,7 @@ components:
               node_volume: 1.
               drag_area: 1.
               added_mass: 1.
-            #   anchor_type: 
+            #   anchor_type:
         lines:
             - line_id: 1
               line_type: line1
@@ -412,8 +398,8 @@ actuators:
         fine_pitch: 0.0174
         max_pitch_rate: 0.1221
         pitch_act_bw: 3.14
-        max_pitch: 1.57 
-        min_pitch: 0 
+        max_pitch: 1.57
+        min_pitch: 0
 
 # Control
 control:
@@ -425,13 +411,13 @@ control:
     torque:
         control_type: tsr_tracking
         tsr: 8.01754386
-        VS_zeta: 1.0    
-        VS_omega: 0.2   
-    
+        VS_zeta: 1.0
+        VS_omega: 0.2
+
     pitch:
-        PC_zeta: 1.0    
-        PC_omega: 0.2   
-        ps_percent: 0.8    
+        PC_zeta: 1.0
+        PC_omega: 0.2
+        ps_percent: 0.8
         IPC:
             IPC_gain_1P: 1.0e+5
             IPC_phase_1P: .2
@@ -447,8 +433,8 @@ control:
             optimize: true
 
     setpoint_smoother:
-        ss_vsgain: 1    
-        ss_pcgain: .001 
+        ss_vsgain: 1
+        ss_pcgain: .001
 
     soft_cut_out:
         wind_speeds: [0,10,20,40]
