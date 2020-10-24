@@ -13,7 +13,7 @@ The repository defines two frameworks defining the inputs and outputs for system
     Author: `IEA Wind Task 37 Team <mailto:pietro.bortolotti@nrel.gov>`_
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    source/turbine
