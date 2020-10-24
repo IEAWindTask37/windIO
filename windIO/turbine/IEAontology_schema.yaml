@@ -2882,6 +2882,7 @@ properties:
                 default: 0.4
     bos:
         type: object
+        default: {}
         required:
             - plant_turbine_spacing
             - plant_row_spacing

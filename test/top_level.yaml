@@ -5,6 +5,7 @@ components:
 airfoils:
 materials:
 assembly:
+actuators:
 control:
 environment:
 costs:
@@ -15,7 +16,10 @@ components:
   hub:
   nacelle:
   tower:
+  monopile:
   foundation:
+  floating_platform:
+  mooring:
 # EOF2
 # Structure
 internal_structure_2d_fem:

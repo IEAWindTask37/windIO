@@ -491,6 +491,16 @@ environment:
     water_dyn_viscosity: 1.3351e-3
     soil_shear_modulus: 140.e+6
     soil_poisson: 0.4
+# BOS
+bos:
+    plant_turbine_spacing: 7
+    plant_row_spacing: 7
+    commissioning_pct: 0.01
+    decommissioning_pct: 0.15
+    distance_to_substation: 2.0
+    distance_to_interconnection: 30.0
+    interconnect_voltage: 130.0
+
 # Costs
 costs:
     wake_loss_factor: 0.15
