@@ -397,17 +397,12 @@ actuators:
         fine_pitch: 0.0174
         max_pitch_rate: 0.1221
         pitch_act_bw: 3.14
-<<<<<<< HEAD
         max_pitch: 1.57
         min_pitch: 0
-=======
-        max_pitch: 1.57 
-        min_pitch: 0 
     hss_brake:
         torque: 1.0e+7
         start_time: 50
         duration: 1
->>>>>>> dd88766a057e0853363e7bc981c711cd87e5de85
 
 # Control
 control:
@@ -419,16 +414,10 @@ control:
     torque:
         control_type: tsr_tracking
         tsr: 8.01754386
-<<<<<<< HEAD
         VS_zeta: 1.0
         VS_omega: 0.2
+        VS_minspd: 0.732
 
-=======
-        VS_zeta: 1.0    
-        VS_omega: 0.2  
-        VS_minspd: 0.732 
-    
->>>>>>> dd88766a057e0853363e7bc981c711cd87e5de85
     pitch:
         PC_zeta: 1.0
         PC_omega: 0.2
