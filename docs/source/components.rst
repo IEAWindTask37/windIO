@@ -274,18 +274,10 @@ So far, :code:`foundation` is the simplest component with a single input describ
 
 .. literalinclude:: ../../test/turbine_example.yaml
     :start-after: # Foundation
-    :end-before: # RNA
+    :end-before: # Floating platform
 
 :code:`height` : Float, m 
     Height of the foundation. Distance between ground and tower base.
-
-RNA
-================
-The equivalent elastic properties of the rotor-nacelle assembly are work in progress.
-    :start-after: # RNA
-    :end-before: # Airfoils
-
-
 
 
 Floating Platform
@@ -296,6 +288,10 @@ The floating platform ontology uses a *graph*-like representation of the geometr
 Joints
 ----------------------------------------
 Joints are the *nodes* of the graph representation of the floating platform.  They must be assigned a unique name for later reference by the Members.
+
+.. literalinclude:: ../../test/turbine_example.yaml
+    :start-after: # Floating platform
+    :end-before: # Members
 
 
 :code:`name` : String
@@ -361,6 +357,10 @@ Joints are the *nodes* of the graph representation of the floating platform.  Th
 
 Members
 ----------------------------------------
+
+.. literalinclude:: ../../test/turbine_example.yaml
+    :start-after: # Members
+    :end-before: # Rigid
 
 :code:`name` : String
     Name of the member
@@ -519,6 +519,10 @@ Rigid bodies
 ----------------------------------------
 There is an allowance for additional point masses at joints with user-customized properties.  This would be useful in modeling ???.
 
+.. literalinclude:: ../../test/turbine_example.yaml
+    :start-after: # Rigid
+    :end-before: # Mooring
+
 :code:`joint1` : String
     Name of joint/node connection
 
@@ -566,6 +570,10 @@ There is an allowance for additional point masses at joints with user-customized
 Mooring
 ========================================
 The mooring system ontology follows closely the input file format for MoorDyn or MAP++.  Additional information can be found in the `MoorDyn user guide <http://www.matt-hall.ca/files/MoorDyn-Users-Guide-2017-08-16.pdf>`_ .
+
+.. literalinclude:: ../../test/turbine_example.yaml
+    :start-after: # Mooring
+    :end-before: # Airfoils
 
 nodes
 -------------
