@@ -221,87 +221,90 @@ components:
         height: 0.
     # Floating platform
     floating_platform:
-        name: Example of floating platform
-        components:
-            joints:
-                - name: joint_number_one
-                  location: [0., 0., 0.]
-                  reactions:
-                    Rx: False
-                    Ry: False
-                    Rz: False
-                    Rxx: False
-                    Ryy: False
-                    Rzz: False
-                    Euler: [0., 0., 0.]
-            members:
-                - name: Example circular member
-                  joint1: joint_number_one
-                  joint2: joint_number_two
-                  outer_shape:
-                    shape: circular
-                    outer_diameter: [1., 2.]
-                  internal_structure: &internal_structure
-                    outfitting_factor: 1.0
-                    layers:
-                        - name: example_mat_one
-                          material: steel_355
-                          thickness: [0.01, 0.005]
-                    ring_stiffeners:
-                        - material: steel_355
-                          flange_height: 0.1
-                          flange_width: 0.1
-                          web_height: 0.1
-                          web_thickness: 0.01
-                          locations: [0., 0.1, 0.9, 1.0]
-                    longitudinal_stiffeners:
-                        - material: steel_355
-                          flange_height: 0.1
-                          flange_width: 0.1
-                          web_height: 0.1
-                          web_thickness: 0.01
-                          locations: [0., 0.1, 0.9, 1.0]
-                    bulkhead:
-                        material: steel_355
-                        thickness:
-                            grid: [0., 0.1, 0.9, 1.0]
-                            values: [0.01, 0.01, 0.01, 0.01]
-                    ballast:
-                        - variable_flag: True
-                        - variable_flag: False
-                          material: steel_355
-                          volume: 100
-                  hydrodynamic_approach: strip
-                  Ca: 0.
-                  Cp: 0.
-                  Cd: 0.
-                - name: Example polygonal member
-                  joint1: joint_number_one
-                  joint2: joint_number_two
-                  outer_shape:
-                    shape: polygonal
-                    side_lengths1: [1., 1., 1.]
-                    side_lengths2: [2., 2., 2.]
-                    rotation: 0.
-                    angles: [0., 0., 0.]
-                  internal_structure: *internal_structure
-                  hydrodynamic_approach: potential
-                  Ca: 0.
-                  Cp: 0.
-                  Cd: 0.
-            rigid_bodies:
-                - joint1: joint_number_one
-                  mass: 1000.
-                  cost: 100000.
-                  cm_offset: [0., 0., 0.]
-                  moments_of_inertia: [0., 0., 0.]
-                  hydrodynamic_approach: both
-                  Ca: 0.
-                  Cp: 0.
-                  Cd: 0.
+        # Joints
+        joints:
+            - name: joint_number_one
+              location: [0., 0., 0.]
+              reactions:
+                Rx: False
+                Ry: False
+                Rz: False
+                Rxx: False
+                Ryy: False
+                Rzz: False
+                Euler: [0., 0., 0.]
+        # Members
+        members:
+            - name: Example circular member
+              joint1: joint_number_one
+              joint2: joint_number_two
+              outer_shape:
+                shape: circular
+                outer_diameter: [1., 2.]
+              internal_structure: &internal_structure
+                outfitting_factor: 1.0
+                layers:
+                    - name: example_mat_one
+                      material: steel_355
+                      thickness: [0.01, 0.005]
+                ring_stiffeners:
+                    - material: steel_355
+                      flange_height: 0.1
+                      flange_width: 0.1
+                      web_height: 0.1
+                      web_thickness: 0.01
+                      locations: [0., 0.1, 0.9, 1.0]
+                longitudinal_stiffeners:
+                    - material: steel_355
+                      flange_height: 0.1
+                      flange_width: 0.1
+                      web_height: 0.1
+                      web_thickness: 0.01
+                      locations: [0., 0.1, 0.9, 1.0]
+                bulkhead:
+                    material: steel_355
+                    thickness:
+                        grid: [0., 0.1, 0.9, 1.0]
+                        values: [0.01, 0.01, 0.01, 0.01]
+                ballast:
+                    - variable_flag: True
+                    - variable_flag: False
+                      material: steel_355
+                      volume: 100
+              axial_joints:
+                  - name: Example axial joint
+                    grid: 0.5
+              hydrodynamic_approach: strip
+              Ca: 0.
+              Cp: 0.
+              Cd: 0.
+            - name: Example polygonal member
+              joint1: joint_number_one
+              joint2: joint_number_two
+              outer_shape:
+                shape: polygonal
+                side_lengths1: [1., 1., 1.]
+                side_lengths2: [2., 2., 2.]
+                rotation: 0.
+                angles: [0., 0., 0.]
+              internal_structure: *internal_structure
+              hydrodynamic_approach: potential
+              Ca: 0.
+              Cp: 0.
+              Cd: 0.
+        # Rigid
+        rigid_bodies:
+            - joint1: joint_number_one
+              mass: 1000.
+              cost: 100000.
+              cm_offset: [0., 0., 0.]
+              moments_of_inertia: [0., 0., 0.]
+              hydrodynamic_approach: both
+              Ca: 0.
+              Cp: 0.
+              Cd: 0.
     # Mooring
     mooring:
-        name: mooring_example
         nodes:
             - node_id: 1
               node_type: fixed
@@ -387,7 +390,7 @@ assembly:
     drivetrain: Geared
     rotor_orientation: Upwind
     number_of_blades: 3
-# Control
+# Actuators
 actuators:
     generator:
         rated_power: 3.37e+6
