@@ -1,9 +1,25 @@
 import unittest
 import os
 from jsonschema import validate
-import yaml
+try:
+    import ruamel_yaml as yaml
+    loader = ry.Loader
+except:
+    try:
+        import ruamel.yaml as yaml
+        loader = ry.Loader
+    except:
+        import yaml
+        loader = yaml.FullLoader
+        print('No module named ruamel.yaml or ruamel_yaml, so using substitute')
 
 path2schema = os.path.dirname( os.path.dirname( os.path.realpath(__file__) ) ) + os.sep + 'windIO' + os.sep + 'turbine' + os.sep + "IEAontology_schema.yaml"
+
+def load_yaml(fname_input):
+    with open(fname_input, 'r') as f:
+        input_yaml = yaml.load(f, Loader=loader)
+    return input_yaml
+
 
 class TestRegression(unittest.TestCase):
     
@@ -19,10 +35,10 @@ class TestRegression(unittest.TestCase):
             schema = myfile.read()
 
         # Run the validate class from the jsonschema library
-        validate(yaml.load(inputs, Loader=yaml.FullLoader), yaml.load(schema, Loader=yaml.FullLoader))
+        validate(load_yaml(inputs), load_yaml(schema))
 
         # Move it to a dictionary called wt_data
-        wt_data = yaml.load(inputs, Loader=yaml.FullLoader)
+        wt_data = load_yaml(inputs)
 
         return None 
 
