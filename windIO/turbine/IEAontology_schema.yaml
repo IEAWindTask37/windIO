@@ -2108,6 +2108,7 @@ properties:
             - active_tension
             - passive_weather_vane  # not sure what this is, project?
             - passive_buoy_can
+            - hss_brake
         properties:
             pitch:
                 type: object
@@ -2153,23 +2154,16 @@ properties:
                 required:
                     - rated_power
                     - max_torque_rate
-                    - minOmega
-                    - maxOmega
+                    - max_gen_speed
                 properties:
                     rated_power:
                         type: number
                         description: Nameplate power of the turbine, i.e. the rated electrical output of the generator.
                         unit: W
                         minimum: 0
-                    minOmega:
+                    max_gen_speed:
                         type: number
-                        description: Minimum rotor speed of the wind turbine.
-                        unit: rad/s
-                        minimum: 0
-                        maximum: 2
-                    maxOmega:
-                        type: number
-                        description: Maximum rotor speed of the wind turbine.
+                        description: Maximum generator speed of the wind turbine.
                         unit: rad/s
                         minimum: 0
                         maximum: 10
@@ -2179,12 +2173,7 @@ properties:
                         unit: Nm/s
                         minimum: 1000
                         maximum: 100000000
-                    vs_minspd:
-                        type: number
-                        description: Minimum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO) # DZ: how is this different from minOmega?
-                        unit: rad/s
-                        minimum: 0
-                        maximum: 5
+
             tower_TMD:
                 type: object
                 # required:
@@ -2205,6 +2194,28 @@ properties:
                 type: object
                 # required:
                 # properties:
+            hss_brake:
+                type: object
+                required:
+                    - start_time
+                    - duration
+                    - torque
+                properties:
+                    start_time:
+                        type: number
+                        minimum: 0
+                        unit: seconds
+                        description: Time in simulation that brake is activated, THSSBrDp in OpenFAST
+                    duration:
+                        type: number
+                        minimum: 0
+                        unit: seconds
+                        description: Time for HSS-brake to reach full deployment once initiated (sec), HSSBrDT in OpenFAST
+                    torque:
+                        type: number
+                        minimum: 0
+                        unit: N-m
+                        description: Fully deployed HSS-brake torque, HSSBrTqF in OpenFAST
     control:
         type: object
         required:
@@ -2222,6 +2233,21 @@ properties:
             - user_defined_OL
             - user_dylib
             - user_simulink
+            - user_defined_SS_1
+            - user_defined_SS_2
+            - user_defined_SS_3
+            - user_defined_SS_4
+            - user_defined_SS_5
+            - user_defined_TF_1
+            - user_defined_TF_2
+            - user_defined_TF_3
+            - user_defined_TF_4
+            - user_defined_TF_5
+            - user_defined_OL_1
+            - user_defined_OL_2
+            - user_defined_OL_3
+            - user_defined_OL_4
+            - user_defined_OL_5
         properties:
             supervisory:
                 type: object
@@ -2360,6 +2386,7 @@ properties:
                     - tsr
                     - VS_zeta
                     - VS_omega      # DZ: I'm not sure how "required" these are or where the line is around "strongly encouraged"
+                    - VS_minspd
                 properties:
                     control_type:
                         type: string
@@ -2383,6 +2410,12 @@ properties:
                     VS_omega:
                         type: number
                         description: Torque controller desired natural frequency. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        unit: rad/s
+                        minimum: 0
+                        maximum: 5
+                    VS_minspd:
+                        type: number
+                        description: Minimum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO) # DZ: how is this different from minOmega?
                         unit: rad/s
                         minimum: 0
                         maximum: 5
