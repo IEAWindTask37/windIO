@@ -16,11 +16,15 @@ Joints are the *nodes* of the graph representation of the floating platform.  Th
     Unique name of the joint (node)
 
 :code:`location` : Array of Floats, m
-    x, y, and z coordinates of this node in the global coordinate
-    system.
+    Coordinates (x,y,z or r,θ,z) of the joint in the global coordinate system.
 
 :code:`transition` : Boolean
     Whether the transition piece and turbine tower attach at this node
+
+    *Default* = False
+
+:code:`cylindrical` : Boolean
+    Whether to use cylindrical coordinates (r,θ,z), with (r,θ) lying in the x/y-plane, instead of Cartesian coordinates.
 
     *Default* = False
 
@@ -28,7 +32,7 @@ Joints are the *nodes* of the graph representation of the floating platform.  Th
     True if this joint is compliant in *x-translation* in the member coordinate system,
     False if this joint is completely rigid in that direction.  For instance, a perfect
     ball joint would be Rx=Ry=Rz=False, Rxx=Ryy=Rzz=True
-    
+
     *Default* = False
 
 :code:`reactions.Ry` : Boolean
@@ -109,7 +113,7 @@ Members
     (Optional) Drag coefficient
 
     *Default* = 0.0
-    
+
 :code:`outer_shape.shape` : String from, ['circular', 'polygonal']
     Specifies cross-sectional shape of the member.  If circular, then the
     :code:`outer_diameter` field is required.  If polygonal, then the :code:`side_lengths`,
@@ -446,4 +450,3 @@ anchor_types
     anchor can support
 
     *Minimum* = 0.0
-		 

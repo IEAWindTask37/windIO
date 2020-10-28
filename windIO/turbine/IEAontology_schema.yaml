@@ -1150,7 +1150,6 @@ properties:
                     - members
                 optional:
                     - rigid_bodies
-                properties:
                     joints:
                         type: array
                         items:
@@ -1161,12 +1160,13 @@ properties:
                             optional:
                                 - reactions
                                 - transition
+                                - cylindrical
                             properties:
                                 name:
                                     description: Unique name of the joint (node)
                                     type: string
                                 location:
-                                    description: x, y, and z coordinates of this node in the global coordinate system.
+                                    description: Coordinates (x,y,z or r,θ,z) of the joint in the global coordinate system.
                                     type: array
                                     items:
                                         type: number
@@ -1175,6 +1175,10 @@ properties:
                                         unit: m
                                 transition:
                                     description: Whether the transition piece and turbine tower attach at this node
+                                    type: boolean
+                                    default: False
+                                cylindrical:
+                                    description: Whether to use cylindrical coordinates (r,θ,z), with (r,θ) lying in the x/y-plane, instead of Cartesian coordinates.
                                     type: boolean
                                     default: False
                                 reactions:
@@ -1206,6 +1210,7 @@ properties:
                                                 type: number
                                                 minItems: 3
                                                 maxItems: 3
+                properties:
                     members:
                         type: array
                         items:
