@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/github/IEAWindTask37/windIO)](https://travis-ci.com/github/IEAWindTask37/windIO)
-[![Documentation Status](https://windio.readthedocs.io/en/latest/)](https://windio.readthedocs.io/en/latest/)
+[![Build Status](https://travis-ci.com/IEAWindTask37/windIO.svg?branch=master)](https://travis-ci.com/IEAWindTask37/windIO)
+[![Documentation Status](https://readthedocs.org/projects/windio/badge/?version=latest)](https://windio.readthedocs.io/en/latest/)
 
 # windIO
 
