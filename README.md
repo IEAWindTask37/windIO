@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/github/IEAWindTask37/windIO)](https://travis-ci.com/github/IEAWindTask37/windIO)
+[![Documentation Status](https://windio.readthedocs.io/en/latest/)](https://windio.readthedocs.io/en/latest/)
+
 # windIO
 
 Frameworks defining the inputs and outputs for systems engineering MDAO of wind turbine and plants. The framework was developed by the IEA Wind Task 37 team within Work Package 1.
