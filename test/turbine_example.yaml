@@ -260,7 +260,7 @@ components:
             u_allow_pcent: 8.5
             y_allow_pcent: 1.0
             z_allow_deg: 0.05
-            sigma: 60e3
+            sigma: 60.e+3
 
             h_0: 0.05
             C_Cu: 4.786
@@ -336,13 +336,17 @@ components:
               joint2: joint_number_two
               outer_shape:
                 shape: circular
-                outer_diameter: [1., 2.]
+                outer_diameter:
+                    grid: [0., 1.] 
+                    values: [1., 2.]
               internal_structure: &internal_structure
                 outfitting_factor: 1.0
                 layers:
                     - name: example_mat_one
                       material: steel_355
-                      thickness: [0.01, 0.005]
+                      thickness: 
+                        grid: [0., 1.] 
+                        values: [0.01, 0.005]
                 ring_stiffeners:
                     - material: steel_355
                       flange_height: 0.1
@@ -364,9 +368,11 @@ components:
                         values: [0.01, 0.01, 0.01, 0.01]
                 ballast:
                     - variable_flag: True
+                      grid: [0.0, 1.0]
                     - variable_flag: False
                       material: steel_355
                       volume: 100
+                      grid: [0.0, 1.0]
               axial_joints:
                   - name: Example axial joint
                     grid: 0.5
@@ -402,24 +408,23 @@ components:
     # Mooring
     mooring:
         nodes:
-            - node_id: 1
+            - name: node1
               node_type: fixed
               location: [0., 0., 0.]
               fairlead_type: rigid
-              anchor_id: 1
               node_mass: 1000.
               node_volume: 1.
               drag_area: 1.
               added_mass: 1.
-            #   anchor_type:
+              anchor_type: anchor1
         lines:
-            - line_id: 1
-              line_type: line1
-              unstretched_length: 100.
-              node1_id: 1
-              node2_id: 2
-        line_types:
             - name: line1
+              line_type: line_type1
+              unstretched_length: 100.
+              node1: node1
+              node2: node2
+        line_types:
+            - name: line_type1
               diameter: 0.1
               mass_density: 10000.
               stiffness: 1.e+9
@@ -598,13 +603,13 @@ bos:
     interconnect_voltage: 130.0
     distance_to_site: 100
     distance_to_landfall: 30
-    port_cost_per_month: 2e6
-    site_auction_price: 10e6
-    site_assessment_plan_cost: 1e6
-    site_assessment_cost: 1e6
-    construction_operations_plan_cost: 1e6
-    boem_review_cost: 1e6
-    design_install_plan_cost: 1e6
+    port_cost_per_month: 2.e+6
+    site_auction_price: 10.e+6
+    site_assessment_plan_cost: 1.e+6
+    site_assessment_cost: 1.e+6
+    construction_operations_plan_cost: 1.e+6
+    boem_review_cost: 1.e+6
+    design_install_plan_cost: 1.e+6
 
 # Costs
 costs:
