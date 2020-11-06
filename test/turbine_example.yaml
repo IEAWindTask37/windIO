@@ -411,12 +411,19 @@ components:
             - name: node1
               node_type: fixed
               location: [0., 0., 0.]
-              fairlead_type: rigid
               node_mass: 1000.
               node_volume: 1.
               drag_area: 1.
               added_mass: 1.
               anchor_type: anchor1
+            - name: node2
+              node_type: vessel
+              joint: Example axial joint
+              fairlead_type: rigid
+              node_mass: 1000.
+              node_volume: 1.
+              drag_area: 1.
+              added_mass: 1.
         lines:
             - name: line1
               line_type: line_type1
