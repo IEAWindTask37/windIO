@@ -337,30 +337,30 @@ components:
               outer_shape:
                 shape: circular
                 outer_diameter:
-                    grid: [0., 1.] 
+                    grid: [0., 1.]
                     values: [1., 2.]
               internal_structure: &internal_structure
                 outfitting_factor: 1.0
                 layers:
                     - name: example_mat_one
                       material: steel_355
-                      thickness: 
-                        grid: [0., 1.] 
+                      thickness:
+                        grid: [0., 1.]
                         values: [0.01, 0.005]
                 ring_stiffeners:
-                    - material: steel_355
-                      flange_height: 0.1
-                      flange_width: 0.1
-                      web_height: 0.1
-                      web_thickness: 0.01
-                      locations: [0., 0.1, 0.9, 1.0]
+                    material: steel_355
+                    flange_height: 0.1
+                    flange_width: 0.1
+                    web_height: 0.1
+                    web_thickness: 0.01
+                    spacing: 0.2
                 longitudinal_stiffeners:
-                    - material: steel_355
-                      flange_height: 0.1
-                      flange_width: 0.1
-                      web_height: 0.1
-                      web_thickness: 0.01
-                      locations: [0., 0.1, 0.9, 1.0]
+                    material: steel_355
+                    flange_height: 0.1
+                    flange_width: 0.1
+                    web_height: 0.1
+                    web_thickness: 0.01
+                    spacing: 1.5707963267948966
                 bulkhead:
                     material: steel_355
                     thickness:

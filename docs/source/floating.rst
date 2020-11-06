@@ -196,7 +196,7 @@ Members
 
 Stiffeners
 ^^^^^^^^^^^
-Both internal :code:`ring_stiffeners` and :code:`longitudinal_stiffeners` can be specified with the :code:`internal_structure` section of a Member.  Stiffeners are defined by their material and 4 dimensions, illustrated in this diagram,
+Both internal :code:`ring_stiffeners` and :code:`longitudinal_stiffeners` can be specified with the :code:`internal_structure` section of a Member.  Stiffeners are defined by their material, spacing, and 4 dimensions, illustrated in this diagram,
 
     .. image:: images/stiffenerZoom.png
         :width: 200
@@ -220,6 +220,11 @@ Both internal :code:`ring_stiffeners` and :code:`longitudinal_stiffeners` can be
 
 :code:`web_thickness` : Float, m
 
+
+    *Minimum* = 0
+
+:code:`spacing` : Float, m
+    Spacing between stiffeners in non-dimensional grid coordinates. Value of 1.0 means no stiffeners
 
     *Minimum* = 0
 
