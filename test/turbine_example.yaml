@@ -21,7 +21,7 @@ components:
             reference_axis:
                 x: &id001
                     grid: [0.0, 0.2, 0.7, 1.0]
-                    values: [0.0, 0.0, -1.0, -2.5]     
+                    values: [0.0, 0.0, -1.0, -2.5]
                 y: &id002
                     grid: [0.0, 1.0]
                     values: [0.0, 0.0]
@@ -199,7 +199,7 @@ components:
                     grid: [0.0, 1.0]
                     values: [0.0, 0.0]
                 z:
-                    grid: &grid_tower [0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.] 
+                    grid: &grid_tower [0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.]
                     values: [0.0, 10.80, 21.61, 32.41, 43.22, 54.02, 64.82, 75.63, 86.43, 97.23, 108.00]
             outer_diameter:
                 grid: *grid_tower
@@ -219,122 +219,123 @@ components:
     # Foundation
     foundation:
         height: 0.
-    # RNA
-    RNA:
-        elastic_properties_mb:
-            mass: 1.E+7
-            inertia: [1.E+7, 0.0, 0.0, 0.0, 0.0, 0.0]
-            center_mass: [1., 0.0, 0.5]
     # Floating platform
     floating_platform:
-        name: Example of floating platform
-        components:
-            joints:
-                - name: joint_number_one
-                  location: [0., 0., 0.]
-                  reactions_global:
-                    Rx: False
-                    Ry: False
-                    Rz: False
-                    Rxx: False
-                    Ryy: False
-                    Rzz: False
-                    Euler: [0., 0., 0.]
-                  reactions_local:
-                    Rx: False
-                    Ry: False
-                    Rz: False
-                    Rxx: False
-                    Ryy: False
-                    Rzz: False
-                    Euler: [0., 0., 0.]
-            members:
-                - name: Example circular member
-                  joint1: joint_number_one
-                  joint2: joint_number_two
-                  outer_shape:
-                    shape: circular
-                    outer_diameter: [1., 2.]
-                  internal_structure: &internal_structure
-                    outfitting_factor: 1.0
-                    layers:
-                        - name: example_mat_one
-                          material: steel_355
-                          thickness: [0.01, 0.005]
-                    ring_stiffeners:
-                        - material: steel_355
-                          flange_height: 0.1
-                          flange_width: 0.1
-                          web_height: 0.1
-                          web_thickness: 0.01
-                          locations: [0., 0.1, 0.9, 1.0]
-                    longitudinal_stiffeners:
-                        - material: steel_355
-                          flange_height: 0.1
-                          flange_width: 0.1
-                          web_height: 0.1
-                          web_thickness: 0.01
-                          locations: [0., 0.1, 0.9, 1.0]
-                    bulkhead:
-                        material: steel_355
-                        thickness:
-                            grid: [0., 0.1, 0.9, 1.0]
-                            values: [0.01, 0.01, 0.01, 0.01]
-                    ballast:
-                        - variable_flag: True
-                        - variable_flag: False
-                          material: steel_355
-                          volume: 100
-                  hydrodynamic_approach: strip
-                  Ca: 0.
-                  Cp: 0.
-                  Cd: 0.
-                - name: Example polygonal member
-                  joint1: joint_number_one
-                  joint2: joint_number_two
-                  outer_shape:
-                    shape: polygonal
-                    side_lengths1: [1., 1., 1.]
-                    side_lengths2: [2., 2., 2.]
-                    rotation: 0.
-                    angles: [0., 0., 0.]
-                  internal_structure: *internal_structure
-                  hydrodynamic_approach: potential
-                  Ca: 0.
-                  Cp: 0.
-                  Cd: 0.
-            rigid_bodies:
-                - joint1: joint_number_one
-                  mass: 1000.
-                  cost: 100000.
-                  cm_offset: [0., 0., 0.]
-                  moments_of_inertia: [0., 0., 0.]
-                  hydrodynamic_approach: both
-                  Ca: 0.
-                  Cp: 0.
-                  Cd: 0.
+        # Joints
+        joints:
+            - name: joint_number_one
+              location: [0., 0., 0.]
+              reactions:
+                Rx: False
+                Ry: False
+                Rz: False
+                Rxx: False
+                Ryy: False
+                Rzz: False
+                Euler: [0., 0., 0.]
+        # Members
+        members:
+            - name: Example circular member
+              joint1: joint_number_one
+              joint2: joint_number_two
+              outer_shape:
+                shape: circular
+                outer_diameter:
+                    grid: [0., 1.]
+                    values: [1., 2.]
+              internal_structure: &internal_structure
+                outfitting_factor: 1.0
+                layers:
+                    - name: example_mat_one
+                      material: steel_355
+                      thickness:
+                        grid: [0., 1.]
+                        values: [0.01, 0.005]
+                ring_stiffeners:
+                    material: steel_355
+                    flange_height: 0.1
+                    flange_width: 0.1
+                    web_height: 0.1
+                    web_thickness: 0.01
+                    spacing: 0.2
+                longitudinal_stiffeners:
+                    material: steel_355
+                    flange_height: 0.1
+                    flange_width: 0.1
+                    web_height: 0.1
+                    web_thickness: 0.01
+                    spacing: 1.5707963267948966
+                bulkhead:
+                    material: steel_355
+                    thickness:
+                        grid: [0., 0.1, 0.9, 1.0]
+                        values: [0.01, 0.01, 0.01, 0.01]
+                ballast:
+                    - variable_flag: True
+                      grid: [0.0, 1.0]
+                    - variable_flag: False
+                      material: steel_355
+                      volume: 100
+                      grid: [0.0, 1.0]
+              axial_joints:
+                  - name: Example axial joint
+                    grid: 0.5
+              hydrodynamic_approach: strip
+              Ca: 0.
+              Cp: 0.
+              Cd: 0.
+            - name: Example polygonal member
+              joint1: joint_number_one
+              joint2: joint_number_two
+              outer_shape:
+                shape: polygonal
+                side_lengths1: [1., 1., 1.]
+                side_lengths2: [2., 2., 2.]
+                rotation: 0.
+                angles: [0., 0., 0.]
+              internal_structure: *internal_structure
+              hydrodynamic_approach: potential
+              Ca: 0.
+              Cp: 0.
+              Cd: 0.
+        # Rigid
+        rigid_bodies:
+            - joint1: joint_number_one
+              mass: 1000.
+              cost: 100000.
+              cm_offset: [0., 0., 0.]
+              moments_of_inertia: [0., 0., 0.]
+              hydrodynamic_approach: both
+              Ca: 0.
+              Cp: 0.
+              Cd: 0.
     # Mooring
     mooring:
-        name: mooring_example
         nodes:
-            - node_id: 1
+            - name: node1
               node_type: fixed
               location: [0., 0., 0.]
-              fairlead_type: rigid
-              anchor_id: 1
               node_mass: 1000.
               node_volume: 1.
               drag_area: 1.
               added_mass: 1.
-            #   anchor_type: 
+              anchor_type: anchor1
+            - name: node2
+              node_type: vessel
+              joint: Example axial joint
+              fairlead_type: rigid
+              node_mass: 1000.
+              node_volume: 1.
+              drag_area: 1.
+              added_mass: 1.
         lines:
-            - line_id: 1
-              line_type: line1
-              unstretched_length: 100.
-              node1_id: 1
-              node2_id: 2
-        line_types:
             - name: line1
+              line_type: line_type1
+              unstretched_length: 100.
+              node1: node1
+              node2: node2
+        line_types:
+            - name: line_type1
               diameter: 0.1
               mass_density: 10000.
               stiffness: 1.e+9
@@ -401,28 +402,96 @@ assembly:
     drivetrain: Geared
     rotor_orientation: Upwind
     number_of_blades: 3
+# Actuators
+actuators:
+    generator:
+        rated_power: 3.37e+6
+        max_torque_rate: 1.5e+6
+        max_gen_speed: 1.267
+    pitch:
+        fine_pitch: 0.0174
+        max_pitch_rate: 0.1221
+        pitch_act_bw: 3.14
+        max_pitch: 1.57
+        min_pitch: 0
+    hss_brake:
+        torque: 1.0e+7
+        start_time: 50
+        duration: 1
+
 # Control
 control:
-    rated_power: 3.37e+6
-    Vin: 3.0
-    Vout: 25.0
-    minOmega: 0.723
-    maxOmega: 1.267
-    tsr: 8.01754386
-    pitch: 0.0174
-    maxTS: 80.
-    max_pitch_rate: 0.1221
-    max_torque_rate: 1.5e+6
-    PC_zeta: 1.0    
-    PC_omega: 0.2   
-    VS_zeta: 1.0    
-    VS_omega: 0.2   
-    max_pitch: 1.57 
-    min_pitch: 0    
-    vs_minspd: 0    
-    ss_vsgain: 1    
-    ss_pcgain: .001 
-    ps_percent: 0.8 
+    supervisory:
+        Vin: 3.0
+        Vout: 25.0
+        maxTS: 80.
+
+    torque:
+        control_type: tsr_tracking
+        tsr: 8.01754386
+        VS_zeta: 1.0
+        VS_omega: 0.2
+        VS_minspd: 0.732
+
+    pitch:
+        PC_zeta: 1.0
+        PC_omega: 0.2
+        ps_percent: 0.8
+        IPC:
+            IPC_gain_1P: 1.0e+5
+            IPC_phase_1P: .2
+            IPC_filt_1P:
+                filt_type: user_defined
+                filt_def:
+                    num: [1,1,2]
+                    den: [1,2,4]
+                    dt: .125
+        OL_BP:
+            time: [0,1,2]
+            value: [1,1,5]
+            optimize: true
+
+    setpoint_smoother:
+        ss_vsgain: 1
+        ss_pcgain: .001
+
+    soft_cut_out:
+        wind_speeds: [0,10,20,40]
+        power_reference: [1,1,.7,0]
+
+
+    shutdown:
+        limit_type: pitch
+        limit_value:  .3
+        pitch_rate: .1
+        open_loop_pitch:
+            time: [10,10]
+            pitch: [10,20]
+
+    user_defined_SS_1:
+        sensors: ["gen_speed"]
+        actuators: ["pitch"]
+        control_model:
+            ss_A: [1,1,1,1]
+            ss_B: [2]
+            ss_C: [1,0,0,0]
+            ss_D: [0]
+        activator:
+            wind_speeds: [10,20]
+            act_gain   : [1,1]
+
+    user_defined_TF_1:
+        sensor: "wind_speed_estimate"
+        actuator: "torque"
+        control_model:
+            num: [1,1]
+            den: [2,3]
+
+    user_defined_OL_1:
+        actuator: "pitch"
+        timeseries:
+            time: [0,10,20]
+            value: [1,2,3]
 # Environment
 environment:
     air_density: 1.225
@@ -434,6 +503,25 @@ environment:
     water_dyn_viscosity: 1.3351e-3
     soil_shear_modulus: 140.e+6
     soil_poisson: 0.4
+# BOS
+bos:
+    plant_turbine_spacing: 7
+    plant_row_spacing: 7
+    commissioning_pct: 0.01
+    decommissioning_pct: 0.15
+    distance_to_substation: 2.0
+    distance_to_interconnection: 30.0
+    interconnect_voltage: 130.0
+    distance_to_site: 100
+    distance_to_landfall: 30
+    port_cost_per_month: 2.e+6
+    site_auction_price: 10.e+6
+    site_assessment_plan_cost: 1.e+6
+    site_assessment_cost: 1.e+6
+    construction_operations_plan_cost: 1.e+6
+    boem_review_cost: 1.e+6
+    design_install_plan_cost: 1.e+6
+
 # Costs
 costs:
     wake_loss_factor: 0.15
