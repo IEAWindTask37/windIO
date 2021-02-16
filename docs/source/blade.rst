@@ -116,7 +116,7 @@ The sub-field :code:`layers` define the layers of the wind turbine blade. In mos
 :code:`n_plies` : Float
     In addition or in alternative to the dimensional thickness, the discrete number of plies of a composite laminate can be defined by the user. Notably, the ply thickness is a material property (not a layer property) and it is defined in the top-level field materials.
 :code:`fiber_orientation` : Float, rad
-    For composite laminates, the orientation of the fibers in radians can be specified. Looking from blade root, positive angles represent a rotation of the fibers towards the leading edge of the blade.
+    For composite laminates, the orientation of the fibers in radians can be specified. Looking from blade root, positive angles represent a rotation of the fibers towards the leading edge of the blade. Note that the angles are in respect to the cross section local reference system, not the reference system at blade root. 
 
 The position of the layer in the 2D section can be specified in various ways. If nothing is defined, this assumes that the sub-field :code:`start_nd_arc` is equal to 0 and the sub-field :code:`end_nd_arc` is equal to 1. This means that the layer wraps the whole section, such as in the example below for the outer paint. This definition of a layer should be used also for example for the outer shell skin, which tyoically wraps the whole section.
 
