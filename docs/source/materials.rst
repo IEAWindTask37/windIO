@@ -24,15 +24,15 @@ windIO defines a material database, which consists of a list of entries each mar
 :code:`nu` : Float (:code:`orth=0`), array of three floats (:code:`orth=1`)
     Poisson ratio. For orthotropic materials, it consists of an array with nu12, nu13, and nu23.
 :code:`Xt` : Float (:code:`orth=0`), array of three floats (:code:`orth=1`), Pa
-    Ultimate tensile strength. For orthotropic materials, it consists of an array with Xt11, Xt13, and Xt23.
+    Ultimate tensile strength. For orthotropic materials, it consists of an array with Xt11, Xt22, and Xt33.
 :code:`Xc` : Float (:code:`orth=0`), array of three floats (:code:`orth=1`), Pa
-    Ultimate compressive strength. For orthotropic materials, it consists of an array with Xc11, Xc13, and Xc23. Values are defined positive.
+    Ultimate compressive strength. For orthotropic materials, it consists of an array with Xc11, Xc22, and Xc33. Values are defined positive.
 :code:`Xy` : Float, Pa
     Ultimate yield strength.
 :code:`S` : Float (:code:`orth=0`), array of three floats (:code:`orth=1`), Pa
     Ultimate shear strength. For orthotropic materials, it consists of an array with S12, S13, and S23. Values are defined positive.
 :code:`alpha` : Float (:code:`orth=0`) or array of three floats (:code:`orth=1`), 1/K 
-    Thermal coefficient of expansion. For orthotropic materials, it consists of an array with alpha11, alpha13, and alpha23.
+    Thermal coefficient of expansion. For orthotropic materials, it consists of an array with alpha11, alpha22, and alpha33.
 :code:`GIc` : Float, J/m2
      Mode 1 critical energy-release rate.
 :code:`GIIc` : Float, J/m2
