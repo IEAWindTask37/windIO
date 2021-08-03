@@ -15,7 +15,7 @@ required:
     - airfoils
     - materials
     - assembly
-    - actuators
+    #- actuators
     - control
     - environment
     - costs
@@ -31,7 +31,7 @@ properties:
             - hub
             - nacelle
             - tower
-            - foundation
+            #- foundation
         properties:
             blade:
                 type: object
@@ -350,7 +350,7 @@ properties:
                         description: Inputs to WISDEM specific drivetrain sizing tool DriveSE https://www.nrel.gov/docs/fy15osti/63008.pdf
                         required:
                             - gear_ratio
-                            - generator_efficiency
+                            #- generator_efficiency
                         properties:                              
                             gear_ratio:
                                 type: number
