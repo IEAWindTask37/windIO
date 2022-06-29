@@ -11,11 +11,20 @@ Author: [IEA Wind Task 37 Team] (mailto:pietro.bortolotti@nrel.gov)
 
 This software is a version 1.0
 
-## Documentation
+## Documentation and citation
 
 The online documentation can be accessed here <https://windio.readthedocs.io/>
 
-An IEA technical report is in preparation.
+If you use this model in your research or publications, please cite this [IEA technical report](https://doi.org/10.2172/1868328):
+
+    @article{osti_1868328,
+    title = {System Modeling Frameworks for Wind Turbines and Plants: Review and Requirements Specifications},
+    author = {Bortolotti, Pietro and Bay, Christopher and Barter, Garrett and Gaertner, Evan and Dykes, Katherine and McWilliam, Michael and Friis-Moller, Mikkel and Molgaard Pedersen, Mads and Zahle, Frederik},
+    doi = {10.2172/1868328},
+    place = {United States},
+    year = {2022},
+    month = {5}
+    }
 
 ## Example and unit testing
 
