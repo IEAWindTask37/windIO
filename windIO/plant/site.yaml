@@ -1,0 +1,122 @@
+input_format_version: 0
+title: definition of a site
+description: A file used as input or output of a wind plant model (for overall energy
+  production estimation)
+required:
+  - name
+  - boundaries
+  - energy_resource
+
+
+# PROPERTIES
+properties:
+  #~
+  name:
+    title: Name
+    description: Name of the plant site
+    type: string
+  #~
+  boundaries:
+    title: Boundaries
+    description: Definition of the site boundaries
+    type: object
+    oneOf:
+      - required:
+        - polygons
+      - required:
+        - circle
+    properties:
+      #~~
+      polygons:
+        title: Polygons
+        description: A group of polygons that define the site boundary
+        type: array
+        minItems: 1
+        items:
+          type: object
+          items:
+            title: Vertices
+            $ref: "common.yaml#/definitions/coordinates"
+      #~~
+      circle:
+        title: Circle
+        $ref: "site.yaml#/definitions/circle"
+  #~
+  exclusions:
+    title: Exclusions
+    description: Definition of any site exclusions
+    type: object
+    oneOf:
+      - required:
+        - polygons
+      - required:
+        - circle
+    properties:
+      #~~
+      polygons:
+        title: Polygons
+        description: A group of polygons that define the site exclusions
+        type: array
+        minItems: 1
+        items:
+          type: object
+          items:
+            title: Vertices
+            $ref: "common.yaml#/definitions/coordinates"
+      #~~
+      circle:
+        title: Circle
+        $ref: "site.yaml#/definitions/circle"
+
+  #~
+  energy_resource:
+    description: >-
+      TODO
+    $ref: "energy_resource.yaml#"
+       
+  #~
+  bathymetry:
+    title: Bathymetry
+    description: >-
+      TODO - x, y, z
+  elevation:
+    title: Elevation
+    description: >-
+      TODO
+  roads:
+    title: Roads
+    description: >-
+      TODO
+
+
+# DEFINITIONS
+definitions:
+  #~
+  vertices:
+    title: Vertices
+    description: An array of x/y coordinates
+    type: array
+    items:
+      title: Vertex coordinates
+      $ref: "common.yaml#/definitions/coordinates"
+  #~
+  circle:
+    title: Circle
+    description: A circle
+    type: object
+    required:
+      - center
+      - radius
+    additionalProperties: false
+    properties:
+      #~~
+      center:
+        title: Center
+        description: The center coordinate of a circle
+        $ref: "common.yaml#/definitions/coordinate"
+      #~~
+      radius:
+        title: Radius
+        description: The radius of a circle
+        type: number
+        units: m
