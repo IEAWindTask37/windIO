@@ -1,0 +1,11 @@
+name: IEA Wind Task 37 Case Study 1+2 Plant Energy Resource
+wind_resource:
+    wind_direction: [0., 22.5, 45., 67.5,90., 112.5, 135., 157.5,180., 202.5, 225., 247.5,270., 292.5, 315., 337.5]
+    wind_speed: [9.8]
+    probability: 
+        data: [.025, .024, .029, .036,.063, .065,.100, .122,.063, .038, .039, .083, .213, .046, .032, .022]
+        dims: [wind_direction]
+    turbulence_intensity: 
+        data: 0.075
+        dims: []
+    
