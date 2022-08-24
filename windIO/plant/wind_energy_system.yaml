@@ -1,0 +1,138 @@
+input_format_version: 0
+title: IEA Wind Task 37 Wind Energy System Ontology version 0.1
+description: A file used as input or output of a wind farm model
+required:
+  - name
+  - site
+  - wind_farm # Or something referring to the built or "designable" wind energy conversion system
+
+
+# PROPERTIES
+properties:
+  #~
+  name:
+    title: Name
+    description: Name of the wind energy system
+    type: string
+  #~
+  site:
+    $ref: "site.yaml"
+  # #~
+  wind_farm:
+    $ref: "wind_farm.yaml"
+  #~
+  attributes:
+    title: Attributes
+    description: Specific attributes of the entire wind energy system
+    type: object
+    properties:
+      #~~
+      net_AEP:
+        title: Net AEP for the plant/site
+        unit: GWh
+        type: number
+      gross_AEP:
+        title: Gross AEP for the plant/site
+        unit: GWh
+        type: number
+      array_efficiency:
+        title: Wake array efficiency
+        type: number
+        minimum: 0
+        maximum: 1 # Define common decimal data type and refer.
+      analyses:
+        wake_model:
+          title: Wake model
+          description: Wake model used in AEP calculations
+          type: object
+          additionalProperties: true
+          properties:
+            name:
+              title: Wake model name
+              type: string
+  optimisation:
+    design_variables:
+      title: List of design variables
+      description: Design variables of the system
+      type: object
+      properties:
+        layout:
+          name:
+            title: Array of design variables
+          $ref: "wind_farm/properties/layouts"
+        turbine_types:
+          name:
+            title: Wind turbine types installed
+          $ref: "wind_farm/properties/turbines"
+        number_turbines:
+          name:
+            title: Number of turbines installed
+        turbine_hub_heights:
+          name:
+            title: Hub heights of installed turbines
+
+    method:
+      title: Optimisation method
+      description: Optimisation method used for layout design
+      type: object
+      properties:
+        name:
+          title: Optimisation method name
+          type: string
+    constraints:
+      title: Optimisation constraints functions
+      description: List of constraint functions
+      type: object
+      properties:
+        minimum_spacing:
+          title: Minimum inter-turbine spacing
+          oneOf:
+            - ellipse:
+              title: Ellipse min. spacing constraint
+              properties:
+                major_axis:
+                  title: Spacing along the ellipse major axis
+                  type: number
+                minor_axis:
+                  title: Spacing along the ellipse minor axis
+                  type: number
+                orientation:
+                  title: Orientation angle of the ellipse
+                  type: number
+            - circle:
+              title: Circular min. spacing constraint
+              properties:
+                radius:
+                  title: Uniform spacing or radius of circle
+                  type: number
+        area_constraints:
+          title: Parcels and exclusion zones
+          parcels:
+            title: List of parcel polygons
+            $ref: "site.yaml#/properties/boundaries"  # Or refer to subset of user defined polygons in /site/
+          exclusion_zones:
+            title: List of exclusion zone polygons
+            $ref: "site.yaml#/properties/exclusions" # Or refer to subset of user defined polygons in /site/
+
+    initial_design:
+      Properties:
+        layout:
+          title: Initial layout
+          $ref: "wind_farm.yaml#/definition/layout"
+        turbine_types:  # Examples for future development
+          title: Initial turbine types
+        number_turbines:
+          title: Initial number turbines
+        turbine_hub_heights:
+          title: Initial turbine hub heights
+    final_design:
+      Properties:
+        layout:
+          title: Final layout
+          $ref: "wind_farm.yaml#/definition/layout"
+        turbine_types:  # Examples for future development
+          title: Final turbine types
+        number_turbines:
+          title: Final number turbines
+        turbine_hub_heights:
+          title: Final turbine hub heights
