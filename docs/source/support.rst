@@ -18,7 +18,7 @@ The :code:`tower` is defined similar to the :code:`blade`.
 
 The field :code:`layers` mimic the same field of the blade.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Tower
     :end-before: # Foundation
 
@@ -27,7 +27,7 @@ Foundation
 
 So far, :code:`foundation` is the simplest component with a single input describing the height of the foundation.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Foundation
     :end-before: # Floating platform
 

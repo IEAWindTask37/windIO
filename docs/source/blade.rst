@@ -9,7 +9,7 @@ outer_shape_bem
 -------------------
 :code:`outer_shape_bem` consists of a dictionary containing the data for blade BEM-based aerodynamics. 
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Blade - Outer Shape BEM
     :end-before: # Blade - Elastic properties
 
@@ -48,7 +48,7 @@ M = [m, 0, 0, 0, 0, -mYcm, m, 0, 0, 0,mXcm, m, mYcm, -mXcm, 0, iedge, -icp, 0, i
 
 where KShrEdg and KShrFlp are the edge and flap shear stiffnesses, respectively; EA is the extension stiffness; EIEdg and EIFlp are the edge and flap stiffnesses, respectively; GJ is the torsional stiffness, m is the mass density per unit span, Xcm and Ycm are the local coordinates of the sectional center of mass, iedge and iflap are the edge and flap mass moments of inertia per unit span, iplr is the polar moment of inertia per unit span, and finally icp is the sectional cross product of inertia per unit span. Please note that for beam-like structures iplr must be equal to iedge plus iflap.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Blade - Elastic properties
     :end-before: # Internal Structure 2D FEM
 
@@ -70,7 +70,7 @@ The field :code:`webs` consists of a list of entries, each representing a shear 
 
 The first (and usually most convenient) way to define the position of a shear web is by defining the fields :code:`rotation` and :code:`offset_y_pa`, which are distributed along span and are therefore described in terms of :code:`grid` and :code:`values` pairs.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Webs
     :end-before: # Web 2
 
@@ -88,7 +88,7 @@ Blades with straight shear webs will always have the field rotation equal to the
 
 The second approach to define the position of a shear web is by defining the fields :code:`start_nd_arc` and :code:`end_nd_arc`, which are also distributed along span and are therefore also described in terms of :code:`grid` and :code:`values` pairs.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Web 2
     :end-before: # Layers
 
@@ -120,13 +120,13 @@ The sub-field :code:`layers` define the layers of the wind turbine blade. In mos
 
 The position of the layer in the 2D section can be specified in various ways. If nothing is defined, this assumes that the sub-field :code:`start_nd_arc` is equal to 0 and the sub-field :code:`end_nd_arc` is equal to 1. This means that the layer wraps the whole section, such as in the example below for the outer paint. This definition of a layer should be used also for example for the outer shell skin, which tyoically wraps the whole section.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Layer 1
     :end-before: # Layer 2
 
 The most convenient approach to define the position of spar caps mimics the definition of the shear webs, adding the width and side that define the width of the layer in meters and the side where the layer is located, either “pressure” or “suction”. 
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Layer 3
     :end-before: # Layer 4
 
@@ -141,7 +141,7 @@ The most convenient approach to define the position of spar caps mimics the defi
 
 To define reinforcements, the best way is usually to define the width, in meters, and the midpoint, named :code:`midpoint_nd_arc` and defined nondimensional between 0 and 1. Converters should be able to look for the leading edge, marked as LE.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Layer 4
     :end-before: # Layer 5
 
@@ -155,7 +155,7 @@ Similar combinations can be constructed with the combination of :code:`width` an
 
 Finally, for composite layers belonging to the shear webs, a tag :code:`web` should contain the name of the web. The layers are then modeled from leading edge to trailing edge in the order they were specified.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Web layer
     :end-before: # Hub
 

@@ -7,7 +7,7 @@ Actuators
 ************
 
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Actuators
     :end-before: # Control
 
@@ -98,7 +98,7 @@ Control
 ***********
 
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Control
     :end-before: # Environment
 
