@@ -1381,7 +1381,8 @@ properties:
                     oneOf:
                         - type: number
                           unit: none
-                          minimum: 0
+                          minimum: -1.
+                          maximum: 0.5
                         - type: array
                           items:
                             type: number
@@ -1389,8 +1390,6 @@ properties:
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
-                            minimum: 0
-                            maximum: 0.6
                 alpha:
                     description: Thermal coefficient of expansion
                     oneOf:
