@@ -3,7 +3,7 @@ Hub
 ================
 The field :code:`hub` describes the hub system from an aeroelastic perspective, distinguishing between aerodynamic and elastic properties, added in the fields :code:`outer_shape_bem` and :code:`elastic_properties_mb` respectively.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Hub
     :end-before: # Nacelle
 
@@ -31,7 +31,7 @@ Nacelle
 
 The field :code:`nacelle` describes the nacelle system from an aeroelastic perspective, distinguishing between aerodynamic and elastic properties, added in the fields :code:`outer_shape_bem` and :code:`elastic_properties_mb` respectively. An addition field :code:`drivetrain` is optional and defines some of the inputs used to size the drivetrain components.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Nacelle
     :end-before: # end nacelle
 

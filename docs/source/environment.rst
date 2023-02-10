@@ -3,7 +3,7 @@ Environment
 
 The field :code:`environment` includes the data characterizing air and water.
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Environment
     :end-before: # Costs
 

@@ -1,0 +1,43 @@
+name: IEA Wind Task 37 Plant Energy Resource
+wind_resource:
+  probability:
+    data:
+    - 0.025
+    - 0.024
+    - 0.029
+    - 0.036
+    - 0.063
+    - 0.065
+    - 0.1
+    - 0.122
+    - 0.063
+    - 0.038
+    - 0.039
+    - 0.083
+    - 0.213
+    - 0.046
+    - 0.032
+    - 0.022
+    dims:
+    - wind_direction
+  turbulence_intensity:
+    data: 0.075
+    dims: []
+  wind_direction:
+  - 0.0
+  - 22.5
+  - 45.0
+  - 67.5
+  - 90.0
+  - 112.5
+  - 135.0
+  - 157.5
+  - 180.0
+  - 202.5
+  - 225.0
+  - 247.5
+  - 270.0
+  - 292.5
+  - 315.0
+  - 337.5
+  wind_speed: 9.8
