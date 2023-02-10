@@ -1,0 +1,10 @@
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - jsonschema
+  - numpy
+  - pyyaml
+  - pytest
+  - xarray
