@@ -12,5 +12,6 @@ def test_3_350_turbine():
     npt.assert_equal(wt.diameter(), ref.diameter())
     npt.assert_equal(wt.hub_height(), ref.hub_height())
     u = np.linspace(0, 30, 100)
-    npt.assert_array_equal(wt.power(u)[0], ref.power(u)*1e3)
+    npt.assert_array_almost_equal(wt.power(u), ref.power(u))
+    u = np.linspace(4, 25, 100)
     npt.assert_array_almost_equal(wt.ct(u), ref.ct(u))
