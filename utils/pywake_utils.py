@@ -1,18 +1,18 @@
 import numpy as np
 import xarray as xr
-from plant.examples.utils.yml_utils import load_yaml, XrResourceLoader
-from py_wake.wind_turbines import OneTypeWindTurbines
-from py_wake.wind_turbines.power_ct_functions import CubePowerSimpleCt
+from utils.yml_utils import load_yaml, XrResourceLoader
+from py_wake.wind_turbines import WindTurbine
+from py_wake.wind_turbines.power_ct_functions import CubePowerSimpleCt, PowerCtFunctions
 from py_wake.site.xrsite import XRSite
-from plant.examples.utils import examples_data_path
 from py_wake.deficit_models.gaussian import IEA37SimpleBastankhahGaussian
 import matplotlib.pyplot as plt
+from test.plant import examples_data_path
 
 
 def yml2Site(yml, interp_method='nearest'):
     resource = load_yaml(yml, XrResourceLoader)
-    if 'plant_energy_resource' in resource:
-        resource = resource['plant_energy_resource']
+    if 'energy_resource' in resource:
+        resource = resource['energy_resource']
     data = resource['wind_resource']
     ds = xr.Dataset({k: (v['dims'], v['data']) for k, v in data.items() if hasattr(v, 'keys') and 'dims' in v},
                     coords={k: v for k, v in data.items() if not hasattr(v, 'keys')})
@@ -20,7 +20,8 @@ def yml2Site(yml, interp_method='nearest'):
 
 
 def xr2Site(ds, interp_method='nearest'):
-    ds = ds.rename(**{k: v for k, v in [('wind_direction', 'wd'),
+    ds = ds.rename(**{k: v for k, v in [('height', 'h'),
+                                        ('wind_direction', 'wd'),
                                         ('wind_speed', 'ws'),
                                         ('wind_turbine', 'i'),
                                         ('probability', 'P'),
@@ -43,18 +44,26 @@ def yml2WindTurbines(yml):
     elif 'cp_curve' in power:
         raise NotImplementedError()
     else:
-        power_func = CubePowerSimpleCt(ws_cutin=power['cutin_wind_speed'],
-                                ws_cutout=power['cutout_wind_speed'],
-                                ws_rated=power['rated_wind_speed'],
-                                power_rated=power['rated_power'])
+        ws_cutin = power['cutin_wind_speed']
+        ws_cutout = power['cutout_wind_speed']
+        ws_rated = power['rated_wind_speed']
+        power_rated = power['rated_power']
+
+        def power_func(ws):
+            ws = np.asarray(ws)
+
+            return np.where((ws > ws_cutin) & (ws <= ws_cutout),
+                            np.minimum(power_rated * ((ws - ws_cutin) / (ws_rated - ws_cutin))**3,
+                                       power_rated),
+                            0)
 
         def ct_func(ws):
             return np.interp(ws,
                              power['Ct_curve']['Ct_wind_speeds'],
                              power['Ct_curve']['Ct_values'])
 
-    return OneTypeWindTurbines(name=wt['name'], diameter=wt['rotor_diameter'], hub_height=wt['hub_height'],
-                               power_func=power_func, ct_func=ct_func, power_unit='w')
+    return WindTurbine(name=wt['name'], diameter=wt['rotor_diameter'], hub_height=wt['hub_height'],
+                       powerCtFunction=PowerCtFunctions(power_func, 'w', ct_func))
 
 
 def ymlSystem2PyWake(wind_energy_system_yml, windFarmModel):
@@ -68,7 +77,7 @@ def ymlSystem2PyWake(wind_energy_system_yml, windFarmModel):
 
 
 if __name__ == '__main__':
-    wfm, (x, y) = ymlSystem2PyWake(examples_data_path + 'wind_energy_system/IEA37_case_study12_wind_energy_system.yaml',
+    wfm, (x, y) = ymlSystem2PyWake(examples_data_path + 'wind_energy_system/IEA37_case_study_1_2_wind_energy_system.yaml',
                                    IEA37SimpleBastankhahGaussian)
     ref = np.array([9444.60012, 8497.90004, 11383.32869, 14173.40367,
                     20979.36776, 25590.86774, 39252.85757, 43197.65856,
