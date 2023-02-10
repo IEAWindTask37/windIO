@@ -4,7 +4,7 @@ Assembly
 
 The field :code:`assembly` includes five entries that aim at describing the overall configuration of the wind turbine:
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Assembly
     :end-before: # Control
 

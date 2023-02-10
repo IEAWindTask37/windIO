@@ -1,0 +1,237 @@
+# Draft schema definition for energy resource
+input_format_version: 0
+title: Energy resource
+type: object
+description: >-
+  A description of the wind resource available within a site. The wind resource
+  can be specified at one location within the site, or at multiple locations.
+  At each point specified within the site, the wind resource can be detailed in
+  several different ways.
+required:
+  - name
+  - wind_resource
+additionalProperties: false
+
+
+# PROPERTIES
+properties:
+  #~
+  name:
+    title: Name
+    description: Name of the plant resource
+    type: string
+  #~
+  wind_resource:
+    title: Wind resource
+    type: object
+    decription: Resource where data optionally depend on wind_speed, wind_direction and/or position
+    additionalProperties: false    
+    oneOf:
+        - required: 
+          - probability
+        - required:
+          - weibull_a
+          - weibull_k
+          - sector_probability
+    properties:
+        wind_direction:
+            title: Wind directions
+            description: Wind directions in degrees, [0,360]
+            $ref: "#/definitions/multi_dimensional_coordinate"
+        wind_speed:
+            description: Wind speeds in m/s
+            $ref: "#/definitions/multi_dimensional_coordinate"
+        wind_turbine:
+            title: Wind turbine IDs
+            description: Wind turbine id
+            $ref: "#/definitions/multi_dimensional_coordinate"
+        x:
+            title: West-East position
+            oneOf:
+              - $ref: "#/definitions/multi_dimensional_data"
+              - $ref: "#/definitions/multi_dimensional_coordinate"
+        y:
+            title: South-North position
+            oneOf:
+              - $ref: "#/definitions/multi_dimensional_data"
+              - $ref: "#/definitions/multi_dimensional_coordinate"
+        height:
+            title: Reference height
+            oneOf:
+              - $ref: "#/definitions/multi_dimensional_data"
+              - $ref: "#/definitions/multi_dimensional_coordinate" 
+        probability:
+            description: Probability of flow cases [0,1]
+            $ref: "#/definitions/multi_dimensional_data"
+        weibull_a:
+            title: Weibull scale
+            $ref: "#/definitions/multi_dimensional_data"
+        weibull_k:
+            title: Weibull shape
+            $ref: "#/definitions/multi_dimensional_data"
+        sector_probability:
+            title: probability of wind directions
+            description: Probability of wind sector [0,1]
+            $ref: "#/definitions/multi_dimensional_data"
+        turbulence_intensity:
+            title: Turbulence intensity
+            $ref: "#/definitions/multi_dimensional_data"
+        reference_height:
+            title: Reference height
+            type: number
+        shear:
+            title: Shear
+            $ref: "#/definitions/shear"
+             
+        
+
+
+# DEFINITIONS
+definitions:
+  reference_height:
+    title: Reference height
+    type: number
+  shear:
+    title: Shear
+    type: object
+    required:
+      - alpha
+      - h_ref
+    properties:
+      alpha:
+        title: Alpha
+        type: number
+      h_ref:
+        title: Shear ref height
+        type: number
+
+  
+#     speedup:
+#       title: Speedup
+#       type: object
+#       required:
+#         - values
+#         - dimension
+#       properties:
+#         values:
+#           type: array
+#           items:
+#             type: number
+#         dimension:
+#           type: number
+#     turning:
+#       title: Turning
+#       type: object
+#       required:
+#         - values
+#         - dimension
+#       properties:
+#         values:
+#           type: array
+#           items:
+#             type: number
+#         dimension:
+#           type: number
+#     inflow_angle:
+#       title: Inflow angle
+#       type: object
+#       required:
+#         - values
+#         - dimension
+#       properties:
+#         values:
+#           type: array
+#           items:
+#             type: number
+#         dimension:
+#           type: number
+#     rho:
+#       title: Air density
+#       type: object
+#       required:
+#         - values
+#         - dimension
+#       properties:
+#         values:
+#           type: array
+#           items:
+#             type: number
+#         dimension:
+#           type: number
+#     shear:
+#       title: Shear
+#       type: object
+#       required:
+#         - alpha
+#         - h_ref
+#       properties:
+#         alpha:
+#           title: Alpha
+#           type: object
+#           required:
+#             - values
+#             - dimension
+#           properties:
+#             values:
+#               type: array
+#               items:
+#                 type: number
+#             dimension:
+#               type: number
+#         h_ref:
+#           title: Shear ref height
+#           type: object
+#           required:
+#             - values
+#             - dimension
+#           properties:
+#             values:
+#               type: array
+#               items:
+#                 type: number
+#             dimension:
+#               type: number
+  
+  
+               
+  multi_dimensional_data:
+    oneOf:
+      - $ref: "#/definitions/dimensional_data"
+      - $ref: "#/definitions/nondimensional_data"
+      
+  dimensional_data:
+    title: Data with custom dimensions
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: [array, number]
+      dims:
+        type: array
+        
+  nondimensional_data:
+    title: Data with custom dimensions
+    type: object
+    properties:
+      data:
+        type: number
+      dims:
+        type: array
+        maxItems: 0
+        
+  multi_dimensional_coordinate:
+    oneOf:
+      - $ref: "#/definitions/dimensional_coordinate"
+      - $ref: "#/definitions/nondimensional_coordinate"
+  
+  dimensional_coordinate:
+    title: Data with custom dimensions
+    type: array
+    items:
+      type: number
+    
+  nondimensional_coordinate:
+    title: Data with custom dimensions
+    type: number
+  

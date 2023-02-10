@@ -1,0 +1,11 @@
+name: IEA Wind Task 37 case study 3.35MW Onshore Reference Turbine
+performance:
+  rated_power: 3350000
+  rated_wind_speed: 9.8
+  cutin_wind_speed: 4.0
+  cutout_wind_speed: 25.0
+  Ct_curve:
+    Ct_values: [0,0,.888888889,.888888889,0,0]
+    Ct_wind_speeds: [0,3.99,4, 25,25.01,100.0]
+hub_height: 110.0
+rotor_diameter: 130.0

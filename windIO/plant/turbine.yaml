@@ -1,0 +1,127 @@
+input_format_version: 0
+title: Turbine Definition
+type: object
+description: >-
+  A simplified (from the turbine schema) definition of the turbines used in the plant.
+required:
+  - name
+  - performance
+  - hub_height
+  - rotor_diameter
+
+
+# PROPERTIES
+properties:
+  #~
+  name:
+    title: Name
+    description: Name of the turbine definition
+    type: string
+  #~
+  performance:
+    title: Performance
+    description: Definition of the turbine performance characteristics
+    type: object
+    oneOf:
+      - required:
+        - Cp_curve
+        - Ct_curve
+      - required:
+        - power_curve
+        - Ct_curve
+      - required:
+        - rated_power
+        - rated_wind_speed
+        - cutin_wind_speed
+        - cutout_wind_speed
+        - Ct_curve
+    properties:
+      #~~
+      Cp_curve:
+        title: Cp curve
+        description: A turbine Cp curve
+        type: object
+        required:
+          - Cp_values
+          - Cp_wind_speeds
+        properties:
+          #~~~
+          Cp_values:
+            title: Cp values
+            description: An array of Cp values
+            type: array
+          Cp_wind_speeds:
+            title: Wind speed values
+            description: Wind speed values for the matching Cp values
+            type: array
+      #~~
+      power_curve:
+        title: Power curve
+        description: A tubine power curve
+        type: object
+        required:
+          - power_values
+          - power_wind_speeds
+        properties:
+          #~~~
+          power_values:
+            title: Power values
+            description: An array of power values
+            type: array
+          power_wind_speeds:
+            title: Wind speed values
+            description: Wind speed values for the matching power values
+            type: array
+      #~~
+      Ct_curve:
+        title: Ct curve
+        description: A turbine Ct curve
+        type: object
+        required:
+          - Ct_values
+          - Ct_wind_speeds
+        properties:
+          #~~~
+          Ct_values:
+            title: Ct values
+            description: An array of Ct values
+            type: array
+          Ct_wind_speeds:
+            title: Wind speed values
+            description: Wind speed values for the matching Ct values
+            type: array
+      #~~
+      rated_wind_speed:
+        title: Rated wind speed
+        type: number
+        units: m/s
+      #~~
+      cutin_wind_speed:
+        title: Cut-in wind speed
+        type: number
+        units: m/s
+      #~~
+      cutout_wind_speed:
+        title: Cut-out wind speed
+        type: number
+        units: m/s
+      #~~
+      rated_power:
+        title: Rated speed
+        type: number
+        units: W
+  #~
+  hub_height:
+    title: Hub height
+    type: number
+    units: m
+  #~
+  rotor_diameter:
+    title: Rotor diameter
+    type: number
+    units: m
+  #~
+  TSR:
+    title: Tip-speed ratio
+    type: number
+      

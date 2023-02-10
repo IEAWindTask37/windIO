@@ -1,0 +1,2 @@
+name: Hornsrev1 Energy Resource
+wind_resource: !include UniformWeibullResource.nc
