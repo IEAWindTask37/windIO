@@ -1,0 +1,45 @@
+definitions:
+  coordinate:
+    title: Coordinate
+    description: Point coordinate
+    type: object
+    required:
+      - x
+      - y
+    additionalProperties: false
+    properties:
+      x:
+        title: X coordinate
+        description: West-East coordinate
+        type: number
+        units: m
+      y:
+        title: Y coordinate
+        description: South-North coordinate
+        type: number
+        units: m
+  #~
+  coordinates:
+    title: Coordinates
+    description: Multi-point coordinates
+    type: object
+    required:
+      - x
+      - y
+    additionalProperties: false
+    properties:
+      x:
+        title: X coordinates
+        description: West-East coordinates
+        type: array
+        units: m
+      y:
+        title: Y coordinates
+        description: South-North coordinates
+        type: array
+        units: m
+  data_types:
+    decimal:
+      type: number
+      minimum: 0
+      maximum: 1

@@ -5,7 +5,7 @@ import yaml
 
 
 path2schema = (
-    os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
     + os.sep
     + "windIO"
     + os.sep
@@ -16,11 +16,11 @@ path2schema = (
 
 
 class TestRegression(unittest.TestCase):
-    def test_IEA_15_240_RWT(self):
+    def test_IEA_3_4_130_RWT(self):
         path2yaml = (
             os.path.dirname(os.path.realpath(__file__))
             + os.sep
-            + "IEA-15-240-RWT.yaml"
+            + "turbine_example.yaml"
         )
         # Read the input yaml
         with open(path2yaml, "r") as myfile:
@@ -36,33 +36,8 @@ class TestRegression(unittest.TestCase):
             yaml.load(schema, Loader=yaml.FullLoader),
         )
 
-        # Move it to a dictionary
-        _ = yaml.load(inputs, Loader=yaml.FullLoader)
-
-        return None
-
-    def test_IEA_15_240_RWT_VolturnUS_S(self):
-        path2yaml = (
-            os.path.dirname(os.path.realpath(__file__))
-            + os.sep
-            + "IEA-15-240-RWT.yaml"
-        )
-        # Read the input yaml
-        with open(path2yaml, "r") as myfile:
-            inputs = myfile.read()
-
-        # Read the schema
-        with open(path2schema, "r") as myfile:
-            schema = myfile.read()
-
-        # Run the validate class from the jsonschema library
-        validate(
-            yaml.load(inputs, Loader=yaml.FullLoader),
-            yaml.load(schema, Loader=yaml.FullLoader),
-        )
-
-        # Move it to a dictionary
-        _ = yaml.load(inputs, Loader=yaml.FullLoader)
+        # Move it to a dictionary called wt_data
+        wt_data = yaml.load(inputs, Loader=yaml.FullLoader)
 
         return None
 
