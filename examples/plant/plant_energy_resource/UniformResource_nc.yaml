@@ -1,0 +1,2 @@
+name: IEA Wind Task 37 Plant Energy Resource
+wind_resource: !include UniformResource.nc

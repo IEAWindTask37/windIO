@@ -3,7 +3,7 @@ Airfoils
 
 windIO describes the airfoils in terms of coordinates and polars. The yaml entry airfoils consists of a list of elements. 
 
-.. literalinclude:: ../../test/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/turbine_example.yaml
     :start-after: # Airfoils
     :end-before: # Materials
 
