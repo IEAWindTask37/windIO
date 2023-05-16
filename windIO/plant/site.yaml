@@ -75,10 +75,42 @@ properties:
     $ref: "energy_resource.yaml#"
        
   #~
-  bathymetry:
+  Bathymetry:
     title: Bathymetry
-    description: >-
-      TODO - x, y, z
+    description: x, y, and depth field of water depth
+    oneOf:
+      - type: object
+        required:
+          - x
+          - y
+          - depth
+        properties:
+          x:
+            type: array
+            items:
+              type: number
+            description: "An array of x-coordinate values"
+          y:
+            type: array
+            items:
+              type: number
+            description: "An array of y-coordinate values"
+          depth:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+            description: "A 2D array of depth values"
+      - type: object
+        required:
+          - xydepthFile
+        properties:
+          xydepthFile:
+            type: string
+            description: "The path to the file containing the x, y, and depth values"
+
+  
   elevation:
     title: Elevation
     description: >-
