@@ -98,19 +98,9 @@ properties:
           depth:
             type: array
             items:
-              type: array
-              items:
-                type: number
-            description: "A 2D array of depth values"
-      - type: object
-        required:
-          - xydepthFile
-        properties:
-          xydepthFile:
-            type: string
-            description: "The path to the file containing the x, y, and depth values"
+              type: number
+            description: "A array of depth values"
 
-  
   elevation:
     title: Elevation
     description: >-
