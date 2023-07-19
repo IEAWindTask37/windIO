@@ -7,4 +7,19 @@ attributes:
       name: foxes
     wake_model:
       name: Bastankhah’s Gaussian wake model (simplified version)
-      
+    outputs:
+      AEP: True
+      AEP_per_turbine: True
+      power_percentiles:
+          report: True
+          percentiles: [5, 10, 50, 90, 95]
+      flow_field:
+          directions: [0]
+          speeds: [8.11] 
+          output_variables:  
+            - velocity_u
+            - turbulence_intensity
+      power_table:
+          - 'power_per_turbine' 
+
+
