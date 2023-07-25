@@ -33,6 +33,8 @@ properties:
           - weibull_a
           - weibull_k
           - sector_probability
+        - required:
+          - timeseries
     properties:
         wind_direction:
             title: Wind directions
@@ -82,6 +84,13 @@ properties:
         shear:
             title: Shear
             $ref: "#/definitions/shear"
+        timeseries:
+          title: Timeseries
+          description: Timeseries for wind conditions
+          type: array
+          items:
+            $ref: "#/definitions/timeseries_entry"
+            
              
         
 
@@ -235,3 +244,28 @@ definitions:
     title: Data with custom dimensions
     type: number
   
+  timeseries_entry:
+    title: Timeseries Entry
+    type: object
+    required:
+      - time
+      - speed
+      - direction
+    properties:
+      time:
+        type: string
+        format: date-time
+        description: Timestamp of the data point
+      speed:
+        type: number
+        description: Wind speed at the given time
+      direction:
+        type: number
+        description: Wind direction at the given time
+      shear:
+        type: number
+        description: Shear at the given time
+      density:
+        type: number
+        description: Density at the given time
+

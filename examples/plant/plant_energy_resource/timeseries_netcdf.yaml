@@ -1,0 +1,4 @@
+name: Custom Energy Resource Case Study
+wind_resource:
+    timeseries: !includeTimeseriesNetCDF "first_three_times.nc"
+
