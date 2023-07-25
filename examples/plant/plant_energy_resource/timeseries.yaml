@@ -1,0 +1,13 @@
+name: Custom Energy Resource Case Study
+wind_resource:
+    timeseries:
+      - time: '2023-07-25T00:00:00Z'
+        speed: 5
+        direction: 0
+      - time: '2023-07-25T01:00:00Z'
+        speed: 15
+        direction: 30
+      - time: '2023-07-25T02:00:00Z'
+        speed: 10
+        direction: 60
+

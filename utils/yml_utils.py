@@ -22,6 +22,20 @@ class Loader(yaml.SafeLoader):
         with open(filename, 'r') as f:
             return yaml.load(f, self.__class__)
 
+    def includeTimeseriesNetCDF(self, node):
+        filename = os.path.join(self._root, self.construct_scalar(node))
+        # Load the NetCDF file as a timeseries xarray.Dataset
+        timeseries = xr.open_dataset(filename)
+        # Convert the xarray.Dataset to a list of dictionaries (or any format you prefer)
+        timeseries_dicts = [{**{'time': str(time)}, **{var: float(data_vars[var].values) for var in data_vars.keys()}} 
+                    for time, data_vars in timeseries.groupby('time')]
+
+
+
+
+        return timeseries_dicts
+
+Loader.add_constructor('!includeTimeseriesNetCDF', Loader.includeTimeseriesNetCDF)
 
 Loader.add_constructor('!include', Loader.include)
 
