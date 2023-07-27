@@ -22,8 +22,19 @@ class Loader(yaml.SafeLoader):
         with open(filename, 'r') as f:
             return yaml.load(f, self.__class__)
 
+    def includeBathymetryNetCDF(self, node):
+        filename = os.path.join(self._root, self.construct_scalar(node))
+        dataset = xr.open_dataset(filename)
+
+        # Convert xarray Dataset to dictionary
+        bathymetry_data = {variable: list(dataset[variable].values.flatten()) for variable in dataset.variables}
+
+        return bathymetry_data
+
+
 
 Loader.add_constructor('!include', Loader.include)
+Loader.add_constructor('!includeBathymetryNetCDF', Loader.includeBathymetryNetCDF)
 
 
 class XrResourceLoader(Loader):
