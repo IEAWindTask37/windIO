@@ -1,7 +1,7 @@
 import yaml
 import os
-from utils import plant_schemas_path, plant_examples_data_path
-from utils.yml_utils import validate_yaml, XrResourceLoader
+from windIO.utils import plant_schemas_path, plant_examples_data_path
+from windIO.utils.yml_utils import validate_yaml, XrResourceLoader
 
 
 if __name__ == '__main__':
