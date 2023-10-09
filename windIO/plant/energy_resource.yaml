@@ -161,23 +161,46 @@ definitions:
     type: object
     required:
       - time
-      - speed
       - direction
+      - speed
     properties:
       time:
         type: string
         format: date-time
         description: Timestamp of the data point
       speed:
-        type: number
-        description: Wind speed at the given time
+        description: Wind speed at the given time, either for a specific height or representing vertical variation
+        oneOf:
+          - type: number
+          - type: array
+            items:
+              type: number
       direction:
         type: number
         description: Wind direction at the given time
-      shear:
-        type: number
-        description: Shear at the given time
-      density:
-        type: number
-        description: Density at the given time
+      zs:
+        type: array
+        description: Vertical positions in meters
+        items:
+          type: number
+      temperature:
+        description: Temperature in Kelvin
+        type: array
+        items:
+          type: number
+      tauxst:
+        description: Shear stress in x direction
+        type: array
+        items:
+          type: number
+      tauyst:
+        description: Shear stress in y direction
+        type: array
+        items:
+          type: number
+      veer:
+        description: Wind veer relative to the inflow direction
+        type: array
+        items:
+          type: number
 
