@@ -1,4 +1,4 @@
 name: Custom Energy Resource Case Study
 wind_resource:
-    timeseries: !includeTimeseriesNetCDF "HourlyVariation_atHubHeight.nc"
+    timeseries: !includeTimeseriesNetCDF "verticalVariationTimeseries.nc"
 
