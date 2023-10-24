@@ -1,6 +1,6 @@
-from utils import plant_examples_data_path
-from utils.yml_utils import load_yaml
-from utils.pywake_utils import ymlSystem2PyWake
+from windIO.utils import plant_examples_data_path
+from windIO.utils.yml_utils import load_yaml
+from windIO.utils.pywake_utils import ymlSystem2PyWake
 from py_wake.deficit_models.gaussian import IEA37SimpleBastankhahGaussian
 import numpy as np
 import numpy.testing as npt
@@ -13,7 +13,7 @@ try:
     from topfarm.cost_models.py_wake_wrapper import PyWakeAEPCostModelComponent
     from topfarm.constraint_components.boundary import CircleBoundaryConstraint
     from topfarm.plotting import XYPlotComp
-    from utils.topfarm_utils import ymlSystem2TopFarm
+    from windIO.utils.topfarm_utils import ymlSystem2TopFarm
     from test.plant import examples_data_path
 except ModuleNotFoundError:
     topfarm = None
