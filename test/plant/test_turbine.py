@@ -1,5 +1,5 @@
-from utils.pywake_utils import yml2WindTurbines
-from utils import plant_examples_data_path
+from windIO.utils.pywake_utils import yml2WindTurbines
+from windIO.utils import plant_examples_data_path
 from py_wake.examples.data.iea37._iea37 import IEA37_WindTurbines
 import numpy.testing as npt
 import numpy as np
