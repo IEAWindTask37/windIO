@@ -1,5 +1,5 @@
 
-from utils.pywake_utils import yml2Site, xr2Site
+from windIO.utils.pywake_utils import yml2Site, xr2Site
 import numpy.testing as npt
 import numpy as np
 import pytest
