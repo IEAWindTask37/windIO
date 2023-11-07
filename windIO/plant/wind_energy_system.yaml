@@ -39,8 +39,8 @@ properties:
             enum: ["foxes", "pywake", "saturne", "KUL"]
       analyses:
         wake_model:
-          title: Wake model
-          description: Wake model used in AEP calculations
+          title: Deficit model
+          description: Wake deficit model used in AEP calculations
           type: object
           additionalProperties: true
           properties:
@@ -48,3 +48,54 @@ properties:
               title: Wake model name
               type: string
               enum: ["Jensen", "Bastankhah"]
+            k:
+              title: wake expansion coefficient
+              type: float
+            
+          title: Deflection model
+          description: Deflection model used in AEP calculations
+          type: object
+          additionalProperties: true
+          properties:
+            name:
+              title: Deflection model name
+              type: string
+              enum: ["Jimenez"]
+            beta:
+              title: Jimenez deflection coefficient
+              type: float
+            
+          title: Turbulence model
+          description: Turbulence model used in AEP calculations
+          type: object
+          additionalProperties: true
+          properties:
+            name:
+              title: Turbulence model name
+              type: string
+              enum: ["STF2005", "STF2007"]
+            c1:
+              title: STF C1
+              type: float
+            c2:
+              title: STF C2
+              type: float
+            
+          title: Superposition model
+          description: Superposition model used in AEP calculations
+          type: object
+          additionalProperties: true
+          properties:
+            name:
+              title: Superposition model name
+              type: string
+              enum: ["Linear", "Sqared"]
+          title: Rotor model
+          description: Rotor averaging model used in AEP calculations
+          type: object
+          additionalProperties: true
+          properties:
+            name:
+              title: Rotor model name
+              type: string
+              enum: ["Center"]
