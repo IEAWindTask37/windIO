@@ -6,7 +6,15 @@ attributes:
     flow_model:
       name: foxes
     wake_model:
-      name: Bastankhah’s Gaussian wake model (simplified version)
+      name: Jensen
+    deflection_model:
+      name: Jimenez
+    turbulence_model:
+      name: STF2005
+    superposition_model:
+      name: Squared
+    rotor_averaging:
+      name: Center
     outputs:
       AEP: True
       AEP_per_turbine: True

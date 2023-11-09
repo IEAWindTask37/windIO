@@ -52,6 +52,7 @@ properties:
               title: wake expansion coefficient
               type: float
             
+        deflection_model:
           title: Deflection model
           description: Deflection model used in AEP calculations
           type: object
@@ -65,6 +66,7 @@ properties:
               title: Jimenez deflection coefficient
               type: float
             
+        turbulence_model:
           title: Turbulence model
           description: Turbulence model used in AEP calculations
           type: object
@@ -73,7 +75,7 @@ properties:
             name:
               title: Turbulence model name
               type: string
-              enum: ["STF2005", "STF2007"]
+              enum: ["STF2005", "STF2017"]
             c1:
               title: STF C1
               type: float
@@ -81,6 +83,7 @@ properties:
               title: STF C2
               type: float
             
+        superposition_model:
           title: Superposition model
           description: Superposition model used in AEP calculations
           type: object
@@ -90,6 +93,7 @@ properties:
               title: Superposition model name
               type: string
               enum: ["Linear", "Sqared"]
+        rotor_averaging:
           title: Rotor model
           description: Rotor averaging model used in AEP calculations
           type: object
