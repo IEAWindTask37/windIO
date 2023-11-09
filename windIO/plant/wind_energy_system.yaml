@@ -51,6 +51,9 @@ properties:
             k:
               title: wake expansion coefficient
               type: float
+            ceps:
+              title: Bastankhah c_epsilon factor
+              type: float
             
         deflection_model:
           title: Deflection model

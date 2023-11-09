@@ -6,7 +6,9 @@ attributes:
     flow_model:
       name: foxes
     wake_model:
-      name: Jensen
+      name: Bastankhah
+      k: 0.2
+      ceps: 0.23
     deflection_model:
       name: Jimenez
     turbulence_model:
