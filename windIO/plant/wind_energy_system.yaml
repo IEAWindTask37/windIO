@@ -105,4 +105,4 @@ properties:
             name:
               title: Rotor model name
               type: string
-              enum: ["Center"]
+              enum: ["center", 'avg_deficit', 'avg_velocity', 'cubic_avg_velocity']
