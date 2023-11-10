@@ -106,3 +106,16 @@ properties:
               title: Rotor model name
               type: string
               enum: ["center", 'avg_deficit', 'avg_velocity', 'cubic_avg_velocity']
+        blockage:
+          title: Blockage model
+          description: Blockage averaging model used in AEP calculations
+          type: object
+          additionalProperties: true
+          properties:
+            name:
+              title: Blockage model name
+              type: string
+              enum: ['None', 'SelfSimilarityDeficit2020']
+            ss_alpha:
+              title: ss_alpha factor for SelfSimilarityDeficit2020
+              type: float
