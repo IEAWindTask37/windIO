@@ -7,7 +7,7 @@ attributes:
       name: foxes
     wake_model:
       name: Bastankhah
-      k: 0.2
+      k: 0.1
       ceps: 0.23
     deflection_model:
       name: Jimenez
@@ -17,6 +17,8 @@ attributes:
       name: Squared
     rotor_averaging:
       name: avg_deficit
+    blockage:
+      name: SelfSimilarityDeficit2020
     outputs:
       AEP: True
       AEP_per_turbine: True
