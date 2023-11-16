@@ -1,6 +1,6 @@
 input_format_version: 0
 title: IEA Wind Task 37 Wind Energy System Ontology version 0.1
-description: A file used as input or output of a wind farm model
+description: A file used as input of a wind farm model
 required:
   - name
   - site
@@ -119,3 +119,61 @@ properties:
             ss_alpha:
               title: ss_alpha factor for SelfSimilarityDeficit2020
               type: float
+
+
+      outputs:  
+        title: Outputs
+        description: Output parameters and configurations for the wind energy system
+        type: object
+        properties:
+          AEP:
+            title: Annual Energy Production
+            description: Flag to include Annual Energy Production in the output
+            type: boolean
+          AEP_per_turbine:
+            title: AEP per Turbine
+            description: Flag to include Annual Energy Production per turbine in the output
+            type: boolean
+          name:  # New property added
+            title: Output Name
+            description: Name for the output configuration
+            type: string
+          power_percentiles:
+            title: Power Percentiles
+            description: Configuration for reporting power percentiles
+            type: object
+            properties:
+              report:
+                title: Report
+                description: Flag to include power percentiles in the output
+                type: boolean
+              percentiles:
+                title: Percentiles
+                description: List of percentiles to report
+                type: array
+                items:
+                  type: integer
+          flow_field:
+            title: Flow Field
+            description: Configuration for flow field output
+            type: object
+            properties:
+              time:
+                title: Time
+                description: Specific times for flow field output
+                type: array
+                items:
+                  type: integer
+              output_variables:
+                title: Output Variables
+                description: List of flow field variables to output
+                type: array
+                items:
+                  type: string
+          power_table:
+            title: Power Table
+            description: Specific power table configurations
+            type: array
+            items:
+              type: string
+
