@@ -4,9 +4,9 @@ Assembly
 
 The field :code:`assembly` includes five entries that aim at describing the overall configuration of the wind turbine:
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Assembly
-    :end-before: # Control
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: assembly
+    :end-before: control
 
 :code:`turbine_class` : String 
     IEA wind class. The entry should be :code:`I`, :code:`II`, :code:`III`, or :code:`IV`. 

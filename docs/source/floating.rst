@@ -7,9 +7,9 @@ Joints
 ----------------------------------------
 Joints are the *nodes* of the graph representation of the floating platform.  They must be assigned a unique name for later reference by the Members.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Floating platform
-    :end-before: # Members
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT_VolturnUS-S.yaml
+    :start-after: floating_platform
+    :end-before: members
 
 
 :code:`name` : String
@@ -80,8 +80,8 @@ Joints are the *nodes* of the graph representation of the floating platform.  Th
 Members
 ----------------------------------------
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Members
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT_VolturnUS-S.yaml
+    :start-after: members
     :end-before: # Rigid
 
 :code:`name` : String
@@ -246,7 +246,7 @@ Rigid bodies
 ----------------------------------------
 There is an allowance for additional point masses at joints with user-customized properties.  This would be useful in modeling ???.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT_VolturnUS-S.yaml
     :start-after: # Rigid
     :end-before: # Mooring
 
@@ -298,9 +298,9 @@ Mooring
 ========================================
 The mooring system ontology follows closely the input file format for MoorDyn or MAP++.  Additional information can be found in the `MoorDyn user guide <http://www.matt-hall.ca/files/MoorDyn-Users-Guide-2017-08-16.pdf>`_ .
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Mooring
-    :end-before: # Airfoils
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT_VolturnUS-S.yaml
+    :start-after: mooring
+    :end-before: airfoils
 
 nodes
 -------------
