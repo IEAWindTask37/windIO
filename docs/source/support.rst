@@ -18,8 +18,8 @@ The :code:`tower` is defined similar to the :code:`blade`.
 
 The field :code:`layers` mimic the same field of the blade.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Tower
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT_VolturnUS-S.yaml
+    :start-after: tower
     :end-before: # Foundation
 
 Foundation
@@ -27,9 +27,9 @@ Foundation
 
 So far, :code:`foundation` is the simplest component with a single input describing the height of the foundation.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT_VolturnUS-S.yaml
     :start-after: # Foundation
-    :end-before: # Floating platform
+    :end-before: floating_platform
 
 :code:`height` : Float, m 
     Height of the foundation. Distance between ground and tower base.

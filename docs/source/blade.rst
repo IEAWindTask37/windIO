@@ -9,9 +9,9 @@ outer_shape_bem
 -------------------
 :code:`outer_shape_bem` consists of a dictionary containing the data for blade BEM-based aerodynamics. 
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Blade - Outer Shape BEM
-    :end-before: # Blade - Elastic properties
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: outer_shape_bem
+    :end-before: internal_structure_2d_fem
 
 :code:`airfoil_position'labels` : Array of strings 
     The array :code:`labels` specifies the names of the airfoils to be placed along the blade. The positions are specified in the field :code:`grid`. The two arrays must share the same length and to keep an airfoil constant along blade span, this must be defined twice. The :code:`labels` must match the :code:`names` of the airfoils listed in the top level :code:`airfoils`. In between airfoils, the recommended interpolation scheme for both coordinates and polars is the Piecewise Cubic Hermite Interpolating Polynomial (PCHIP), which is implemented in `Matlab <https://www.mathworks.com/help/matlab/ref/pchip.html>`_ and in the Python library `SciPy  <https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.PchipInterpolator.html>`_.
@@ -35,6 +35,13 @@ outer_shape_bem
     
     The consequences of this reference system is that standard wind turbine blades have positive twist inboard and close to zero or even slightly negative twist outboard, zero or negative x values for standard prebent blades, and positive y values for backward swept blades. The blade main direction is expressed along z, and total blade length must be computed integrating the fields x, y, and z three-dimensionally.
 
+internal structure 2d_fem
+---------------------------
+The field :code:`internal_structure_2d_fem` contains the data to describe the internal structure of standard wind turbine blades. This is a fairly sophisticated process and the ontology proposed in this work supports different definitions. On the top level, the field :code:`internal_structure_2d_fem` has three sub-components, namely the :code:`reference_axis`, which is usually defined equal to the :code:`reference_axis` in the field :code:`outer_shape_bem`, the :code:`webs`, where the positions of the shear webs are defined, and the :code:`layers`, which describe all internal layers in terms of :code:`name`, :code:`material`, :code:`thickness`, number of plies :code:`n_plies`, :code:`fiber_orientation` (for composites), and position in the two-dimensional sections. 
+
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: internal_structure_2d_fem
+    :end-before: elastic_properties_mb
 
 
 elastic properties mb 
@@ -48,18 +55,9 @@ M = [m, 0, 0, 0, 0, -mYcm, m, 0, 0, 0,mXcm, m, mYcm, -mXcm, 0, iedge, -icp, 0, i
 
 where KShrEdg and KShrFlp are the edge and flap shear stiffnesses, respectively; EA is the extension stiffness; EIEdg and EIFlp are the edge and flap stiffnesses, respectively; GJ is the torsional stiffness, m is the mass density per unit span, Xcm and Ycm are the local coordinates of the sectional center of mass, iedge and iflap are the edge and flap mass moments of inertia per unit span, iplr is the polar moment of inertia per unit span, and finally icp is the sectional cross product of inertia per unit span. Please note that for beam-like structures iplr must be equal to iedge plus iflap.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Blade - Elastic properties
-    :end-before: # Internal Structure 2D FEM
-
-internal structure 2d_fem
----------------------------
-The field :code:`internal_structure_2d_fem` contains the data to describe the internal structure of standard wind turbine blades. This is a fairly sophisticated process and the ontology proposed in this work supports different definitions. On the top level, the field :code:`internal_structure_2d_fem` has three sub-components, namely the :code:`reference_axis`, which is usually defined equal to the :code:`reference_axis` in the field :code:`outer_shape_bem`, the :code:`webs`, where the positions of the shear webs are defined, and the :code:`layers`, which describe all internal layers in terms of :code:`name`, :code:`material`, :code:`thickness`, number of plies :code:`n_plies`, :code:`fiber_orientation` (for composites), and position in the two-dimensional sections. 
-
-.. literalinclude:: ../../test/top_level.yaml
-    :start-after: # Structure
-    :end-before: # EOF3
-
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: elastic_properties_mb
+    :end-before: hub
 
 webs
 ^^^^^^^^^^
@@ -70,9 +68,9 @@ The field :code:`webs` consists of a list of entries, each representing a shear 
 
 The first (and usually most convenient) way to define the position of a shear web is by defining the fields :code:`rotation` and :code:`offset_y_pa`, which are distributed along span and are therefore described in terms of :code:`grid` and :code:`values` pairs.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Webs
-    :end-before: # Web 2
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: webs
+    :end-before: layers
 
 :code:`rotation.values` : Array of floats, rad 
     The rotation defines the angle between the chord line and the y axis and it has the opposite sign of the twist. For shear webs perpendicular to the chord line in the section(s) where twist is zero, it is easiest to simply use the keyword fixed: twist. In the example provided above, a json pointer &twist is defined.
@@ -88,9 +86,9 @@ Blades with straight shear webs will always have the field rotation equal to the
 
 The second approach to define the position of a shear web is by defining the fields :code:`start_nd_arc` and :code:`end_nd_arc`, which are also distributed along span and are therefore also described in terms of :code:`grid` and :code:`values` pairs.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Web 2
-    :end-before: # Layers
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: webs
+    :end-before: layers
 
 :code:`start_nd_arc.values` : Array of floats
     The field defines the nondimensional position along the arc of a 2D blade section, where 0 represents the trailing edge on the suction side and 1 the trailing edge on the pressure side. For flatback airfoils, the start (s = 0) and end (s = 1) nondimensional coordinate s is defined in the midpoint between suction and pressure sides. The shear webs have the field :code:`start_nd_arc` on the suction side, so usually smaller than 0.5, which approximately correspond to the leading edge.
@@ -120,13 +118,13 @@ The sub-field :code:`layers` define the layers of the wind turbine blade. In mos
 
 The position of the layer in the 2D section can be specified in various ways. If nothing is defined, this assumes that the sub-field :code:`start_nd_arc` is equal to 0 and the sub-field :code:`end_nd_arc` is equal to 1. This means that the layer wraps the whole section, such as in the example below for the outer paint. This definition of a layer should be used also for example for the outer shell skin, which tyoically wraps the whole section.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
     :start-after: # Layer 1
     :end-before: # Layer 2
 
 The most convenient approach to define the position of spar caps mimics the definition of the shear webs, adding the width and side that define the width of the layer in meters and the side where the layer is located, either “pressure” or “suction”. 
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
     :start-after: # Layer 3
     :end-before: # Layer 4
 
@@ -141,7 +139,7 @@ The most convenient approach to define the position of spar caps mimics the defi
 
 To define reinforcements, the best way is usually to define the width, in meters, and the midpoint, named :code:`midpoint_nd_arc` and defined nondimensional between 0 and 1. Converters should be able to look for the leading edge, marked as LE.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
     :start-after: # Layer 4
     :end-before: # Layer 5
 
@@ -155,7 +153,7 @@ Similar combinations can be constructed with the combination of :code:`width` an
 
 Finally, for composite layers belonging to the shear webs, a tag :code:`web` should contain the name of the web. The layers are then modeled from leading edge to trailing edge in the order they were specified.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
     :start-after: # Web layer
     :end-before: # Hub
 

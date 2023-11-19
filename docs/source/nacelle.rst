@@ -3,9 +3,9 @@ Hub
 ================
 The field :code:`hub` describes the hub system from an aeroelastic perspective, distinguishing between aerodynamic and elastic properties, added in the fields :code:`outer_shape_bem` and :code:`elastic_properties_mb` respectively.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Hub
-    :end-before: # Nacelle
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: hub
+    :end-before: nacelle
 
 :code:`diameter` : Float, m
     This is the outer diameter of the hub. It is also the diameter of the circle centered at the rotor apex and connecting the blade root centers.
@@ -31,9 +31,9 @@ Nacelle
 
 The field :code:`nacelle` describes the nacelle system from an aeroelastic perspective, distinguishing between aerodynamic and elastic properties, added in the fields :code:`outer_shape_bem` and :code:`elastic_properties_mb` respectively. An addition field :code:`drivetrain` is optional and defines some of the inputs used to size the drivetrain components.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Nacelle
-    :end-before: # end nacelle
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: nacelle
+    :end-before: tower
 
 :code:`uptilt_angle` : Float, rad
     Angle between the main shaft and the horizontal plane. This is defined positive for standard upwind and downwind turbines.

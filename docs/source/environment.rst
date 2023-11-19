@@ -3,9 +3,9 @@ Environment
 
 The field :code:`environment` includes the data characterizing air and water.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Environment
-    :end-before: # Costs
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: environment
+    :end-before: bos
 
 :code:`air_density` : Float, kg/m3
     Density of air. 

@@ -7,7 +7,7 @@ Actuators
 ************
 
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
     :start-after: # Actuators
     :end-before: # Control
 
@@ -98,9 +98,9 @@ Control
 ***********
 
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Control
-    :end-before: # Environment
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: control
+    :end-before: environment
 
 
 supervisory

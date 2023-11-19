@@ -3,9 +3,8 @@ Turbine
 
 The wind turbine ontology, which is currently implemented in YAML and supported by a JSON schema, is developed defining nine top-level entries.
 
-.. literalinclude:: ../../test/top_level.yaml
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
     :start-after: # Top level entries of the IEA Wind Task 37 wind turbine ontology
-    :end-before: # EOF
 
 
 :code:`name` : String
