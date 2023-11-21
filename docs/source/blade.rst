@@ -116,17 +116,17 @@ The sub-field :code:`layers` define the layers of the wind turbine blade. In mos
 :code:`fiber_orientation` : Float, rad
     For composite laminates, the orientation of the fibers in radians can be specified. Looking from blade root, positive angles represent a rotation of the fibers towards the leading edge of the blade. Note that the angles are in respect to the cross section local reference system, not the reference system at blade root. 
 
-The position of the layer in the 2D section can be specified in various ways. If nothing is defined, this assumes that the sub-field :code:`start_nd_arc` is equal to 0 and the sub-field :code:`end_nd_arc` is equal to 1. This means that the layer wraps the whole section, such as in the example below for the outer paint. This definition of a layer should be used also for example for the outer shell skin, which tyoically wraps the whole section.
+The position of the layer in the 2D section can be specified in various ways. If nothing is defined, this assumes that the sub-field :code:`start_nd_arc` is equal to 0 and the sub-field :code:`end_nd_arc` is equal to 1. This means that the layer wraps the whole section, such as in the example below for the outer gelcoat. This definition of a layer should be used also for example for the outer shell skin, which tyoically wraps the whole section.
 
 .. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
-    :start-after: # Layer 1
-    :end-before: # Layer 2
+    :start-after: - name: UV_protection
+    :end-before: -  name: Shell_skin 
 
 The most convenient approach to define the position of spar caps mimics the definition of the shear webs, adding the width and side that define the width of the layer in meters and the side where the layer is located, either “pressure” or “suction”. 
 
 .. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
-    :start-after: # Layer 3
-    :end-before: # Layer 4
+    :start-after: -  name: Spar_Cap_SS
+    :end-before: -  name: Spar_Cap_PS
 
 :code:`width.values` : Array of floats, m 
     The field width defines the width in meters along the arc of the layer. 
@@ -140,8 +140,8 @@ The most convenient approach to define the position of spar caps mimics the defi
 To define reinforcements, the best way is usually to define the width, in meters, and the midpoint, named :code:`midpoint_nd_arc` and defined nondimensional between 0 and 1. Converters should be able to look for the leading edge, marked as LE.
 
 .. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
-    :start-after: # Layer 4
-    :end-before: # Layer 5
+    :start-after: -  name: LE_reinforcement
+    :end-before: -  name: TE_reinforcement_SS
 
 :code:`midpoint_nd_arc.values` : Array of floats
     Coordinate along the arc of the midpoint of the layer. 
@@ -154,8 +154,8 @@ Similar combinations can be constructed with the combination of :code:`width` an
 Finally, for composite layers belonging to the shear webs, a tag :code:`web` should contain the name of the web. The layers are then modeled from leading edge to trailing edge in the order they were specified.
 
 .. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
-    :start-after: # Web layer
-    :end-before: # Hub
+    :start-after: -  name: web0_skinLE
+    :end-before: -  name: web0_filler
 
 Lofted Shape 
 -------------------
