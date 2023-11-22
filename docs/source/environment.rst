@@ -25,3 +25,9 @@ The field :code:`environment` includes the data characterizing air and water.
     Shear modulus of the soil. 
 :code:`soil_poisson` : Float
     Poisson ratio of the soil. 
+:code:`water_depth` : Float, m
+    Depth of the water at the site
+:code:`significant_wave_height` : Float, m
+    Significant wave height at the site
+:code:`significant_wave_period` : Float, m
+    Significant wave period at the site
