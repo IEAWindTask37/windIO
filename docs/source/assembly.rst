@@ -2,7 +2,7 @@
 Assembly
 *******************
 
-The field :code:`assembly` includes five entries that aim at describing the overall configuration of the wind turbine:
+The field :code:`assembly` includes nine entries that aim at describing the overall configuration of the wind turbine:
 
 .. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
     :start-after: assembly
