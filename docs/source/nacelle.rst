@@ -35,9 +35,7 @@ drivetrain
 
 :code:`gearbox_efficiency` : Float
     Efficiency of the gearbox. This value is often around 0.95.
-
-
-
+    
 :code:`elastic_properties_mb.system_mass` : Float, kg
     This is the overall mass of the nacelle system, which includes the main shaft, the drivetrain system, the generator, the nacelle cover, etc. This does not include the yaw system.
 
