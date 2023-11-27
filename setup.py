@@ -18,6 +18,9 @@ EXTRAS = {
         'py_wake',
         'topfarm',
     },
+    "docs": {
+        'Sphinx'
+    }
 }
 
 metadata = dict(
