@@ -4,6 +4,10 @@ Tower
 
 The :code:`tower` is defined similar to the :code:`blade`.
 
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: C_PM:
+    :end-before: monopile:
+
 :code:`reference_axis` : Object
     The field :code:`reference_axis` describe the three-dimensional shape of the reference axis of the tower via three sub-fields, namely :code:`x`, :code:`y`, and :code:`z`. The three sub-fields contain the pairs of arrays :code:`grid` and :code:`values`. The former is nondimensional, while the latter is expressed in meters. :code:`x`, :code:`y`, and :code:`z` are expressed in the tower reference system, with :code:`x` parallel to the ground pointing downwind, :code:`y` parallel to the ground and to the rotor plane, and :code:`z` perpendicular to the ground pointing upwards. Standard towers are only defined along :code:`z`.
 
@@ -18,18 +22,3 @@ The :code:`tower` is defined similar to the :code:`blade`.
 
 The field :code:`layers` mimic the same field of the blade.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Tower
-    :end-before: # Foundation
-
-Foundation
-=======================
-
-So far, :code:`foundation` is the simplest component with a single input describing the height of the foundation.
-
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Foundation
-    :end-before: # Floating platform
-
-:code:`height` : Float, m 
-    Height of the foundation. Distance between ground and tower base.
