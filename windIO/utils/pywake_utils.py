@@ -1,6 +1,6 @@
 import numpy as np
 import xarray as xr
-from utils.yml_utils import load_yaml, XrResourceLoader
+from windIO.utils.yml_utils import load_yaml, XrResourceLoader
 from py_wake.wind_turbines import WindTurbine
 from py_wake.wind_turbines.power_ct_functions import CubePowerSimpleCt, PowerCtFunctions
 from py_wake.site.xrsite import XRSite

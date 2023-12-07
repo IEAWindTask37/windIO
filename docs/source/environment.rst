@@ -3,9 +3,9 @@ Environment
 
 The field :code:`environment` includes the data characterizing air and water.
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Environment
-    :end-before: # Costs
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: environment
+    :end-before: bos
 
 :code:`air_density` : Float, kg/m3
     Density of air. 
@@ -25,3 +25,9 @@ The field :code:`environment` includes the data characterizing air and water.
     Shear modulus of the soil. 
 :code:`soil_poisson` : Float
     Poisson ratio of the soil. 
+:code:`water_depth` : Float, m
+    Depth of the water at the site
+:code:`significant_wave_height` : Float, m
+    Significant wave height at the site
+:code:`significant_wave_period` : Float, m
+    Significant wave period at the site
