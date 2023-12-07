@@ -2,19 +2,17 @@
 Components
 *******************
 
-The inputs describing the wind turbine components are described here. The ontology windIO currently distinguishes the five components :code:`blade`, :code:`hub`, :code:`nacelle`, :code:`tower`, and :code:`foundation`
-
-.. literalinclude:: ../../test/top_level.yaml
-    :start-after: # Components
-    :end-before: # EOF2
-
+The inputs describing the wind turbine components are described here. The ontology windIO currently distinguishes the components :code:`blade`, :code:`hub`, :code:`nacelle`, :code:`tower`, :code:`monopile`, :code:`floating_platform`, and :code:`mooring`
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
    blade
+   hub
    nacelle
-   support
+   tower
+   monopile
    floating
+   mooring
 

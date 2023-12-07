@@ -1,107 +1,19 @@
 
 ****************************************
-Actuators and Controllers
+Control
 ****************************************
 
 Actuators
 ************
 
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Actuators
-    :end-before: # Control
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: control
+    :end-before: environment
 
 
 pitch
 ########################################
-
-:code:`fine_pitch` : Float, rad
-    Optimal pitch angle of the wind turbine. As default, it is
-    maintained constant in region II.
-
-    *Minimum* = -10    *Maximum* = 10
-
-
-:code:`max_pitch_rate` : Float, rad/s
-    Maximum pitch rate of the rotor blades.
-
-    *Minimum* = 0    *Maximum* = 0.2
-
-
-:code:`pitch_act_bw` : Float, rad/s
-    Bandwidth of 2nd order LPF representing pitch actuators
-
-    *Minimum* = 0    *Maximum* = 100
-
-
-:code:`max_pitch` : Float, rad
-    Maximum pitch angle, where the default is 90 degrees. It is used
-    by the ROSCO controller (https://github.com/NREL/ROSCO)
-
-    *Minimum* = 0    *Maximum* = 2.0
-
-
-:code:`min_pitch` : Float, rad
-    Minimum pitch angle, where the default is 0 degrees. It is used by
-    the ROSCO controller (https://github.com/NREL/ROSCO)
-
-    *Minimum* = -0.5    *Maximum* = 1.0
-
-
-
-
-generator
-########################################
-
-:code:`rated_power` : Float, W
-    Nameplate power of the turbine, i.e. the rated electrical output
-    of the generator.
-
-    *Minimum* = 0
-
-:code:`max_gen_speed` : Float, rad/s
-    Maximum generator speed of the wind turbine.
-
-    *Minimum* = 0    *Maximum* = 10
-
-
-:code:`max_torque_rate` : Float, Nm/s
-    Maximum torque rate of the wind turbine generator.
-
-    *Minimum* = 1000    *Maximum* = 100000000
-
-
-
-
-hss_brake
-########################################
-
-:code:`start_time` : Float, seconds
-    Time in simulation that brake is activated, THSSBrDp in OpenFAST
-
-    *Minimum* = 0
-
-:code:`duration` : Float, seconds
-    Time for HSS-brake to reach full deployment once initiated (sec),
-    HSSBrDT in OpenFAST
-
-    *Minimum* = 0
-
-:code:`torque` : Float, N-m
-    Fully deployed HSS-brake torque, HSSBrTqF in OpenFAST
-
-    *Minimum* = 0
-
-
-
-Control
-***********
-
-
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Control
-    :end-before: # Environment
-
 
 supervisory
 ########################################
@@ -149,62 +61,42 @@ pitch
 
     *Minimum* = 0    *Maximum* = 1
 
+:code:`fine_pitch` : Float, rad
+    Optimal pitch angle of the wind turbine. As default, it is
+    maintained constant in region II.
+
+    *Minimum* = -10    *Maximum* = 10
 
 
+:code:`max_pitch_rate` : Float, rad/s
+    Maximum pitch rate of the rotor blades.
 
-fl_feedback
-========================================
+    *Minimum* = 0    *Maximum* = 0.2
 
-Platform velocity feedback using nacelle IMU
+:code:`max_pitch` : Float, rad
+    Maximum pitch angle, where the default is 90 degrees. It is used
+    by the ROSCO controller (https://github.com/NREL/ROSCO)
 
-:code:`gain` : Float, seconds
-    Platform velocity feedback gain used by the ROSCO controller
-    (https://github.com/NREL/ROSCO)
-
-
-
-twr_feedback
-========================================
-
-Tower velocity feedback using nacelle IMU
-
-:code:`gain` : Float, seconds
-    Tower velocity feedback gain used by the ROSCO controller
-    (https://github.com/NREL/ROSCO)
+    *Minimum* = 0    *Maximum* = 2.0
 
 
+:code:`min_pitch` : Float, rad
+    Minimum pitch angle, where the default is 0 degrees. It is used by
+    the ROSCO controller (https://github.com/NREL/ROSCO)
 
-IPC
-========================================
-
-Individual pitch control (IPC) using the mulitblade coordinate (MBC) transform
-
-:code:`IPC_gain_1P` : Float, rad/Nm
-    Integral gain of 1P feedback
-
-    *Minimum* = 0
-
-:code:`IPC_gain_2P` : Float, rad/Nm
-    Integral gain of 2P feedback
-
-    *Minimum* = 0
-
-:code:`IPC_phase_1P` : Float, rad
-    Phase lag of 1P IPC feedback
-
-    *Minimum* = -3.14    *Maximum* = 3.14
-
-
-:code:`IPC_phase_2P` : Float, rad
-    Phase lag of 2P IPC feedback
-
-    *Minimum* = -3.14    *Maximum* = 3.14
+    *Minimum* = -0.5    *Maximum* = 1.0
 
 
 
 
 torque
 ########################################
+
+
+:code:`max_torque_rate` : Float, Nm/s
+    Maximum torque rate of the wind turbine generator.
+
+    *Minimum* = 1000    *Maximum* = 100000000
 
 :code:`control_type` : String from, ['tsr_tracking', 'legacy', 'pi_transitions']
     Type of torque control used.

@@ -1186,7 +1186,6 @@ materials:
       alpha: 0.0
       unit_cost: 1.0
       orth: 0.0
-
 control:
     supervisory:
         Vin: 3.0
