@@ -22,20 +22,7 @@ class Loader(yaml.SafeLoader):
         with open(filename, 'r') as f:
             return yaml.load(f, self.__class__)
 
-    def includeBathymetryNetCDF(self, node):
-        filename = os.path.join(self._root, self.construct_scalar(node))
-        dataset = xr.open_dataset(filename)
-
-        # Convert xarray Dataset to dictionary
-        bathymetry_data = {variable: list(dataset[variable].values.flatten()) for variable in dataset.variables}
-
-        return bathymetry_data
-
-
-
 Loader.add_constructor('!include', Loader.include)
-Loader.add_constructor('!includeBathymetryNetCDF', Loader.includeBathymetryNetCDF)
-
 
 class XrResourceLoader(Loader):
 
@@ -45,7 +32,7 @@ class XrResourceLoader(Loader):
         ext = os.path.splitext(filename)[1].lower()
         if ext in ['.yaml', '.yml']:
             with open(filename, 'r') as f:
-                return yaml.load(f, XRResourceLoader)
+                return yaml.load(f, XrResourceLoader)
         elif ext in ['.nc']:
             def fmt(v):
                 if isinstance(v, dict):
@@ -65,14 +52,14 @@ class XrResourceLoader(Loader):
 XrResourceLoader.add_constructor('!include', XrResourceLoader.include)
 
 
-def load_yaml(filename, loader=Loader):
+def load_yaml(filename, loader=XrResourceLoader):
     if isinstance(filename, dict):
         return filename  # filename already yaml dict
     with open(filename) as fid:
         return yaml.load(fid, loader)
 
 
-def validate_yaml(data_file, schema_file, loader=Loader):
+def validate_yaml(data_file, schema_file, loader=XrResourceLoader):
 
     def add_local_schemas_to(resolver, schema_folder, base_uri, schema_ext_lst=['.json', '.yaml', '.yml']):
         '''Function from https://gist.github.com/mrtj/d59812a981da17fbaa67b7de98ac3d4b#file-local_ref-py
