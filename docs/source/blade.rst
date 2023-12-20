@@ -28,7 +28,6 @@ outer_shape_bem
 :code:`rthick.values` : Array of floats 
     This array has recently been added to windIO to overcome the uncertainty in the interpolated distribution of relative thickness along blade span. It should match the field :code:`airfoil_position`
 
-
 :code:`reference_axis` : Object
     The field :code:`reference_axis` describes the three-dimensional shape of the reference axis of the blade via three sub-fields, namely :code:`x`, :code:`y`, and :code:`z`. The three sub-fields contain the pairs of arrays :code:`grid` and :code:`values`. The former is nondimensional, while the latter is expressed in meters.
 
