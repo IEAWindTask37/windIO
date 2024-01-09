@@ -176,7 +176,6 @@ definitions:
             items:
               type: number
       direction:
-        type: number
         oneOf:
           - type: number
           - type: array
