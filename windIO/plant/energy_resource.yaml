@@ -177,6 +177,11 @@ definitions:
               type: number
       direction:
         type: number
+        oneOf:
+          - type: number
+          - type: array
+            items:
+              type: number
         description: Wind direction at the given time
       zs:
         type: array
