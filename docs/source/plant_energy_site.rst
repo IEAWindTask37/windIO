@@ -45,6 +45,16 @@ Properties
     Nested dictionary structure of components composing the energy resource for the site.
     For specific details on site parameters, see :ref:`energy_resource`.
 
+:code:`bathymetry` : Object
+    The bathymetry of a site describes the variations in depth in a water body at the wind energy system's location. It can be an essential aspect when considering offshore wind farms, as it can influence the design, placement, and feasibility of the turbine foundation. The bathymetry is defined with two components:
+
+    :code:`coordinates` : Array of Objects
+        An array representing the x and y coordinates associated with different depths. These coordinates describe the points in a grid or mesh that maps the underwater terrain.
+
+    :code:`depth` : Array of Numbers
+        An array representing the depth values at corresponding coordinates, measured in meters.
+
+
 .. _site_examples:
 
 Examples

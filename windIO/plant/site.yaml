@@ -77,8 +77,22 @@ properties:
   #~
   bathymetry:
     title: Bathymetry
-    description: >-
-      TODO - x, y, z
+    description: x, y, and depth field of water depth
+    type: object
+    required:
+      - coordinates
+      - depth
+    properties:
+      coordinates:
+        $ref: "common.yaml#/definitions/coordinates"
+        description: "An array of x and y coordinates associated with different depths"
+      depth:
+        type: array
+        items:
+          type: number
+          units: m
+          description: "An array of depth values"
+
   elevation:
     title: Elevation
     description: >-
