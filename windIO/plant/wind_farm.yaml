@@ -22,6 +22,10 @@ properties:
     description: Turbine models installed in the WES.
     $ref: "turbine.yaml#"
   #~
+  electrical_substations:
+    description: Electrical Substation Coordinates
+    $ref: "common.yaml#/definitions/coordinates"
+  #~
 
 definitions:
   layout:
