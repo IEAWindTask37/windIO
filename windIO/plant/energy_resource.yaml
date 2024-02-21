@@ -33,14 +33,23 @@ properties:
           - weibull_a
           - weibull_k
           - sector_probability
+        - required:
+          - times
+          - wind_speed
     properties:
+        times: 
+           type: array
+           items:
+               type: string
+               format: date-time
+        description: Timestamps for the data points
         wind_direction:
             title: Wind directions
             description: Wind directions in degrees, [0,360]
-            $ref: "#/definitions/multi_dimensional_coordinate"
+            $ref: "#/definitions/multi_dimensional_data"
         wind_speed:
             description: Wind speeds in m/s
-            $ref: "#/definitions/multi_dimensional_coordinate"
+            $ref: "#/definitions/multi_dimensional_data"
         wind_turbine:
             title: Wind turbine IDs
             description: Wind turbine id
