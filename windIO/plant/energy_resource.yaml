@@ -46,10 +46,14 @@ properties:
         wind_direction:
             title: Wind directions
             description: Wind directions in degrees, [0,360]
-            $ref: "#/definitions/multi_dimensional_data"
+            oneOf:
+              - $ref: "#/definitions/multi_dimensional_data"
+              - $ref: "#/definitions/multi_dimensional_coordinate"
         wind_speed:
             description: Wind speeds in m/s
-            $ref: "#/definitions/multi_dimensional_data"
+            oneOf:
+              - $ref: "#/definitions/multi_dimensional_data"
+              - $ref: "#/definitions/multi_dimensional_coordinate" 
         wind_turbine:
             title: Wind turbine IDs
             description: Wind turbine id
