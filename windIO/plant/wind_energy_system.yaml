@@ -38,7 +38,7 @@ properties:
             type: string
             enum: ["foxes", "pywake", "saturne", "KUL"]
       analyses:
-        wake_model:
+        wind_deficit_model:
           title: Deficit model
           description: Wake deficit model used in AEP calculations
           type: object
@@ -47,24 +47,33 @@ properties:
             name:
               title: Wake model name
               type: string
-              enum: ["Jensen", "Bastankhah"]
-            k:
+              enum: ["Jensen", "Bastankhah2014", "Bastankhah2016", "TurbOPark"]
+            wake_expansion_coefficient:
               title: wake expansion coefficient
               type: float
             ceps:
               title: Bastankhah c_epsilon factor
               type: float
+            wake_expansion_modifier:
+              title: modifier function for wake expansion coefficient
+              type: str
+              enum: ["None", "Tuhfe"]
             
+        axial_induction_model:
+        # ....
+        # look into defaults
+
         deflection_model:
           title: Deflection model
-          description: Deflection model used in AEP calculations
+          description: defines the deviation of the path of the wake centerline in the crossflow direction (only for wake steering)
+          #description: Deflection model used in AEP calculations
           type: object
           additionalProperties: true
           properties:
             name:
               title: Deflection model name
               type: string
-              enum: ["Jimenez"]
+              enum: ["None", "Jimenez", "Batankhah2016"]
             beta:
               title: Jimenez deflection coefficient
               type: float
@@ -78,13 +87,12 @@ properties:
             name:
               title: Turbulence model name
               type: string
-              enum: ["STF2005", "STF2017"]
-            c1:
-              title: STF C1
-              type: float
-            c2:
-              title: STF C2
-              type: float
+              enum: ["STF2005", "STF2017", "IEC-TI-2019", "CrespoHernandez", "GCL"]
+              # Q: IEC versus Franson
+            coefficents:
+              title: coefficients 
+              type: array
+            #.... TODO define order for each model
             
         superposition_model:
           title: Superposition model
@@ -95,18 +103,27 @@ properties:
             name:
               title: Superposition model name
               type: string
-              enum: ["Linear", "Sqared"]
-        rotor_averaging:
-          title: Rotor model
+              enum: ["Linear", "Squared", "Max"]
+
+        background_flow_averaging:
+          title: Background flow averaging
           description: Rotor averaging model used in AEP calculations
           type: object
           additionalProperties: true
+
+        wake_averaging:
+          title: Wale average
+          description: Rotor averaging model used in AEP calculations
+          type: object
+          additionalProperties: true
+          # something about wake or deficit averaging
           properties:
             name:
               title: Rotor model name
               type: string
               enum: ["center", 'avg_deficit', 'avg_velocity', 'cubic_avg_velocity']
-        blockage:
+
+        blockage_model:
           title: Blockage model
           description: Blockage averaging model used in AEP calculations
           type: object
