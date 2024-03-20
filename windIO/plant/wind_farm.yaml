@@ -37,4 +37,19 @@ definitions:
       coordinates:
         title: Wind turbine coordinate
         $ref: "common.yaml#/definitions/coordinates"
-        
+
+  electrical_substation:
+    title: Electrical Substation
+    type: object
+    required:
+      - coordinates
+    optional:
+      - capacity
+    properties:
+      coordinates:
+        title: Substation coordinates
+        $ref: "common.yaml#/definitions/coordinates"
+      capacity:
+        title: Substation Capacity
+        type: number
+        description: Capacity of the electrical substation in megawatts
