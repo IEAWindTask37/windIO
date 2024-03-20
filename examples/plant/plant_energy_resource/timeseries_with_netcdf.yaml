@@ -1,3 +1,3 @@
 name: Custom Energy Resource Case Study
 wind_resource:
-    !include timeseries_with_netcdf.yaml
+    !include Stochastic_atHubHeight.nc
