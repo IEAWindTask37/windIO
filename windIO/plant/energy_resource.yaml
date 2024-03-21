@@ -25,7 +25,7 @@ properties:
     title: Wind resource
     type: object
     decription: Resource where data optionally depend on wind_speed, wind_direction and/or position
-    additionalProperties: false    
+    additionalProperties: true    
     oneOf:
         - required: 
           - probability
@@ -34,8 +34,9 @@ properties:
           - weibull_k
           - sector_probability
         - required:
-          - times
+          - time
           - wind_speed
+          - wind_direction
     properties:
         times: 
            type: array
