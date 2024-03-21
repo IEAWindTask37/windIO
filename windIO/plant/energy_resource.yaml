@@ -25,7 +25,7 @@ properties:
     title: Wind resource
     type: object
     decription: Resource where data optionally depend on wind_speed, wind_direction and/or position
-    additionalProperties: false    
+    additionalProperties: true    
     oneOf:
         - required: 
           - probability
@@ -33,14 +33,28 @@ properties:
           - weibull_a
           - weibull_k
           - sector_probability
+        - required:
+          - time
+          - wind_speed
+          - wind_direction
     properties:
+        times: 
+           type: array
+           items:
+               type: string
+               format: date-time
+        description: Timestamps for the data points
         wind_direction:
             title: Wind directions
             description: Wind directions in degrees, [0,360]
-            $ref: "#/definitions/multi_dimensional_coordinate"
+            oneOf:
+              - $ref: "#/definitions/multi_dimensional_data"
+              - $ref: "#/definitions/multi_dimensional_coordinate"
         wind_speed:
             description: Wind speeds in m/s
-            $ref: "#/definitions/multi_dimensional_coordinate"
+            oneOf:
+              - $ref: "#/definitions/multi_dimensional_data"
+              - $ref: "#/definitions/multi_dimensional_coordinate" 
         wind_turbine:
             title: Wind turbine IDs
             description: Wind turbine id
