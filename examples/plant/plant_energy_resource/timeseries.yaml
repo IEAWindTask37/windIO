@@ -1,0 +1,5 @@
+name: Custom Energy Resource Case Study
+wind_resource:
+    time: ['2023-07-25T00:00:00Z', '2023-07-25T01:00:00Z', '2023-07-25T02:00:00Z']
+    wind_speed: [5, 6, 3]
+    wind_direction: [0, 350, 30]

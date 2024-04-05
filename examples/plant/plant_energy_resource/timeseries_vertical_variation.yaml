@@ -1,0 +1,11 @@
+name: Custom Energy Resource Case Study
+wind_resource:
+  time: ['2023-07-25T00:00:00Z', '2023-07-25T01:00:00Z', '2023-07-25T02:00:00Z']
+  height: [1, 2]
+  wind_speed:
+    data: [[5, 7], [2, 6], [3, 3.3]]
+    dims: [3, 2]  # 3 time points, 2 height levels
+  wind_direction:
+    data: [[0, 2], [333, 350], [20, 30]]
+    dims: [3, 2]  # 3 time points, 2 height levels
+
