@@ -1,0 +1,3 @@
+name: Custom Energy Resource Case Study
+wind_resource:
+    !include Stochastic_atHubHeight.nc
