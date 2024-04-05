@@ -5,5 +5,3 @@ boundaries:
         y: [6490.3, 1602.2, 1056.6, 625.5, 360.2, 126.9, 137.1, 1457.9, 3297.5, 6455.3, 6422.3, 6127.4, 6072.6, 6087.1, 6171.2, 6316.9, 6552.5, 6611.1]
     ]
 energy_resource: !include ../plant_energy_resource/IEA37_case_study_3_energy_resource.yaml
-#energy_resource: !include ../plant_energy_resource/timeseries.yaml
-#energy_resource: !include ../plant_energy_resource/timeseries_vertical_variation.yaml
