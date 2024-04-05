@@ -94,10 +94,10 @@ properties:
             title: Shear
             $ref: "#/definitions/shear"
         LMO:
-            title: Monin–Obukhov length
+            title: Monin–Obukhov length (m)
             $ref: "#/definitions/multi_dimensional_data"
         z0:
-            title: Roughness height
+            title: Roughness height (m)
             $ref: "#/definitions/multi_dimensional_data"
         k:
             title: Turbulent kinetic energy
@@ -106,10 +106,10 @@ properties:
             title: Turbulent dissipation
             $ref: "#/definitions/multi_dimensional_data"
         potential_temperature:
-            title: Potential Temperature
+            title: Potential Temperature (K)
             $ref: "#/definitions/multi_dimensional_data"
         friction_velocity:
-            title: Friction velocity
+            title: Friction velocity (m/s)
             $ref: "#/definitions/multi_dimensional_data"
              
         
