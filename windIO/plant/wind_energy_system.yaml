@@ -115,7 +115,7 @@ properties:
             $ref: "site.yaml#/properties/exclusions" # Or refer to subset of user defined polygons in /site/
 
     initial_design:
-      Properties:
+      properties:
         layout:
           title: Initial layout
           $ref: "wind_farm.yaml#/definition/layout"
@@ -126,7 +126,7 @@ properties:
         turbine_hub_heights:
           title: Initial turbine hub heights
     final_design:
-      Properties:
+      properties:
         layout:
           title: Final layout
           $ref: "wind_farm.yaml#/definition/layout"
