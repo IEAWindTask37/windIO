@@ -111,6 +111,14 @@ properties:
         friction_velocity:
             title: Friction velocity (m/s)
             $ref: "#/definitions/multi_dimensional_data"
+        ground_temperature:
+            title: Ground Temperature (K)
+            description: Temperature of the ground in Kelvin
+            $ref: "#/definitions/multi_dimensional_data"
+        roughness_length:
+            title: Roughness Length (m)
+            description: Roughness length in meters
+            $ref: "#/definitions/multi_dimensional_data"
 
 
 # DEFINITIONS
