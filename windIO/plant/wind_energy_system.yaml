@@ -36,13 +36,13 @@ properties:
           name:
             title: Flow model name
             type: string
-            enum: ["foxes", "pywake", "saturne", "KUL"]
+            enum: ["foxes", "pyWake", "pyWakeEllipSys", "codeSaturne", "wayve", "floris"]
       analyses:
         wind_deficit_model:
-          title: Deficit model
-          description: Wake deficit model used in AEP calculations
+          title: Wind deficit model
+          description: Wake wind deficit model used in AEP calculations
           type: object
-          additionalProperties: true
+          additionalProperties: true # to be set to False in a future release
           properties:
             name:
               title: Wake model name
@@ -50,18 +50,28 @@ properties:
               enum: ["Jensen", "Bastankhah2014", "Bastankhah2016", "TurbOPark"]
             wake_expansion_coefficient:
               title: wake expansion coefficient
-              type: float
+              type: object
+              properties:
+                 k_a:
+                    title: Wake expansion coefficient
+                    type: float # (default 0.04)
+                 k_b:
+                    title: Factor to multiply TI
+                    type: float # (default 0)
+                 free_stream_ti:
+                    title: Flag deciding to use freestream or waked TI
+                    type: bool # (default to False)
             ceps:
               title: Bastankhah c_epsilon factor
               type: float
-            wake_expansion_modifier:
-              title: modifier function for wake expansion coefficient
-              type: str
-              enum: ["None", "Tuhfe"]
+            use_effective_ws:
+              title: flag to use freestream wind speed for deficit computation
+              type: bool
             
         axial_induction_model:
-        # ....
-        # look into defaults
+            title: axial induction model
+            type: string
+            enum: ["1D", "Madsen"]
 
         deflection_model:
           title: Deflection model
@@ -77,6 +87,7 @@ properties:
             beta:
               title: Jimenez deflection coefficient
               type: float
+              # (Batankhah2016 only works with Batankhah2016 wind deficit)
             
         turbulence_model:
           title: Turbulence model
@@ -89,10 +100,10 @@ properties:
               type: string
               enum: ["STF2005", "STF2017", "IEC-TI-2019", "CrespoHernandez", "GCL"]
               # Q: IEC versus Franson
+              # note: We assume same shape as wind deficit for now
             coefficents:
               title: coefficients 
               type: array
-            #.... TODO define order for each model
             
         superposition_model:
           title: Superposition model
@@ -100,28 +111,43 @@ properties:
           type: object
           additionalProperties: true
           properties:
-            name:
-              title: Superposition model name
+            ws_superposition:
+              title: Speed superposition model name
               type: string
-              enum: ["Linear", "Squared", "Max"]
+              enum: ["Linear", "Squared", "Max", "Product"]
+            ti_superposition:
+              title: TI superposition model name
+              type: string
+              enum: ["Linear", "Squared", "Max", "Product"]
 
-        background_flow_averaging:
-          title: Background flow averaging
+        rotor_averaging:
+          title: Rotor average
           description: Rotor averaging model used in AEP calculations
           type: object
           additionalProperties: true
-
-        wake_averaging:
-          title: Wale average
-          description: Rotor averaging model used in AEP calculations
-          type: object
-          additionalProperties: true
-          # something about wake or deficit averaging
           properties:
-            name:
-              title: Rotor model name
+            grid:
+              title: Grid type
               type: string
-              enum: ["center", 'avg_deficit', 'avg_velocity', 'cubic_avg_velocity']
+            n_x_grid_points:
+              title: Number of x grid points
+              type: integer
+            n_y_grid_points:
+              title: Number of y grid points
+              type: integer
+            background_averaging: # (velocity and TI)
+              title: Averaging model for background velocity and TI
+              type: string
+              enum: ["center", "grid"]
+            wake averaging: # velocity and TI averaging
+              title: Averaging model for wake velocity and TI
+              type: string
+              enum: ["center", 'grid'] # Assume the grid is not used for tophat model because analytic solution is available
+            wind_speed_exponent_for_power:
+              type: int
+            wind_speed_exponent_for_ct:
+              type: int  
+
 
         blockage_model:
           title: Blockage model
@@ -132,10 +158,13 @@ properties:
             name:
               title: Blockage model name
               type: string
-              enum: ['None', 'SelfSimilarityDeficit2020']
-            ss_alpha:
-              title: ss_alpha factor for SelfSimilarityDeficit2020
-              type: float
+              enum: ['None', 'RankineHalfBody', 'Rathmann', 'SelfSimilarityDeficit', 'SelfSimilarityDeficit2020']
+            parameters:
+              title: Blockage Model Parameters
+              type: array
+            #ss_alpha:
+            #  title: ss_alpha factor for SelfSimilarityDeficit2020
+            #  type: float
 
 
       outputs:  
