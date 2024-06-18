@@ -93,12 +93,6 @@ properties:
         shear:
             title: Shear
             $ref: "common.yaml#/definitions/shear"
-        timeseries:
-          title: Timeseries
-          description: Timeseries for wind conditions
-          type: array
-          items:
-            $ref: "#/definitions/timeseries_entry"
         LMO:
             title: Monin–Obukhov length (m)
             $ref: "common.yaml#/definitions/multi_dimensional_data"
