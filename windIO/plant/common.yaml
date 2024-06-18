@@ -43,3 +43,52 @@ definitions:
       type: number
       minimum: 0
       maximum: 1
+
+  multi_dimensional_data:
+    oneOf:
+      - $ref: "#/definitions/dimensional_data"
+      - $ref: "#/definitions/nondimensional_data"
+
+  dimensional_data:
+    title: Data with custom dimensions
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: [array, number]
+      dims:
+        type: array
+
+  nondimensional_data:
+    title: Data with custom dimensions
+    type: object
+    properties:
+      data:
+        type: number
+      dims:
+        type: array
+        maxItems: 0
+
+  multi_dimensional_coordinate:
+    oneOf:
+      - $ref: "#/definitions/dimensional_coordinate"
+      - $ref: "#/definitions/nondimensional_coordinate"
+
+  dimensional_coordinate:
+    title: Data with custom dimensions
+    type: array
+    items:
+      oneOf:
+        - type: number
+        - 
+          type: "string"
+          format: "date-time"
+
+  nondimensional_coordinate:
+    title: Data with custom dimensions
+    oneOf:
+      - type: number
+      - 
+        type: "string"
+        format: "date-time"
