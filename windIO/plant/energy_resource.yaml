@@ -119,26 +119,13 @@ properties:
             title: Roughness Length (m)
             description: Roughness length in meters
             $ref: "#/definitions/multi_dimensional_data"
-        thermal_stratification:
-          title: Thermal Stratification
-          type: object
-          oneOf:
-            - required:
-              - temperature_profile
-            - required:
-              - stability
-          properties:
-            temperature_profile:
-              title: Temperature Profile
-              description: Tempreture profile respect to altitude
-              $ref: "#/definitions/multi_dimensional_data"
-            stability:
-              title: Stability of the atmosphere
-              description: Roughness length in meters
-              $ref: "#/definitions/multi_dimensional_data"
-            capping_inversion:
-              title: Capping Inversion
-              type: boolean
+        stability:
+          title: Stability of the atmosphere
+          description: Roughness length in meters
+          $ref: "#/definitions/multi_dimensional_data"
+        capping_inversion:
+          title: Capping Inversion
+          type: boolean
 
 
 # DEFINITIONS
