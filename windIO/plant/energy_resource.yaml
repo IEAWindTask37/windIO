@@ -111,6 +111,21 @@ properties:
         friction_velocity:
             title: Friction velocity (m/s)
             $ref: "common.yaml#/definitions/multi_dimensional_data"
+        ABL_height:
+            title: atmoshpheric boundary layer height
+            $ref: "common.yaml#/definitions/multi_dimensional_data"
+        capping_inversion_thickness:
+            title: Capping inversion thickness
+            $ref: "common.yaml#/definitions/multi_dimensional_data"
+        capping_inversion_strength:
+            title: capping inversion strength
+            $ref: "common.yaml#/definitions/multi_dimensional_data"
+        capping_inversion_height:
+            title: capping inversion height
+            $ref: "common.yaml#/definitions/multi_dimensional_data"
+        lapse_rate:
+            title: lapse rate
+            $ref: "common.yaml#/definitions/multi_dimensional_data"
 
 
 # DEFINITIONS
