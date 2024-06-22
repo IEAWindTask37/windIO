@@ -1,5 +1,5 @@
-from utils.pywake_utils import ymlSystem2PyWake
-from utils.yml_utils import load_yaml
+from windIO.utils.pywake_utils import ymlSystem2PyWake
+from windIO.utils.yml_utils import load_yaml
 from py_wake.deficit_models.gaussian import IEA37SimpleBastankhahGaussian
 from topfarm._topfarm import TopFarmProblem
 from topfarm.constraint_components.boundary import CircleBoundaryConstraint

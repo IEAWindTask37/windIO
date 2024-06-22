@@ -1,7 +1,7 @@
 import yaml
 import os
-from utils import plant_schemas_path, plant_examples_data_path
-from utils.yml_utils import validate_yaml, XrResourceLoader
+from windIO.utils import plant_schemas_path, plant_examples_data_path
+from windIO.utils.yml_utils import validate_yaml, XrResourceLoader
 
 
 if __name__ == '__main__':
@@ -109,8 +109,7 @@ if __name__ == '__main__':
 
     validate_yaml(
         data_file=plant_examples_data_path + "plant_energy_resource/UniformResource_nc.yaml",
-        schema_file=plant_schemas_path + "energy_resource.yaml",
-        loader=XrResourceLoader
+        schema_file=plant_schemas_path + "energy_resource.yaml"
     )
 
     # UniformWeibull Resource
@@ -121,8 +120,7 @@ if __name__ == '__main__':
 
     validate_yaml(
         data_file=plant_examples_data_path + "plant_energy_resource/UniformWeibullResource_nc.yaml",
-        schema_file=plant_schemas_path + "energy_resource.yaml",
-        loader=XrResourceLoader
+        schema_file=plant_schemas_path + "energy_resource.yaml"
     )
 
     # WT distributed Resource
@@ -133,8 +131,7 @@ if __name__ == '__main__':
 
     validate_yaml(
         data_file=plant_examples_data_path + "plant_energy_resource/WTResource_nc.yaml",
-        schema_file=plant_schemas_path + "energy_resource.yaml",
-        loader=XrResourceLoader
+        schema_file=plant_schemas_path + "energy_resource.yaml"
     )
 
     # Gridded Resource
@@ -145,6 +142,5 @@ if __name__ == '__main__':
 
     validate_yaml(
         data_file=plant_examples_data_path + "plant_energy_resource/GriddedResource_nc.yaml",
-        schema_file=plant_schemas_path + "energy_resource.yaml",
-        loader=XrResourceLoader
+        schema_file=plant_schemas_path + "energy_resource.yaml"
     )

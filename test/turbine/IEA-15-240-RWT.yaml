@@ -329,8 +329,8 @@ components:
                   fiber_orientation:
                       grid: [0.0, 1.0]
                       values: [0.0, 0.0]
-            root: {d_f: 0.03, sigma_max: 675000000.0}
             joint: {position: 0.0, mass: 0.0, cost: 0.0}
+            root: {d_f: 0.03, sigma_max: 675000000.0}
         elastic_properties_mb:
             six_x_six:
                 reference_axis: *id001
@@ -921,7 +921,6 @@ materials:
       S: 0.31e+006
       G: 1520000.0
       unit_cost: 9.0
-
 control:
     supervisory:
         Vin: 3.0
