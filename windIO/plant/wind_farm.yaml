@@ -1,7 +1,8 @@
 input_format_version: 0
-title: definition of the wind energy conversion system
+title: Definition of the wind energy conversion system
 description: A file used to define the built environment (and other non-tangible components like O&M)
 required:
+  - name
   - layouts
   - turbines
 optional:
@@ -9,31 +10,111 @@ optional:
   - electrical_collection_array
   - foundations
   - O_&_M
+additionalProperties: false
 
 # PROPERTIES
 properties:
-  #~
+  name:
+    description: Name of the wind farm
+    type: string
   layouts:
     description: Position of wind turbines
+    type: object
     required:
       - initial_layout
+    additionalProperties: false
     properties:
-      inital_layout:
-        $ref: "#/definitions/layout"
+      initial_layout:
+        $ref: "#/definitions/initial_layout"
 
   turbines:
-    description: Turbine models installed in the WES.
+    description: Turbine models installed in the WES
+    type: object
     $ref: "turbine.yaml#"
-  #~
+
+  electrical_substations:
+    description: Information about electrical substations
+    type: array
+    items:
+      type: object
+      required:
+        - electrical_substation
+      additionalProperties: false
+      properties:
+        electrical_substation:
+          $ref: "#/definitions/electrical_substation"
+
+  electrical_collection_array:
+    title: Electrical collection array
+    description: Definition of electrical collection array (cable layout) for wind farm.
+    type: object
+    required:
+      - edges
+      - cables
+    additionalProperties: false
+    properties:
+      edges:
+        title: Edges of cable layout
+        description: List of edges (branches) in the cable layout [[from_node, to_node, cable_type], ...].
+        type: array
+      cables:
+        title: Cables
+        description: List of the cables
+        type: object
+        required:
+          - cable_type
+          - cross_section
+          - capacity
+          - cost
+        additionalProperties: false
+        properties:
+          cable_type:
+            title: Cable type
+            description: List of aviable cable types
+            type: array
+            units: mm2
+          cross_section:
+            title: Cross section
+            description: List of cables cross section
+            type: array
+            units: mm2
+          capacity:
+            title: Cable capacity
+            description: List of cable capacity
+            type: array
+            units: WindTurbine / Cable
+          cost:
+            title: Cable cost
+            description: List of cables cost
+            type: array
+            units: euro/meter
 
 definitions:
-  inital_layout:
+  initial_layout:
     title: Wind turbine layout
     type: object
     required:
       - coordinates
+    additionalProperties: false
     properties:
       coordinates:
         title: Wind turbine coordinate
         $ref: "common.yaml#/definitions/coordinates"
-        
+
+  electrical_substation:
+    title: Electrical substation
+    type: object
+    required:
+      - coordinates
+    optional:
+      - capacity
+    additionalProperties: false
+    properties:
+      coordinates:
+        title: Substation coordinates
+        $ref: "common.yaml#/definitions/coordinates"
+      capacity:
+        title: Substation capacity
+        description: Capacity of the electrical substation in megawatts
+        type: number
+        units: MW
