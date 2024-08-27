@@ -31,7 +31,6 @@ properties:
     description: Turbine models installed in the WES
     type: object
     $ref: "turbine.yaml#"
-
   electrical_substations:
     description: Information about electrical substations
     type: array

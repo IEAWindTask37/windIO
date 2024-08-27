@@ -13,10 +13,8 @@ def test_wind_farm_input(subtests):
     optional properties can be excluded.
     """
     with subtests.test("with valid config"):
-        assert validate_yaml(
-            SampleInputs().wind_farm,
-            plant_schemas_path + "wind_farm.yaml"
-        ) is None
+        config = SampleInputs().wind_farm
+        assert validate_yaml(config, plant_schemas_path + "wind_farm.yaml") is None
 
     with subtests.test("remove optional electrical_substations"):
         config = SampleInputs().wind_farm
