@@ -110,6 +110,13 @@ properties:
         title: Rated speed
         type: number
         units: W
+      #~~
+      generator_efficiency:
+        title: Generator Efficiency
+        description: The efficiency of converting mechanical to electrical power
+        type: number
+        minimum: 0
+        maximum: 1
   #~
   hub_height:
     title: Hub height
