@@ -111,6 +111,17 @@ properties:
         friction_velocity:
             title: Friction velocity (m/s)
             $ref: "common.yaml#/definitions/multi_dimensional_data"
+        ground_temperature:
+            title: Ground Temperature (K)
+            description: Temperature of the ground in Kelvin
+            $ref: "common.yaml#/definitions/multi_dimensional_data"
+        stability:
+          title: Stability of the atmosphere
+          description: Roughness length in meters
+          $ref: "common.yaml#/definitions/multi_dimensional_data"
+        capping_inversion:
+          title: Capping Inversion
+          type: boolean
 
 
 # DEFINITIONS
