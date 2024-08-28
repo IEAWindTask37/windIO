@@ -15,6 +15,7 @@ REQUIRED = [
 EXTRAS = {
     "test": {
         'pytest',
+        'pytest-subtests',
         'py_wake',
         'topfarm',
     },
