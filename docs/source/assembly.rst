@@ -27,7 +27,7 @@ The field :code:`assembly` includes nine entries that aim at describing the over
     Height of the hub center from the ground or from the mean sea level
 
 :code:`rotor_diameter` : Float, m 
-    Rotor diameter, defined as the sum of hub diameter and two times the three dimensional curved blade length
+    Rotor diameter, defined as the sum of hub diameter and two times the blade length along its z axis, see :ref:`blade`
 
 :code:`rated_power` : Float, W 
     Electrical rated power of the wind turbine

@@ -159,7 +159,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/grid_nd"
-                            t/c:
+                            rthick:
                                 type: object
                                 required:
                                     - grid
@@ -204,17 +204,6 @@ properties:
                             # coordinates:
                                     # description: Coordinates expressed in the blade root coordinate system.
                                     # $ref: "#/definitions/distributed_data/coordinates"
-                            rthick:
-                                type: object
-                                required:
-                                    - grid
-                                    - values
-                                properties:
-                                    grid:
-                                        $ref: "#/definitions/distributed_data/grid_nd"
-                                    values:
-                                        $ref: "#/definitions/distributed_data/grid_nd"
-
                     elastic_properties_mb:
                         type: object
                         properties:
@@ -2011,7 +2000,6 @@ properties:
                                     units: Newton
                                     description: Maximum vertical load (perpendicular to the sea floor) that the anchor can support
                                     minimum: 0.0
-
     airfoils:
         type: array
         description: Database of airfoils
@@ -2441,7 +2429,6 @@ properties:
                         units: rad/s
                         minimum: 0
                         default: 10.
-
     environment:
         type: object
         required:
