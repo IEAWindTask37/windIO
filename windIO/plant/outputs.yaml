@@ -1,0 +1,107 @@
+# Draft schema definition for outputs
+input_format_version: 0
+title: Outputs
+type: object
+description: >
+  The outputs generated from the energy resource model, including flow fields
+  and power tables. Each output type can be specified with detailed attributes
+  and properties.
+
+additionalProperties: false
+
+# PROPERTIES
+properties:
+  #~
+  wind_energy_system:
+    $ref: "wind_energy_system.yaml"
+  #~
+  flow_field:
+    title: Flow Field
+    type: object
+    description: >
+      The flow field outputs including coordinates (x, y, z) and velocities
+      (u, v, w), as well as pressure and temperature.
+    additionalProperties: false
+    required:
+      - x
+      - u
+    properties:
+      x:
+        title: X coordinate
+        description: West-East coordinate
+        $ref: "common.yaml#/definitions/coordinates"
+      y:
+        title: Y coordinate
+        description: South-North coordinate
+        $ref: "common.yaml#/definitions/coordinates"
+      z:
+        title: Z coordinate
+        description: Vertical coordinate
+        type: number
+        units: m
+      u:
+        title: U velocity
+        description: Velocity in the x direction
+        type: number
+        units: m/s
+      v:
+        title: V velocity
+        description: Velocity in the y direction
+        type: number
+        units: m/s
+      w:
+        title: W velocity
+        description: Velocity in the z direction
+        type: number
+        units: m/s
+      pressure:
+        title: Pressure
+        description: Pressure field
+        $ref: "common.yaml#/definitions/multi_dimensional_data"
+      temperature:
+        title: Temperature
+        description: Temperature field
+        $ref: "common.yaml#/definitions/multi_dimensional_data"
+
+  #~
+  power_table:
+    title: Power Table
+    type: object
+    description: >
+      The power table outputs including time, wind speed (ws), wind direction (wd),
+      power, and effective wind speed.
+    additionalProperties: false
+    anyOf:
+      - required:
+          - time
+          - power
+      - required:
+          - wind_speed
+          - wind_direction
+          - power
+    properties:
+      time:
+        title: Time
+        description: Timestamps for the data points
+        $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
+      wind_speed:
+        title: Wind Speed in m/s
+        description: Wind speed coordinates
+        $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
+      wind_direction:
+        title: Wind Direction in degrees
+        description: Wind direction coordinates
+        $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
+      power:
+        title: Power
+        description: Power output in Watts
+        $ref: "common.yaml#/definitions/multi_dimensional_data"
+      turbine:
+        title: Wind turbine number
+        description: Turbine number based on coordinates order
+        $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
+      effective_wind_speed:
+        title: Effective Wind Speed in m/s
+        description: Effective wind speed
+        $ref: "common.yaml#/definitions/multi_dimensional_data"
+
