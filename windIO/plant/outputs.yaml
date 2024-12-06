@@ -19,12 +19,15 @@ properties:
     title: Flow Field
     type: object
     description: >
-      The flow field outputs including coordinates (x, y, z) and velocities
-      (u, v, w), as well as pressure and temperature.
+      The flow field outputs including coordinates (time, x, y, z) and physical fields.
     additionalProperties: false
     required:
+      - time
       - x
-      - u
+      - y      
+      - z
+      - wind_speed
+      - wind_direction
     properties:
       time:
         title: Time
@@ -44,6 +47,14 @@ properties:
         title: Z coordinate
         description: Vertical coordinate
         $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
+      wind_speed:
+        title: wind speed
+        description: Velocity magnitude in m/s
+        $ref: "common.yaml#/definitions/multi_dimensional_data"
+      wind_direction:
+        title: wind direction
+        description: wind direction in degrees
+        $ref: "common.yaml#/definitions/multi_dimensional_data"
       u:
         title: U velocity
         description: Velocity in the x direction in m/s
@@ -60,50 +71,46 @@ properties:
         title: Pressure
         description: Pressure field
         $ref: "common.yaml#/definitions/multi_dimensional_data"
-      temperature:
-        title: Temperature
-        description: Temperature field
+      potential_temperature:
+        title: Potential temperature
+        description: Potential temperature field
         $ref: "common.yaml#/definitions/multi_dimensional_data"
 
   #~
-  power_table:
-    title: Power Table
+  turbine_data:
+    title: Turbine data
     type: object
     description: >
-      The power table outputs including time, wind speed (ws), wind direction (wd),
+      The turbine_data table outputs including time, wind speed (ws), wind direction (wd),
       power, and effective wind speed.
     additionalProperties: false
     anyOf:
       - required:
           - time
-          - power
-      - required:
-          - wind_speed
-          - wind_direction
+          - turbine
           - power
     properties:
       time:
         title: Time
         description: Timestamps for the data points
         $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
-      wind_speed:
-        title: Wind Speed in m/s
-        description: Wind speed coordinates
-        $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
-      wind_direction:
-        title: Wind Direction in degrees
-        description: Wind direction coordinates
+      turbine:
+        title: Wind turbine number
+        description: Turbine number based on coordinates order
         $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
       power:
         title: Power
         description: Power output in Watts
         $ref: "common.yaml#/definitions/multi_dimensional_data"
-      turbine:
-        title: Wind turbine number
-        description: Turbine number based on coordinates order
-        $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
       effective_wind_speed:
         title: Effective Wind Speed in m/s
         description: Effective wind speed
         $ref: "common.yaml#/definitions/multi_dimensional_data"
-
+      wind_direction:
+        title: Wind Direction in degrees
+        description: Wind direction coordinates
+        $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
+      wind_speed:
+        title: Wind Speed in m/s
+        description: Wind speed coordinates
+        $ref: "common.yaml#/definitions/multi_dimensional_coordinate"
