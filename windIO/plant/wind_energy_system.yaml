@@ -8,6 +8,7 @@ required:
 
 
 # PROPERTIES
+additionalProperties: false 
 properties:
   #~
   name:
@@ -25,6 +26,7 @@ properties:
     title: Attributes
     description: Specific attributes of the entire wind energy system
     type: object
+    additionalProperties: false
     properties:
 
       #~~
@@ -32,26 +34,27 @@ properties:
         title: Flow model
         description: Flow model used in wind farm design
         type: object
-        additionalProperties: true
+        additionalProperties: false
         properties:
           name:
             title: Flow model name
             type: string
             enum: ["foxes", "pyWake", "pyWakeEllipSys", "codeSaturne", "wayve", "floris"]
-      analyses:
+      analysis:
         wind_deficit_model:
           title: Wind deficit model
           description: Wake wind deficit model used in AEP calculations
           type: object
-          additionalProperties: true # to be set to False in a future release
+          additionalProperties: false 
           properties:
             name:
               title: Wake model name
               type: string
-              enum: ["Jensen", "Bastankhah2014", "Bastankhah2016", "TurbOPark"]
+              enum: ["Jensen", "Bastankhah2014", "Bastankhah2016", "TurbOPark", "SuperGaussian"]
             wake_expansion_coefficient:
               title: wake expansion coefficient
               type: object
+              additionalProperties: false 
               properties:
                  k_a:
                     title: Wake expansion coefficient
@@ -79,7 +82,7 @@ properties:
           description: defines the deviation of the path of the wake centerline in the crossflow direction (only for wake steering)
           #description: Deflection model used in AEP calculations
           type: object
-          additionalProperties: true
+          additionalProperties: false
           properties:
             name:
               title: Deflection model name
@@ -94,7 +97,7 @@ properties:
           title: Turbulence model
           description: Turbulence model used in AEP calculations
           type: object
-          additionalProperties: true
+          additionalProperties: false
           properties:
             name:
               title: Turbulence model name
@@ -110,7 +113,7 @@ properties:
           title: Superposition model
           description: Superposition model used in AEP calculations
           type: object
-          additionalProperties: true
+          additionalProperties: false
           properties:
             ws_superposition:
               title: Speed superposition model name
@@ -125,7 +128,7 @@ properties:
           title: Rotor average
           description: Rotor averaging model used in AEP calculations
           type: object
-          additionalProperties: true
+          additionalProperties: false
           properties:
             grid:
               title: Grid type
@@ -154,7 +157,7 @@ properties:
           title: Blockage model
           description: Blockage averaging model used in AEP calculations
           type: object
-          additionalProperties: true
+          additionalProperties: false
           properties:
             name:
               title: Blockage model name
@@ -170,7 +173,7 @@ properties:
         HPC_config:
           title: Information to handle parallel runs on HPC clusters
           type: object
-          additionalProperties: true
+          additionalProperties: false
           properties:
             run_node_number:
               title: number of nodes used to run the wind farm flow case
@@ -219,7 +222,7 @@ properties:
         layers_description:
           title: description of the layers needed for the APM model
           type: object
-          additionalProperties: true
+          additionalProperties: false
           properties:
             farm_layer_height:
               title: height of the layer containing the farm
@@ -244,7 +247,7 @@ properties:
         title: Outputs
         description: Output parameters and configurations for the wind energy system
         type: object
-        additionalProperties: true
+        additionalProperties: false
         properties:
           output_folder:
             title: output folder name
@@ -254,7 +257,7 @@ properties:
           cases_run:
             title: Handling of the timeseries runs
             type: object
-            additionalProperties: true
+            additionalProperties: false
             properties:
               all_occurences:
                 title: active to run all the occurences from the time series
@@ -267,7 +270,7 @@ properties:
             title: outputs related to each turbine
             description: outputs for each turbine as the individual turbine power, velocity..
             type: object
-            additionalProperties: true
+            additionalProperties: false
             properties:
               turbine_nc_filename:
                 title: Name of the file that will contain the turbine outputs
@@ -284,7 +287,7 @@ properties:
             title: configuration of the flow field outputs
             description:  flow field output variables and files
             type: object
-            additionalProperties: true
+            additionalProperties: false
             properties:
               report:
                 title: Report
@@ -305,7 +308,7 @@ properties:
                 title: planes at which the flow field variables will be stored
                 description: description of vertical planes
                 type: object
-                additionalProperties: true
+                additionalProperties: false
                 properties:
                   z_sampling:
                     title: type of vertical discretization
@@ -362,7 +365,7 @@ properties:
           title: Wake model
           description: Wake model used in AEP calculations
           type: object
-          additionalProperties: true
+          additionalProperties: false
           properties:
             name:
               title: Wake model name
