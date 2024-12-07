@@ -55,16 +55,16 @@ properties:
               properties:
                  k_a:
                     title: Wake expansion coefficient
-                    type: float # (default 0.04)
+                    type: number # (default 0.04)
                  k_b:
                     title: Factor to multiply TI
-                    type: float # (default 0)
+                    type: number # (default 0)
                  free_stream_ti:
                     title: Flag deciding to use freestream or waked TI
                     type: bool # (default to False)
             ceps:
               title: Bastankhah c_epsilon factor
-              type: float
+              type: number
             use_effective_ws:
               title: flag to use freestream wind speed for deficit computation
               type: bool
@@ -87,7 +87,7 @@ properties:
               enum: ["None", "Jimenez", "Batankhah2016"]
             beta:
               title: Jimenez deflection coefficient
-              type: float
+              type: number
               # (Batankhah2016 only works with Batankhah2016 wind deficit)
             
         turbulence_model:
@@ -165,7 +165,7 @@ properties:
               type: array
             #ss_alpha:
             #  title: ss_alpha factor for SelfSimilarityDeficit2020
-            #  type: float
+            #  type: number
 
         HPC_config:
           title: Information to handle parallel runs on HPC clusters
@@ -223,7 +223,7 @@ properties:
           properties:
             farm_layer_height:
               title: height of the layer containing the farm
-              type: float
+              type: number
             number_of_layers:
               title: number of layers in the free atmosphere
               type: integer
@@ -315,7 +315,7 @@ properties:
                     title: z plane values for sample type 'grid'
                     type: array
                     items:
-                      type: float
+                      type: number
                   xy_sampling:
                     title: type of horizontal discretization
                     type: string
@@ -324,12 +324,12 @@ properties:
                     title: x bounds for sample type 'grid'
                     type: array
                     items:
-                      type: float
+                      type: number
                   y_bounds:
                     title: y bounds for sample type 'grid'
                     type: array
                     items:
-                      type: float
+                      type: number
                   Nx:
                     title: number of points in the x direction for 'grid'
                     type: integer
@@ -338,10 +338,10 @@ properties:
                     type: integer
                   dx:
                     title: x grid spacing for sample type 'grid'
-                    type: float
+                    type: number
                   dy:
                     title: y grid spacing for sample type 'grid'
-                    type: float
+                    type: number
 
       #~~
       net_AEP:
