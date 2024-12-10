@@ -315,7 +315,7 @@ properties:
                   xy_sampling:
                     title: type of horizontal discretization
                     type: string
-                    enum: ['grid', 'default']
+                    enum: ['grid', 'original_grid']
                   x_bounds:
                     title: x bounds for sample type 'grid'
                     type: array
