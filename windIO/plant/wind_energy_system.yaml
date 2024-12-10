@@ -223,7 +223,7 @@ properties:
           wake_tool:
             title: choice of wake tool for coupling to wayve
             type: string
-            enum: ['pywake', 'foxes']
+            enum: ['pywake', 'foxes', 'wayve']
 
           APM_additional_terms:
             title: list of terms added to the APM model
