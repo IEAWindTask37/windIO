@@ -36,7 +36,7 @@ properties:
           name:
             title: Flow model name
             type: string
-            enum: ["foxes", "pyWake", "pyWakeEllipSys", "codeSaturne", "wayve", "floris"]
+            enum: ["foxes", "pyWake", "pyWakeEllipSys", "code_saturne", "wayve", "floris"]
       analysis:
         properties:
           wind_deficit_model:
