@@ -69,12 +69,12 @@ properties:
               use_effective_ws:
                 title: flag to use freestream wind speed for deficit computation
                 type: boolean
-              
+
           axial_induction_model:
               title: axial induction model
               type: string
               enum: ["1D", "Madsen"]
-  
+
           deflection_model:
             title: Deflection model
             description: defines the deviation of the path of the wake centerline in the crossflow direction (only for wake steering)
@@ -89,7 +89,7 @@ properties:
                 title: Jimenez deflection coefficient
                 type: number
                 # (Batankhah2016 only works with Batankhah2016 wind deficit)
-              
+
           turbulence_model:
             title: Turbulence model
             description: Turbulence model used in AEP calculations
@@ -102,9 +102,9 @@ properties:
                 # Q: IEC versus Franson
                 # note: We assume same shape as wind deficit for now
               coefficents:
-                title: coefficients 
+                title: coefficients
                 type: array
-              
+
           superposition_model:
             title: Superposition model
             description: Superposition model used in AEP calculations
@@ -118,7 +118,7 @@ properties:
                 title: TI superposition model name
                 type: string
                 enum: ["Linear", "Squared", "Max", "Product"]
-  
+
           rotor_averaging:
             title: Rotor average
             description: Rotor averaging model used in AEP calculations
@@ -145,8 +145,8 @@ properties:
                 type: number
               wind_speed_exponent_for_ct:
                 type: number
-  
-  
+
+
           blockage_model:
             title: Blockage model
             description: Blockage averaging model used in AEP calculations
@@ -162,7 +162,7 @@ properties:
               #ss_alpha:
               #  title: ss_alpha factor for SelfSimilarityDeficit2020
               #  type: number
-  
+
           HPC_config:
             title: Information to handle parallel runs on HPC clusters
             type: object
@@ -195,7 +195,7 @@ properties:
               mesh_partition:
                 title: run partition name
                 type: string
-                    
+
           mesh:
             title: meshing the wind farm domain for code_saturne calculation
             type: object
@@ -210,7 +210,7 @@ properties:
             title: type of run with the flow api
             type: string
             enum: ['simulate','postprocess']
-  
+
           layers_description:
             title: description of the layers needed for the APM model
             type: object
@@ -221,12 +221,12 @@ properties:
               number_of_layers:
                 title: number of layers in the free atmosphere
                 type: integer
-  
+
           wake_tool:
             title: choice of wake tool for coupling to wayve
             type: string
             enum: ['pywake', 'foxes']
-  
+
           APM_additional_terms:
             title: list of terms added to the APM model
             oneOf:
@@ -238,10 +238,10 @@ properties:
                   properties:
                     term_list:
                       type: string
-  
-  
+
+
       #~~
-      model_outputs_specification:  
+      model_outputs_specification:
         title: Outputs
         description: Output parameters and configurations for the wind energy system
         type: object
@@ -253,7 +253,7 @@ properties:
             title: output folder name
             description: name of the folder where the output files are written
             type: string
-            
+
           cases_run:
             title: Handling of the timeseries runs
             type: object
@@ -265,7 +265,7 @@ properties:
               subset:
                 title: list of times to run
                 type: array
-              
+
           turbine_outputs:
             title: outputs related to each turbine
             description: outputs for each turbine as the individual turbine power, velocity..
@@ -303,7 +303,7 @@ properties:
                 type: array
                 items:
                   type: string
-                  
+
               z_planes:
                 title: planes at which the flow field variables will be stored
                 description: description of vertical planes
@@ -351,33 +351,10 @@ properties:
         description: Output parameters and configurations for the wind energy system
         type: object
         properties:
-          AEP:
-            title: Annual Energy Production
-            description: Flag to include Annual Energy Production in the output
-            type: boolean
-          AEP_per_turbine:
-            title: AEP per Turbine
-            description: Flag to include Annual Energy Production per turbine in the output
-            type: boolean
           name:  # New property added
             title: Output Name
             description: Name for the output configuration
             type: string
-          power_percentiles:
-            title: Power Percentiles
-            description: Configuration for reporting power percentiles
-            type: object
-            properties:
-              report:
-                title: Report
-                description: Flag to include power percentiles in the output
-                type: boolean
-              percentiles:
-                title: Percentiles
-                description: List of percentiles to report
-                type: array
-                items:
-                  type: integer
           flow_field:
             title: Flow Field
             description: Configuration for flow field output
@@ -400,31 +377,6 @@ properties:
             description: Specific power table configurations
             type: array
             items:
-      #~~
-      net_AEP:
-        title: Net AEP for the plant/site
-        unit: GWh
-        type: number
-      gross_AEP:
-        title: Gross AEP for the plant/site
-        unit: GWh
-        type: number
-      array_efficiency:
-        title: Wake array efficiency
-        type: number
-        minimum: 0
-        maximum: 1 # Define common decimal data type and refer.
-      analyses:
-        wake_model:
-          title: Wake model
-          description: Wake model used in AEP calculations
-          type: object
-          additionalProperties: false
-          properties:
-            name:
-              title: Wake model name
-              type: string
-
   optimisation:
     design_variables:
       title: List of design variables
