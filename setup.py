@@ -31,6 +31,7 @@ metadata = dict(
     description="Frameworks defining the inputs and outputs for systems engineering MDAO of wind turbine and plants.",
     author="IEA Wind Task 37",
     packages=setuptools.find_packages(exclude=["docs*", "examples*", "test*"]),
+    package_data={'windIO': ['**/*.yaml']},
     python_requires=">=3.7",
     zip_safe=True,
     install_requires=REQUIRED,
