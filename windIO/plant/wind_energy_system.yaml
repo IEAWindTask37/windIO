@@ -218,26 +218,96 @@ properties:
               farm_layer_height:
                 title: height of the layer containing the farm
                 type: number
-              number_of_layers:
+              number_of_fa_layers:
                 title: number of layers in the free atmosphere
                 type: integer
+
+          APM_additional_terms:
+            title: list of terms added to the APM model
+            type: object
+            properties:
+              momentum_entrainment:
+                title: momentum flux parametrization above the farm
+                type: object
+                properties:
+                  mfp_type:
+                    title: type of APM momentum flux parametrization
+                    type: string
+                    enum: [None, 'constant_flux']
+                  apm_mfp_settings:
+                    title: APM momentum flux parametrization settings
+                    description: settings for APM momentum flux parametrization (only used when mfp_type is "constant_flux")
+                    type: object
+                    properties:
+                       a_mfp:
+                          title: momentum flux scaling parameter
+                          type: number # (default 0.120)
+                       d_mfp:
+                          title: momentum flux IBL growth scaling parameter
+                          type: number # (default 27.80)
+              apm_disp_stresses:
+                title: dispersive stresses parametrization
+                type: object
+                properties:
+                  ds_type:
+                    title: type of APM dispersive stresses parametrization
+                    type: string
+                    enum: [None, 'subgrid']
+
+          apm_grid:
+            title: settings for the APM grid
+            type: object
+            properties:
+              Lx:
+                title: APM grid size in x-direction
+                type: number # (default 1.e6)
+              Ly:
+                title: APM grid size in y-direction
+                type: number # (default 1.e6)
+              dx:
+                title: APM grid spacing
+                type: number # (default 500.)
+              L_filter:
+                title: APM grid filter length
+                type: number # (default 1.e3)
 
           wake_tool:
             title: choice of wake tool for coupling to wayve
             type: string
             enum: ['pywake', 'foxes', 'wayve']
 
-          APM_additional_terms:
-            title: list of terms added to the APM model
-            oneOf:
-                - type: array
-                  items:
-                    type: string
-                    enum: ['term_name_1', 'term_name_2']
-                - type: object
-                  properties:
-                    term_list:
-                      type: string
+          wm_coupling:
+            title: settings for wake model coupling in wayve
+            type: object
+            properties:
+              method:
+                title: wake model coupling method
+                description: wake model coupling method (see https://dx.doi.org/10.1088/1742-6596/2767/9/092079)
+                type: string
+                enum: ["VM", "PB", "US"]  # (default "PB")
+              settings:
+                title: method-specific settings for wake model coupling in wayve
+                type: object
+                properties:
+                  alpha:
+                    title: Ratio of filter length to shape function spacing
+                    description: Ratio of filter length to shape function spacing used by the VM method. Has to be specified when using "VM", no effect otherwise.
+                    type: number # (default 0.4)
+                  distance:
+                    title: Upstream distance
+                    description: Upstream distance where the background velocity is evaluated. Has to be specified when using "US", no effect otherwise.
+                    type: number # (default 1.e3)
+              subgrid:
+                title: settings for the subgrid on which wake model velocities are defined
+                type: object
+                properties:
+                  include_subgrid:
+                    title: Whether or not a subgrid is included
+                    description: Whether or not a subgrid is included. Can not be False when using VM or when using the "subgrid" dispersive stress parametrization.
+                    type: boolean # (default False)
+                  D_to_dx:
+                    title: Ratio of average turbine diameter to subgrid spacing
+                    type: number # (default 8)
 
 
       #~~
