@@ -5,6 +5,7 @@ import jsonschema
 import json
 from urllib.parse import urljoin
 import xarray as xr
+import re
 
 
 class Loader(yaml.SafeLoader):
@@ -23,6 +24,19 @@ class Loader(yaml.SafeLoader):
             return yaml.load(f, self.__class__)
 
 Loader.add_constructor('!include', Loader.include)
+
+# Add regex matching for scientific notation
+Loader.add_implicit_resolver(
+    u'tag:yaml.org,2002:float',
+    re.compile(u'''^(?:
+     [-+]?(?:[0-9][0-9_]*)\\.[0-9_]*(?:[eE][-+]?[0-9]+)?
+    |[-+]?(?:[0-9][0-9_]*)(?:[eE][-+]?[0-9]+)
+    |\\.[0-9_]+(?:[eE][-+][0-9]+)?
+    |[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+\\.[0-9_]*
+    |[-+]?\\.(?:inf|Inf|INF)
+    |\\.(?:nan|NaN|NAN))$''', re.X),
+    list(u'-+0123456789.'))
+
 
 class XrResourceLoader(Loader):
 
