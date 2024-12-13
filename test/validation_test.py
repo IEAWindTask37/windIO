@@ -1,7 +1,7 @@
 
 # import windIO.reference_library as ref_lib        # this would be better so you can import the reference library from the top
 import windIO.reference_library.plant as windIO_plant_lib
-import windIO.reference_library.turbine as windIO_turbine_lib
+# import windIO.reference_library.turbine as windIO_turbine_lib
 from windIO.utils.yml_utils import validate
 from pathlib import Path
 
@@ -142,5 +142,24 @@ def test_validation_energy_resources():
 
     validate(
         input=plant_reference_path / "plant_energy_resource/GriddedResource_nc.yaml",
+        schema_type="plant/energy_resource"
+    )
+
+def test_validation_timeseries():
+
+    plant_reference_path = Path(windIO_plant_lib.__file__).parent
+
+    validate(
+        input=plant_reference_path / "plant_energy_resource/timeseries.yaml",
+        schema_type="plant/energy_resource"
+    )
+
+    validate(
+        input=plant_reference_path / "plant_energy_resource/timeseries_with_netcdf.yaml",
+        schema_type="plant/energy_resource"
+    )
+
+    validate(
+        input=plant_reference_path / "plant_energy_resource/timeseries_vertical_variation.yaml",
         schema_type="plant/energy_resource"
     )
