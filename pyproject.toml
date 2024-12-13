@@ -52,9 +52,9 @@ exclude = [
 
 [tool.setuptools.package-data]
 windIO = [
-    "plant/*.yaml",
-    "windIO/turbine/*.yaml",
-    "reference_library/**",
+    "schemas/plant/*.yaml",     # Plant schema files
+    "schemas/turbine/*.yaml",   # Turbine schema files
+    "reference_library/**",     # WindIO reference files, previously examples/
 ]
 
 [project.urls]

@@ -1,27 +1,20 @@
 import os
 import unittest
+from jsonschema import validate
+import yaml
+from pathlib import Path
+import windIO
 
 import yaml
 from jsonschema import Draft7Validator, validate
 
-path2schema = (
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-    + os.sep
-    + "windIO"
-    + os.sep
-    + "turbine"
-    + os.sep
-    + "IEAontology_schema.yaml"
-)
+path2schema = Path(windIO.schemas.turbine.__file__).parent / "IEAontology_schema.yaml"
 
 
 class TestRegression(unittest.TestCase):
     def test_IEA_15_240_RWT(self):
-        path2yaml = (
-            os.path.dirname(os.path.realpath(__file__))
-            + os.sep
-            + "IEA-15-240-RWT.yaml"
-        )
+        path2yaml = Path(__file__).parent / "IEA-15-240-RWT.yaml"
+
         # Read the input yaml
         with open(path2yaml, "r") as myfile:
             inputs = myfile.read()

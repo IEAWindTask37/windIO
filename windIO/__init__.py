@@ -6,11 +6,19 @@ import jsonschema
 import json
 from urllib.parse import urljoin
 import xarray as xr
+
+### API design
 import windIO.reference_library.plant
 import windIO.reference_library.turbine
+import windIO.schemas
+import windIO.schemas.plant         # By importing plant and turbine here, we can use the schemas as windIO.schemas.plant and windIO.schemas.turbine
+import windIO.schemas.turbine       # by only importing windIO... import windIO; help(windIO.schemas.turbine); Is there any side effect?
 
 plant_lib = windIO.reference_library.plant
 turbine_lib = windIO.reference_library.turbine
+schemas = windIO.schemas
+### API design
+
 
 class Loader(yaml.SafeLoader):
     def __init__(self, stream):
@@ -95,7 +103,7 @@ def validate(input: dict | str | Path, schema_type: str) -> None:
     #     "turbine": "turbine/IEAontology_schema.yaml",
     # }
     # schema_file = Path(__file__).parent.parent / f"{_schema_type_map[schema_type]}"
-    schema_file = Path(__file__).parent / f"{schema_type}.yaml"
+    schema_file = Path(__file__).parent / "schemas" / f"{schema_type}.yaml"
     if not schema_file.exists():
         raise FileNotFoundError(f"Schema file {schema_file} not found.")
 
