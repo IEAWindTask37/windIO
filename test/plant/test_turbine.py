@@ -1,5 +1,7 @@
-from windIO.utils.pywake_utils import yml2WindTurbines
-from windIO.utils import plant_examples_data_path
+
+from pathlib import Path
+from .pywake_utils import yml2WindTurbines
+import windIO.reference_library.plant as windIO_plant_lib
 from py_wake.examples.data.iea37._iea37 import IEA37_WindTurbines
 import numpy.testing as npt
 import numpy as np
@@ -7,7 +9,8 @@ import numpy as np
 
 def test_3_350_turbine():
     ref = IEA37_WindTurbines()
-    wt = yml2WindTurbines(plant_examples_data_path + "plant_energy_turbine/IEA37_3.35MW_turbine.yaml")
+    plant_reference_path = Path(windIO_plant_lib.__file__).parent
+    wt = yml2WindTurbines(plant_reference_path / "plant_energy_turbine/IEA37_3.35MW_turbine.yaml")
 
     npt.assert_equal(wt.diameter(), ref.diameter())
     npt.assert_equal(wt.hub_height(), ref.hub_height())

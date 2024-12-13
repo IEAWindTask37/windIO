@@ -2,11 +2,10 @@ import numpy as np
 import xarray as xr
 from windIO.utils.yml_utils import load_yaml, XrResourceLoader
 from py_wake.wind_turbines import WindTurbine
-from py_wake.wind_turbines.power_ct_functions import CubePowerSimpleCt, PowerCtFunctions
+from py_wake.wind_turbines.power_ct_functions import PowerCtFunctions
 from py_wake.site.xrsite import XRSite
 from py_wake.deficit_models.gaussian import IEA37SimpleBastankhahGaussian
 import matplotlib.pyplot as plt
-from test.plant import examples_data_path
 
 
 def yml2Site(yml, interp_method='nearest'):

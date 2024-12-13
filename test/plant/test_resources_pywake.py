@@ -1,5 +1,6 @@
 
-from windIO.utils.pywake_utils import yml2Site, xr2Site
+from .pywake_utils import yml2Site, xr2Site
+from pathlib import Path
 import numpy.testing as npt
 import numpy as np
 import pytest
@@ -8,16 +9,17 @@ from py_wake.examples.data.iea37._iea37 import IEA37_WindTurbines, IEA37Site
 import xarray as xr
 from py_wake.examples.data.hornsrev1 import V80, Hornsrev1Site
 from py_wake.examples.data.ParqueFicticio._parque_ficticio import ParqueFicticioSite
-from test.plant import examples_data_path
+import windIO.reference_library.plant as windIO_plant_lib
 
 
 @pytest.mark.parametrize('ext', ['.yaml', '_nc.yaml', '.nc'])
 def test_uniform_resource(ext):
     filename = "UniformResource" + ext
+    plant_reference_path = Path(windIO_plant_lib.__file__).parent
     if ext.endswith('.yaml'):
-        site = yml2Site(examples_data_path + "/plant_energy_resource/" + filename)
+        site = yml2Site(plant_reference_path / "plant_energy_resource/" / filename)
     else:
-        site = xr2Site(xr.open_dataset(examples_data_path + "/plant_energy_resource/" + filename))
+        site = xr2Site(xr.open_dataset(plant_reference_path / "plant_energy_resource/" / filename))
 
     wd = np.arange(0, 360, 22.5)
     npt.assert_array_equal(site.ds.P.sel(wd=wd), [0.025, 0.024, 0.029, 0.036, 0.063, 0.065, 0.1,
@@ -35,10 +37,11 @@ def test_uniform_resource(ext):
 @pytest.mark.parametrize('ext', ['.yaml', '_nc.yaml', '.nc'])
 def test_uniform_weibull_resource(ext):
     filename = "UniformWeibullResource" + ext
+    plant_reference_path = Path(windIO_plant_lib.__file__).parent
     if ext.endswith('.yaml'):
-        site = yml2Site(examples_data_path + "/plant_energy_resource/" + filename)
+        site = yml2Site(plant_reference_path / "plant_energy_resource/" / filename)
     else:
-        site = xr2Site(xr.open_dataset(examples_data_path + "/plant_energy_resource/" + filename))
+        site = xr2Site(xr.open_dataset(plant_reference_path / "plant_energy_resource/" / filename))
 
     wd = np.arange(0, 360, 30)
 
@@ -64,10 +67,11 @@ def test_uniform_weibull_resource(ext):
 @pytest.mark.parametrize('ext', ['.yaml', '_nc.yaml', '.nc'])
 def test_wt_resource(ext):
     filename = "GriddedResource" + ext
+    plant_reference_path = Path(windIO_plant_lib.__file__).parent
     if ext.endswith('.yaml'):
-        site = yml2Site(examples_data_path + "/plant_energy_resource/" + filename)
+        site = yml2Site(plant_reference_path / "plant_energy_resource/" / filename)
     else:
-        site = xr2Site(xr.open_dataset(examples_data_path + "/plant_energy_resource/" + filename))
+        site = xr2Site(xr.open_dataset(plant_reference_path / "plant_energy_resource/" / filename))
     site.ds['TI'] = .075
 
     ref_site = ParqueFicticioSite()
