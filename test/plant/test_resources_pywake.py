@@ -9,13 +9,13 @@ from py_wake.examples.data.iea37._iea37 import IEA37_WindTurbines, IEA37Site
 import xarray as xr
 from py_wake.examples.data.hornsrev1 import V80, Hornsrev1Site
 from py_wake.examples.data.ParqueFicticio._parque_ficticio import ParqueFicticioSite
-import windIO.reference_library.plant as windIO_plant_lib
+import windIO
 
 
 @pytest.mark.parametrize('ext', ['.yaml', '_nc.yaml', '.nc'])
 def test_uniform_resource(ext):
     filename = "UniformResource" + ext
-    plant_reference_path = Path(windIO_plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_lib.__file__).parent
     if ext.endswith('.yaml'):
         site = yml2Site(plant_reference_path / "plant_energy_resource/" / filename)
     else:
@@ -37,7 +37,7 @@ def test_uniform_resource(ext):
 @pytest.mark.parametrize('ext', ['.yaml', '_nc.yaml', '.nc'])
 def test_uniform_weibull_resource(ext):
     filename = "UniformWeibullResource" + ext
-    plant_reference_path = Path(windIO_plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_lib.__file__).parent
     if ext.endswith('.yaml'):
         site = yml2Site(plant_reference_path / "plant_energy_resource/" / filename)
     else:
@@ -67,7 +67,7 @@ def test_uniform_weibull_resource(ext):
 @pytest.mark.parametrize('ext', ['.yaml', '_nc.yaml', '.nc'])
 def test_wt_resource(ext):
     filename = "GriddedResource" + ext
-    plant_reference_path = Path(windIO_plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_lib.__file__).parent
     if ext.endswith('.yaml'):
         site = yml2Site(plant_reference_path / "plant_energy_resource/" / filename)
     else:

@@ -1,6 +1,6 @@
 
 import pytest
-from windIO.utils.yml_utils import validate
+import windIO
 from test.plant.conftest import SampleInputs
 from jsonschema.exceptions import ValidationError
 
@@ -12,17 +12,17 @@ def test_wind_farm_input(subtests):
     """
     with subtests.test("with valid config"):
         config = SampleInputs().wind_farm
-        validate(config, "plant/wind_farm")
+        windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("remove optional electrical_substations"):
         config = SampleInputs().wind_farm
         del config["electrical_substations"]
-        validate(config, "plant/wind_farm")
+        windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("remove optional electrical_collection_array"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]
-        validate(config, "plant/wind_farm")
+        windIO.validate(config, "plant/wind_farm")
 
 
 def test_wind_farm_invalid_inputs_layouts(subtests):
@@ -33,19 +33,19 @@ def test_wind_farm_invalid_inputs_layouts(subtests):
         config = SampleInputs().wind_farm
         del config["layouts"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing layouts initial_layout"):
         config = SampleInputs().wind_farm
         del config["layouts"]["initial_layout"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing layouts initial_layout coordinates"):
         config = SampleInputs().wind_farm
         del config["layouts"]["initial_layout"]["coordinates"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
 
 
 def test_wind_farm_invalid_inputs_turbines(subtests):
@@ -56,7 +56,7 @@ def test_wind_farm_invalid_inputs_turbines(subtests):
         config = SampleInputs().wind_farm
         del config["turbines"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
 
 
 def test_wind_farm_invalid_inputs_electrical_substations(subtests):
@@ -67,18 +67,18 @@ def test_wind_farm_invalid_inputs_electrical_substations(subtests):
         config = SampleInputs().wind_farm
         del config["electrical_substations"][0]["electrical_substation"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing electrical_substation coordinates"):
         config = SampleInputs().wind_farm
         del config["electrical_substations"][0]["electrical_substation"]["coordinates"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("remove optional electrical_substation capacity"):
         config = SampleInputs().wind_farm
         del config["electrical_substations"][0]["electrical_substation"]["capacity"]
-        validate(config, "plant/wind_farm") is None
+        windIO.validate(config, "plant/wind_farm") is None
 
 def test_wind_farm_invalid_inputs_electrical_collection_array(subtests):
     """
@@ -88,34 +88,34 @@ def test_wind_farm_invalid_inputs_electrical_collection_array(subtests):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["edges"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing electrical_collection_array cables"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing electrical_collection_array cables cable_type"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]["cable_type"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
     
     with subtests.test("missing electrical_collection_array cables cross_section"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]["cross_section"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
     
     with subtests.test("missing electrical_collection_array cables capacity"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]["capacity"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")
     
     with subtests.test("missing electrical_collection_array cables cost"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]["cost"]
         with pytest.raises(ValidationError):
-            validate(config, "plant/wind_farm")
+            windIO.validate(config, "plant/wind_farm")

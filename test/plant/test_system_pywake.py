@@ -1,7 +1,6 @@
 
 from pathlib import Path
-from windIO.utils.yml_utils import load_yaml
-import windIO.reference_library.plant as windIO_plant_lib
+import windIO
 from .pywake_utils import ymlSystem2PyWake
 from py_wake.deficit_models.gaussian import IEA37SimpleBastankhahGaussian
 import numpy as np
@@ -19,7 +18,7 @@ except ModuleNotFoundError:
     topfarm = None
 
     def ymlSystem2TopFarm(wind_energy_system_yml, **kwargs):
-        wes = load_yaml(wind_energy_system_yml)
+        wes = windIO.load_yaml(wind_energy_system_yml)
         wfm, (x, y) = ymlSystem2PyWake(wes, IEA37SimpleBastankhahGaussian)
         constraints = []
         boundary = wes['site']['boundaries']
@@ -42,7 +41,7 @@ except ModuleNotFoundError:
         if topfarm is None:
             pytest.xfail()
 
-        plant_reference_path = Path(windIO_plant_lib.__file__).parent
+        plant_reference_path = Path(windIO.plant_lib.__file__).parent
         wfm, (x, y) = ymlSystem2PyWake(plant_reference_path / 'wind_energy_system/IEA37_case_study_1_2_wind_energy_system.yaml',
                                        IEA37SimpleBastankhahGaussian)
         ref = np.array([9444.60012, 8497.90004, 11383.32869, 14173.40367,
@@ -58,7 +57,7 @@ except ModuleNotFoundError:
         if topfarm is None:
             pytest.xfail()
 
-        plant_reference_path = Path(windIO_plant_lib.__file__).parent
+        plant_reference_path = Path(windIO.plant_lib.__file__).parent
         tf = ymlSystem2TopFarm(plant_reference_path / 'wind_energy_system/IEA37_case_study_1_2_wind_energy_system.yaml')
         wfm = tf.cost_comp.windFarmModel
         wfm.verbose = False

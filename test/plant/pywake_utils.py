@@ -1,6 +1,6 @@
 import numpy as np
 import xarray as xr
-from windIO.utils.yml_utils import load_yaml, XrResourceLoader
+import windIO
 from py_wake.wind_turbines import WindTurbine
 from py_wake.wind_turbines.power_ct_functions import PowerCtFunctions
 from py_wake.site.xrsite import XRSite
@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 def yml2Site(yml, interp_method='nearest'):
-    resource = load_yaml(yml, XrResourceLoader)
+    resource = windIO.load_yaml(yml, windIO.XrResourceLoader)
     if 'energy_resource' in resource:
         resource = resource['energy_resource']
     data = resource['wind_resource']
@@ -35,7 +35,7 @@ def xr2Site(ds, interp_method='nearest'):
 
 
 def yml2WindTurbines(yml):
-    wt = load_yaml(yml)
+    wt = windIO.load_yaml(yml)
     power = wt['performance']
 
     if 'power_curve' in power:
@@ -66,7 +66,7 @@ def yml2WindTurbines(yml):
 
 
 def ymlSystem2PyWake(wind_energy_system_yml, windFarmModel):
-    wes = load_yaml(wind_energy_system_yml)
+    wes = windIO.load_yaml(wind_energy_system_yml)
     wf = wes['wind_farm']
     x, y = [wf['layouts']['initial_layout']['coordinates'][xy] for xy in 'xy']
 
