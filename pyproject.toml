@@ -50,11 +50,11 @@ exclude = [
     "test*"
 ]
 
-# [tool.setuptools.package-data]
-# windIO = [
-#     "",
-#     ""
-# ]
+[tool.setuptools.package-data]
+windIO = [
+    "plant/*.yaml",
+    "windIO/turbine/*.yaml",
+]
 
 [project.urls]
 Homepage = "https://github.com/IEAWindSystems/windIO"
