@@ -54,6 +54,7 @@ exclude = [
 windIO = [
     "plant/*.yaml",
     "windIO/turbine/*.yaml",
+    "reference_library/**",
 ]
 
 [project.urls]
