@@ -1,6 +1,7 @@
 import yaml
 import os
-from pathlib import Path
+import copy
+from pathlib import Path, PosixPath, WindowsPath
 import jsonschema
 import json
 from urllib.parse import urljoin
@@ -53,51 +54,68 @@ XrResourceLoader.add_constructor('!include', XrResourceLoader.include)
 
 
 def load_yaml(filename, loader=XrResourceLoader):
-    if isinstance(filename, dict):
-        return filename  # filename already yaml dict
     with open(filename) as fid:
         return yaml.load(fid, loader)
 
+def add_local_schemas_to(resolver, schema_folder, base_uri, schema_ext_lst=['.json', '.yaml', '.yml']):
+    '''Function from https://gist.github.com/mrtj/d59812a981da17fbaa67b7de98ac3d4b#file-local_ref-py
+    Add local schema instances to a resolver schema cache.
 
-def validate_yaml(data_file, schema_file, loader=XrResourceLoader):
+    Arguments:
+        resolver (jsonschema.RefResolver): the reference resolver
+        schema_folder (str): the local folder of the schemas.
+        base_uri (str): the base URL that you actually use in your '$id' tags
+            in the schemas
+        schema_ext (str): filter files with this extension in the schema_folder
+    '''
+    for dir, _, files in os.walk(schema_folder):
+        for file in files:
+            if Path(file).suffix in schema_ext_lst:
+                schema_path = Path(dir) / Path(file)
+                rel_path = schema_path.relative_to(schema_folder)
+                try:
+                    with open(schema_path) as schema_file:
+                        if schema_path.suffix == '.json':
+                            schema_doc = json.load(schema_file)
+                        if schema_path.suffix in ['.yml', '.yaml']:
+                            schema_doc = yaml.safe_load(schema_file)
 
-    def add_local_schemas_to(resolver, schema_folder, base_uri, schema_ext_lst=['.json', '.yaml', '.yml']):
-        '''Function from https://gist.github.com/mrtj/d59812a981da17fbaa67b7de98ac3d4b#file-local_ref-py
-        Add local schema instances to a resolver schema cache.
+                    key = urljoin(base_uri, str(rel_path))
+                    resolver.store[key] = schema_doc
+                # except (ScannerError, ParserError):
+                except Exception:
+                    print("Reading %s failed" % file)
 
-        Arguments:
-            resolver (jsonschema.RefResolver): the reference resolver
-            schema_folder (str): the local folder of the schemas.
-            base_uri (str): the base URL that you actually use in your '$id' tags
-                in the schemas
-            schema_ext (str): filter files with this extension in the schema_folder
-        '''
-        for dir, _, files in os.walk(schema_folder):
-            for file in files:
-                if Path(file).suffix in schema_ext_lst:
-                    schema_path = Path(dir) / Path(file)
-                    rel_path = schema_path.relative_to(schema_folder)
-                    try:
-                        with open(schema_path) as schema_file:
-                            if schema_path.suffix == '.json':
-                                schema_doc = json.load(schema_file)
-                            if schema_path.suffix in ['.yml', '.yaml']:
-                                schema_doc = yaml.safe_load(schema_file)
+def validate(input: dict | str | Path, schema_type: str) -> None:
+    """
+    Validates a given windIO input based on the selected schema type.
+    Raises jsonschema.exceptions.ValidationError if the input file is not valid.
 
-                        key = urljoin(base_uri, str(rel_path))
-                        resolver.store[key] = schema_doc
-                    # except (ScannerError, ParserError):
-                    except Exception:
-                        print("Reading %s failed" % file)
+    Args:
+        input (dict | str | Path): Input to be validated. Could be a Python dictionary or
+            a path to a yaml file.
+        schema_type (str): Type of schema to be used for validation.
+            Options are 'plant' and 'turbine'.
+    """
+    # _schema_type_map = {
+    #     "plant": "plant/wind_energy_system.yaml",
+    #     "turbine": "turbine/IEAontology_schema.yaml",
+    # }
+    # schema_file = Path(__file__).parent.parent / f"{_schema_type_map[schema_type]}"
+    schema_file = Path(__file__).parent.parent / f"{schema_type}.yaml"
+    if not schema_file.exists():
+        raise FileNotFoundError(f"Schema file {schema_file} not found.")
 
-    data = load_yaml(data_file, loader)
+    if type(input) is dict:
+        data = copy.deepcopy(input)
+    elif type(input) in [str, Path, PosixPath, WindowsPath]:
+        data = load_yaml(input)
+    else:
+        raise TypeError(f"Input type {type(input)} is not supported.")
+
     schema = load_yaml(schema_file)
-
-    schema_folder = Path(schema_file).parent
     base_uri = 'https://www.example.com/schemas/'
-
     resolver = jsonschema.RefResolver(base_uri=base_uri, referrer=schema)
+    schema_folder = Path(schema_file).parent
     add_local_schemas_to(resolver, schema_folder, base_uri)
     jsonschema.validate(data, schema, resolver=resolver)
-
-    print("Validation succeeded")
