@@ -3,7 +3,7 @@
 
 windIO was started under IEA Wind Task 37 and has been additionally supported by IEA Wind Task 55
 as well as other community-based groups, research organization, and private companies.
-Being such a collaborative effort, it is important to establish a common understanding of
+Being a collaborative effort, it is important to establish a common understanding of the
 rules, responsibilities, and expectations from all stakeholders.
 This document outlines the processes and guidelines for contributing to windIO.
 
@@ -18,7 +18,7 @@ and these guidelines apply.
 As members of the wind energy community, we all agree that the advancement of wind
 energy technologies is critical for the sustainability of our planet.
 This shared goal should be reflected in our interactions with each other.
-Remember that we're all on the same team despite our individual day to day stressors and needs.
+Remember that we're all on the same team despite differences in our day to day stressors and needs.
 
 Two principles should guide our conduct:
 - [Think that you might be wrong.](https://en.wikipedia.org/wiki/Cromwell%27s_rule)
@@ -40,12 +40,16 @@ Here's a brief summary:
 - The `main` branch is the most stable and tested with the lowest frequency of changes.
     It should always represent the "released" version of windIO.
 
+The diagram below illustrates this flow with the main branch on the right, the develop and
+feature branches coming from main, and ultimately all merging back into main for a tagged release.
 Most often, feature branches are merged into `develop`, and less frequently `develop`
 is merged into `main`.
 The exception is when fixing a major bug in which case a bug-fix branch is merged directly
 into `main`, and then `main` is merged back into `develop`.
 The git history should be synced to GitHub frequently, and coordination across
 branches should happen there.
+
+![](gitflowdiagram.png)
 
 <!--
 Note that git messages and history are tools for communicating with other roles in the process.
@@ -59,7 +63,7 @@ as the pull request model is followed.
 
 ## Roles, Responsibilities and Expectations
 
-The collaborative development process involves various people with distinct roles and 
+The collaborative development process involves various people with distinct roles, and 
 a single person may participate as multiple roles.
 In the context of windIO, the following are identified:
 - **Contributor**: Adds to or modifies content in the windIO repository.
@@ -67,37 +71,60 @@ In the context of windIO, the following are identified:
 - **Maintainer**: Manages the repository by supporting the review process, managing issues,
     and generally ensuring the quality of the repository.
 
+*Contributors* are responsible for communicating their intention to make a change to the rest
+of the community of stakeholders.
+A change should be proposed through a GitHub Issue or Discussion, and relevant people
+should be tagged directly for feedback.
+At this point, it is the responsibility of *reviewers* and *maintainers* to evaluate the proposed
+change and provide feedback.
+After a proposal is appropriately evaluated, the *contributor* is responsible for implementing
+the change and submitting a pull request.
+
+A pull request is owned by the *contributor*.
+It is their responsibility to fully describe the change, the motivation behind it, and the
+impact on windIO and the adjacent ecosystem.
+After a pull request is submitted, *maintainers* should ensure the following:
+- An appropriate *reviewer* is listed
+- Conflicting works in progress are flagged
+- A tentative timeline for review, design iteration, and merge is established
+
+*Reviewers* are responsible for providing feedback on the pull request.
+Approving a change indicates agreement with the change, and it implies that they will accept
+responsibility for the consequences of the change.
+
+Note that authorship of a pull request is given to contributors, reviewers, and maintainers.
+
+A contribution to windIO requires an orchestration of all roles to complete the
 ```mermaid
 sequenceDiagram
     autonumber
 
-    participant Community
-    participant Developer
+    participant Contributor
+    participant Reviewer
     participant Maintainer
 
-    activate Community
+    activate Contributor
 
-    Community -> Community: Create Discussion describing a gap or feature
+    Contributor -> Contributor: Create Issue / Discussion describing a proposed change
 
-    activate Developer
+    activate Reviewer
     activate Maintainer
     loop Design Discussion
-        Maintainer->>Community: Feedback
-        Developer->>Community: Feedback
+        Reviewer->>Contributor: Feedback
+        Maintainer->>Contributor: Feedback
+        Developer->>Reviewer: Propose implementation
         Developer->>Maintainer: Propose implementation
     end
-    deactivate Community
-
-    Developer->Developer: Open an Issue to finalize proposal
-    Maintainer->Maintainer: Include Issue in a Project
 
     loop Implementation & Review
-        Developer->>Maintainer: Submit a Pull Request
-        Maintainer->>Developer: Provide code review feedback
+        Contributor->>Reviewer: Submit a Pull Request
+        Contributor->>Maintainer: Submit a Pull Request
+        Maintainer->>Contributor: Provide code review feedback
+        Reviewer->>Contributor: Provide code review feedback
     end
-    deactivate Developer
+    deactivate Contributor
 
-    Maintainer->>Community: Merge Pull Request
+    Maintainer->>Contributor: Merge Pull Request
     deactivate Maintainer
 ```
 <!-- :title: A representative workflow among all actors in a software development workflow leveraging GitHub features -->
