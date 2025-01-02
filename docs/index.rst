@@ -19,6 +19,7 @@ The frameworks are implemented in two yaml-schemas, one for the turbine and one 
 
    source/turbine
    source/plant
+   source/developer_guide
 
 
 Indices and tables
