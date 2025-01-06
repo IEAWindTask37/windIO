@@ -27,8 +27,8 @@ Two principles should guide our conduct:
 - `Think that you might be wrong. <https://en.wikipedia.org/wiki/Cromwell%27s_rule>`_
 - `Assume good faith. <https://en.wikipedia.org/wiki/Wikipedia:Assume_good_faith>`_
 
-Git Flow
-~~~~~~~~
+Contribution management
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Contributions are tracked with `git <https://docs.github.com/en/get-started/start-your-journey/about-github-and-git#about-git>`_
 and coordinated with `GitHub <https://docs.github.com/en/get-started/start-your-journey/about-github-and-git#about-github>`_.
@@ -48,11 +48,47 @@ Here's a brief summary:
 - The `main` branch is the stable and well-tested with the lowest frequency of changes.
   It should always represent the "released" version of windIO.
 
+Pull requests
+-------------
 
-.. image:: images/gitflowdiagram.png
-    :height: 600
-    :alt: Git-flow diagram
-    :align: center
+Once a set of changes is ready for review, the author should submit a pull request.
+This signals to the windIO community that a change is coming, and it triggers the review
+process to begin.
+It is the responsibility of the pull request author to convince the reviewers that the change
+is reasonable, complete and an improvement to windIO.
+
+Some guidelines:
+
+- The pull request description should explain the context, motivation, and justification
+  for accepting the change.
+- Executable code should be covered by tests.
+- Data or reference models should include links to their published sources.
+- The pull request's source branch can live either on the main repository or on a fork.
+
+.. Consider this checklist as a starting point to ensuring a pull request is complete:
+
+.. - Executable code is covered by the following tests:
+..   - Test 1
+..   - Test 2
+.. - New components are documented in:
+..   - Location 1
+..   - Location 2
+
+Reviews
+-------
+
+The review process is as critical to the success of windIO as the code contributions themselves.
+The objective of code reviews is to ensure that windIO stays within its intended scope
+and satisfies its requirements in a stable and sustainable manner.
+
+Reviews should consider the following:
+
+- Code style and formatting
+- Validation: did we make the right thing?
+- Verification: did we make the thing right?
+- How will someone not involved in this pull request understand this
+  change in two months or two years?
+- How does this change impact the complexity of windIO?
 
 
 
