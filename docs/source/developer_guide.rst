@@ -5,11 +5,12 @@ windIO was started under IEA Wind Task 37 and has been additionally supported by
 as well as other community-based groups, research organization, and private companies.
 Being a collaborative effort, it is important to establish a common understanding of the
 rules, responsibilities, and expectations from all stakeholders.
-This document outlines the processes and guidelines for contributing to windIO.
+**This document outlines the processes and guidelines for contributing to windIO.**
 
-The windIO repository includes JSON schemas, YAML files that describe wind energy systems
-conforming to the schemas, Python code for working with the schemas and input files,
-source files for web-based documentation, and various other files that serve as infrastructure.
+The windIO repository includes JSON schemas, YAML and NetCDF files that describe examples
+of wind energy systems conforming to the schemas, Python code for working with the schemas
+and input files, source files for web-based documentation,
+and various other files that serve as infrastructure.
 Changes to anything that is tracked with git in the windIO repository is considered a contribution,
 and these guidelines apply.
 
@@ -30,7 +31,7 @@ Git Flow
 ~~~~~~~~
 
 Contributions are tracked with `git <https://docs.github.com/en/get-started/start-your-journey/about-github-and-git#about-git>`_
-and coordinated with `GitHub <https://github.com>`_.
+and coordinated with `GitHub <https://docs.github.com/en/get-started/start-your-journey/about-github-and-git#about-github>`_.
 
 In general, the `git-flow <https://nvie.com/posts/a-successful-git-branching-model/>`_ model is used
 to navigate parallel development efforts.
@@ -38,31 +39,22 @@ Here's a brief summary:
 
 - Day to day work happens on feature branches on the principle repository or forks. The feature
   branches may be unstable, and there's no expectation that they are complete.
-  These branches should have a simple name that is indicative of the scope of the work.
-- The `develop` branch absorbs feature branches when they are complete through pull requests.
-  This branch is somewhat stable, but not yet ready to let loose for the general users.
-- The `main` branch is the most stable and tested with the lowest frequency of changes.
+  These branches should have a simple name that is indicative of the scope of the work such as
+  `feature/support_supersonic_tipspeeds`.
+- The `develop` branch absorbs completed feature branches through pull requests.
+  This branch is stable, but not yet complete and ready for general use. For example,
+  documentation or infrastructure improvements may be required in order to support changes
+  introduced through feature branches.
+- The `main` branch is the stable and well-tested with the lowest frequency of changes.
   It should always represent the "released" version of windIO.
 
-The diagram below illustrates this flow with the main branch on the right, the develop and
-feature branches coming from main, and ultimately all merging back into main for a tagged release.
-Most often, feature branches are merged into `develop`, and less frequently `develop`
-is merged into `main`.
-The exception is when fixing a major bug in which case a bug-fix branch is merged directly
-into `main`, and then `main` is merged back into `develop`.
-The git history should be synced to GitHub frequently, and coordination across
-branches should happen there.
 
 .. image:: images/gitflowdiagram.png
     :height: 600
     :alt: Git-flow diagram
     :align: center
 
-.. Note that git messages and history are tools for communicating with other roles in the process.
-.. Possibly link to https://nrel.github.io/WETOStack/software_dev/best_practices.html#version-control.
 
-.. Branches could live on one fork or multiple. Ultimately, it doesn't really matter so long
-.. as the pull request model is followed.
 
 Roles, Responsibilities and Expectations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
