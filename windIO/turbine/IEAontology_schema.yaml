@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema#
 # Author: Pietro Bortolotti
 # Organization: National Renewable Energy Laboratory, Golden, CO
 # Date: 2020-04-28
@@ -66,32 +67,32 @@ properties:
                 type: integer
                 default: 3
                 description: Number of blades of the rotor
-                unit: none
+                units: none
                 minimum: 0
                 maximum: 10
             rotor_diameter:
                 type: number
                 default: 0
                 description: Diameter of the rotor, defined as two times the blade length plus the hub diameter
-                unit: m
+                units: m
                 minimum: 0
                 maximum: 1000
             hub_height:
                 type: number
                 default: 0
                 description: Height of the hub center over the ground (land-based) or the mean sea level (offshore)
-                unit: m
+                units: m
                 minimum: 0
                 maximum: 1000
             rated_power:
                 type: number
                 description: Nameplate power of the turbine, i.e. the rated electrical output of the generator.
-                unit: W
+                units: W
                 minimum: 0
             lifetime:
                 type: number
                 description: Turbine design lifetime in years.
-                unit: years
+                units: years
                 minimum: 0
                 default: 25.0
     components:
@@ -105,7 +106,6 @@ properties:
             - monopile
             - floating_platform
             - mooring
-            - RNA
         properties:
             blade:
                 type: object
@@ -230,14 +230,14 @@ properties:
                                         default: 0.03
                                         minimum: 0.01
                                         maximum: 0.2
-                                        unit: m
+                                        units: m
                                         description: Diameter of the fastener, default is M30, so 0.03 meters
                                     sigma_max:
                                         type: number
                                         default: 675.e+6
                                         minimum: 1.e+5
                                         maximum: 1.e+10
-                                        unit: Pa
+                                        units: Pa
                                         description: Max stress on bolt
                             reference_axis:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
@@ -342,21 +342,21 @@ properties:
                                     position:
                                         type: number
                                         description: Spanwise position of the segmentation joint.
-                                        unit: none
+                                        units: none
                                         default: 0.0
                                         minimum: 0.0
                                         maximum: 1.0
                                     mass:
                                         type: number
                                         description: Mass of the joint.
-                                        unit: kg
+                                        units: kg
                                         default: 0.0
                                         minimum: 0.0
                                         maximum: 1.e+6
                                     cost:
                                         type: number
                                         description: Cost of the joint.
-                                        unit: USD
+                                        units: USD
                                         default: 0.0
                                         minimum: 0.0
                                         maximum: 1.e+6
@@ -370,7 +370,7 @@ properties:
                                         description: Cost of the joint not from materials.
                                         default: 0.0
                                         minimum: 0.0
-                                        unit: USD
+                                        units: USD
                                         maximum: 1.e+6
                                     reinforcement_layer_ss:
                                         type: string
@@ -399,19 +399,19 @@ properties:
                             diameter:
                                 type: number
                                 description: Diameter of the hub measured at the blade root positions.
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 10.
                             cone_angle:
                                 type: number
                                 description: Rotor precone angle, defined positive for both upwind and downwind rotors.
-                                unit: rad
+                                units: rad
                                 minimum: 0
                                 maximum: 0.4
                             drag_coefficient:
                                 type: number
                                 description: Equivalent drag coefficient to compute the aerodynamic forces generated on the hub.
-                                unit: none
+                                units: none
                                 minimum: 0
                                 maximum: 2.
                     elastic_properties_mb:
@@ -423,14 +423,14 @@ properties:
                             system_mass:
                                 type: number
                                 description: Mass of the hub system, which includes the hub, the spinner, the blade bearings, the pitch actuators, the cabling, ....
-                                unit: kg
+                                units: kg
                                 minimum: 0
                             system_inertia:
                                 type: array
                                 description: Inertia of the hub system, on the hub reference system, which has the x aligned with the rotor axis, and y and z perpendicular to it.
                                 items:
                                     type: number
-                                    unit: kgm2
+                                    units: kgm2
                                     minItems: 6
                                     maxItems: 6
                                     uniqueItems: false
@@ -439,7 +439,7 @@ properties:
                                 description: Center of mass of the hub system. Work in progress.
                                 items:
                                     type: number
-                                    unit: m
+                                    units: m
                                     minItems: 3
                                     maxItems: 3
                                     uniqueItems: false
@@ -453,56 +453,56 @@ properties:
                             uptilt:
                                 type: number
                                 description: Tilt angle of the nacelle, always defined positive.
-                                unit: rad
+                                units: rad
                                 minimum: 0.
                                 maximum: 0.2
                                 default: 0.08726 # 5 deg
                             distance_tt_hub:
                                 type: number
                                 description: Vertical distance between the tower top and the hub center.
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 20.
                                 default: 2.0
                             distance_hub_mb:
                                 type: number
                                 description: Distance from hub flange to first main bearing along shaft.
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 20.
                                 default: 2.0
                             distance_mb_mb:
                                 type: number
                                 description: Distance from first to second main bearing along shaft.
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 20.
                                 default: 1.0
                             overhang:
                                 type: number
                                 description: Horizontal distance between the tower axis and the rotor apex.
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 20.
                                 default: 5.0
                             generator_length:
                                 type: number
                                 description: Length of generator along the shaft
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 20.
                                 default: 2.0
                             generator_radius_user:
                                 type: number
                                 description: User input override of generator radius, only used when using simple generator scaling
-                                unit: m
+                                units: m
                                 minimum: 0.
                                 maximum: 20.0
                                 default: 0.0
                             generator_mass_user:
                                 type: number
                                 description: User input override of generator mass, only used when using simple generator mass scaling
-                                unit: kg
+                                units: kg
                                 minimum: 0.
                                 maximum: 1.e+9
                                 default: 0.0
@@ -521,42 +521,42 @@ properties:
                             gear_ratio:
                                 type: number
                                 description: Gear ratio of the drivetrain. Set it to 1 for direct drive machines.
-                                unit: none
+                                units: none
                                 minimum: 1
                                 maximum: 1000
                                 default: 1.0
                             gearbox_length_user:
                                 type: number
                                 description: User input override of gearbox length along shaft, only used when using gearbox_mass_user is > 0
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 20.
                                 default: 0.0
                             gearbox_radius_user:
                                 type: number
                                 description: User input override of gearbox radius, only used when using gearbox_mass_user is > 0
-                                unit: m
+                                units: m
                                 minimum: 0.
                                 maximum: 20.0
                                 default: 0.0
                             gearbox_mass_user:
                                 type: number
                                 description: User input override of gearbox mass
-                                unit: kg
+                                units: kg
                                 minimum: 0.
                                 maximum: 1.e+9
                                 default: 0.0
                             gearbox_efficiency:
                                 type: number
                                 description: Efficiency of the gearbox system.
-                                unit: none
+                                units: none
                                 minimum: 0.8
                                 maximum: 1.
                                 default: 1.0
                             damping_ratio:
                                 type: number
                                 description: Damping ratio for the drivetrain system
-                                unit: none
+                                units: none
                                 minimum: 0.0
                                 maximum: 1.
                                 default: 0.005
@@ -566,7 +566,7 @@ properties:
                                 default: [0.3, 0.3]
                                 items:
                                     type: number
-                                    unit: m
+                                    units: m
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.3
@@ -576,7 +576,7 @@ properties:
                                 default: [0.1, 0.1]
                                 items:
                                     type: number
-                                    unit: m
+                                    units: m
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.1
@@ -587,7 +587,7 @@ properties:
                             hss_length:
                                 type: number
                                 description: Length of the high speed shaft
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 10.
                                 default: 1.5
@@ -597,7 +597,7 @@ properties:
                                 default: [0.3, 0.3]
                                 items:
                                     type: number
-                                    unit: m
+                                    units: m
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.3
@@ -607,7 +607,7 @@ properties:
                                 default: [0.1, 0.1]
                                 items:
                                     type: number
-                                    unit: m
+                                    units: m
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.1
@@ -621,7 +621,7 @@ properties:
                                 default: [0.3, 0.3]
                                 items:
                                     type: number
-                                    unit: m
+                                    units: m
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.3
@@ -631,7 +631,7 @@ properties:
                                 default: [0.1, 0.1]
                                 items:
                                     type: number
-                                    unit: m
+                                    units: m
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.1
@@ -650,21 +650,21 @@ properties:
                             bedplate_flange_width:
                                 type: number
                                 description: Bedplate I-beam flange width used in geared configurations
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 3.
                                 default: 1.0
                             bedplate_flange_thickness:
                                 type: number
                                 description: Bedplate I-beam flange thickness used in geared configurations
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 1.
                                 default: 0.05
                             bedplate_web_thickness:
                                 type: number
                                 description: Bedplate I-beam web thickness used in geared configurations
-                                unit: meter
+                                units: meter
                                 minimum: 0.
                                 maximum: 1.
                                 default: 0.05
@@ -720,7 +720,7 @@ properties:
                                 description: Number of planets for epicyclic stages (use 0 for parallel)
                                 items:
                                     type: integer
-                                    unit: none
+                                    units: none
                                     minItems: 3
                                     maxItems: 3
                                     uniqueItems: false
@@ -1153,7 +1153,7 @@ properties:
                             outfitting_factor:
                                 type: number
                                 description: Scaling factor for the tower mass to account for auxiliary structures, such as elevator, ladders, cables, platforms, etc
-                                unit: none
+                                units: none
                                 minimum: 1.0
                                 maximum: 2.0
                                 default: 1.0
@@ -1199,22 +1199,22 @@ properties:
                     transition_piece_mass: &m_tp
                         type: number
                         description: Total mass of transition piece
-                        unit: kg
+                        units: kg
                         minimum: 0.0
                         default: 0.0
                     transition_piece_cost: &c_tp
                         type: number
                         description: Total cost of transition piece
-                        unit: USD
+                        units: USD
                         minimum: 0.0
                         default: 0.0
                     gravity_foundation_mass: &g_fm
                         type: number
                         description: Total mass of gravity foundation addition onto monopile
-                        unit: kg
+                        units: kg
                         minimum: 0.0
                         default: 0.0
-                    outer_shape:
+                    outer_shape_bem:
                         type: object
                         required:
                             - reference_axis
@@ -1263,7 +1263,7 @@ properties:
                             outfitting_factor:
                                 type: number
                                 description: Scaling factor for the tower mass to account for auxiliary structures, such as elevator, ladders, cables, platforms, etc
-                                unit: none
+                                units: none
                                 minimum: 1.0
                                 maximum: 2.0
                                 default: 1.0
@@ -1386,7 +1386,7 @@ properties:
                                         type: number
                                         minItems: 3
                                         maxItems: 3
-                                        unit: m
+                                        units: m
                                 transition:
                                     description: Whether the transition piece and turbine tower attach at this node
                                     type: boolean
@@ -1436,7 +1436,6 @@ properties:
                                 - internal_structure
                             optional:
                                 # TODO: Move these to the modeling file?
-                                - hydrodynamic_approach
                                 - Ca
                                 - Cp
                                 - Cd
@@ -1497,7 +1496,7 @@ properties:
                                             items:
                                                 type: number
                                                 minItems: 3
-                                                unit: m
+                                                units: m
                                                 minimum: 0
                                         side_lengths2: *sl
                                             # description: Polygon side lengths at joint2
@@ -1507,12 +1506,12 @@ properties:
                                             items:
                                                 type: number
                                                 minItems: 3
-                                                unit: rad
+                                                units: rad
                                                 minimum: 0
                                         rotation:
                                             type: number
                                             description: Angle between principle axes of the cross-section and the member coordinate system.  Essentially the rotation of the member if both joints were placed on the global x-y axis with the first side length along the z-axis
-                                            unit: rad
+                                            units: rad
                                 internal_structure:
                                     type: object
                                     required:
@@ -1527,7 +1526,7 @@ properties:
                                         outfitting_factor:
                                             type: number
                                             description: Scaling factor for the member mass to account for auxiliary structures, such as elevator, ladders, cables, platforms, fasteners, etc
-                                            unit: none
+                                            units: none
                                             minimum: 1.0
                                             default: 1.0
                                         layers:
@@ -1570,23 +1569,23 @@ properties:
                                                 material: *material
                                                 flange_thickness: &stiff_ft
                                                     type: number
-                                                    unit: m
+                                                    units: m
                                                     minimum: 0
                                                 flange_width: &stiff_fw
                                                     type: number
-                                                    unit: m
+                                                    units: m
                                                     minimum: 0
                                                 web_height: &stiff_wh
                                                     type: number
-                                                    unit: m
+                                                    units: m
                                                     minimum: 0
                                                 web_thickness: &stiff_wt
                                                     type: number
-                                                    unit: m
+                                                    units: m
                                                     minimum: 0
                                                 spacing:
                                                     description: Spacing between stiffeners in non-dimensional grid coordinates. Value of 0.0 means no stiffeners
-                                                    unit: none
+                                                    units: none
                                                     minimum: 0.0
                                                     maximum: 1.0
                                                     default: 0.0
@@ -1607,7 +1606,7 @@ properties:
                                                 web_thickness: *stiff_wt
                                                 spacing:
                                                     description: Spacing between stiffeners in angle (radians). Value of 0.0 means no stiffeners
-                                                    unit: radians
+                                                    units: radians
                                                     default: 1.5707963267948966 # 90 deg
                                                     minimum: 0.0
                                                     maximum: 6.283185307179586 # 360 deg
@@ -1656,7 +1655,7 @@ properties:
                                                     volume:
                                                         type: number
                                                         description: Total volume of ballast (permanent ballast only)
-                                                        unit: m^3
+                                                        units: m^3
                                                         minimum: 0
                                 axial_joints:
                                     description: Define joints along non-dimensional axis of this member
@@ -1691,7 +1690,7 @@ properties:
                                     minimum: 0.0
                     rigid_bodies:
                         type: array
-                        descriptions: Additional point masses at joints with user-customized properties
+                        description: Additional point masses at joints with user-customized properties
                         items:
                             type: object
                             required:
@@ -1701,7 +1700,6 @@ properties:
                                 - cm_offset
                                 - moments_of_inertia
                             optional:
-                                - hydrodynamic_approach
                                 - Ca
                                 - Cp
                                 - Cd
@@ -1709,12 +1707,12 @@ properties:
                                 joint1: *jointid
                                 mass:
                                     description: Mass of this rigid body
-                                    unit: kg
+                                    units: kg
                                     type: number
                                     minimum: 0
                                 cost:
                                     description: Cost of this rigid body
-                                    unit: USD
+                                    units: USD
                                     type: number
                                     minimum: 0
                                 cm_offset:
@@ -1722,7 +1720,7 @@ properties:
                                     type: array
                                     items:
                                         type: number
-                                        unit: m
+                                        units: m
                                         maxItems: 3
                                         minItems: 3
                                 moments_of_inertia:
@@ -1730,7 +1728,7 @@ properties:
                                     type: array
                                     items:
                                         type: number
-                                        unit: kg*m^2
+                                        units: kg*m^2
                                         maxItems: 3
                                         minItems: 3
                                         minimum: 0
@@ -1802,7 +1800,7 @@ properties:
                                     description: – Coordinates x, y, and z of the connection (relative to inertial reference frame if Fixed or Connect, relative to platform reference frame if Vessel). In the case of Connect nodes, it is simply an initial guess for position before MoorDyn calculates the equilibrium initial position.
                                     items:
                                         type: number
-                                        unit: meter
+                                        units: meter
                                         minItems: 3
                                         maxItems: 3
                                 joint:
@@ -1908,31 +1906,31 @@ properties:
                                     minimum: 0.0
                                 type:
                                     type: string
-                                    enum: [chain, chain_stud, nylon, polyester, polypropylene, wire_fiber, fiber, wire, wire_wire, iwrc, Chain, Chain_Stud, Nylon, Polyester, Polypropylene, Wire, Wire_Fiber, Fiber, Wire, Wire_Wire, IWRC, CHAIN, CHAIN_STUD, NYLON, POLYESTER, POLYPROPYLENE, WIRE, WIRE_FIBER, FIBER, WIRE, WIRE_WIRE, custom, Custom, CUSTOM]
+                                    enum: [chain, chain_stud, nylon, polyester, polypropylene, wire_fiber, fiber, wire, wire_wire, iwrc, Chain, Chain_Stud, Nylon, Polyester, Polypropylene, Wire, Wire_Fiber, Fiber, Wire_Wire, IWRC, CHAIN, CHAIN_STUD, NYLON, POLYESTER, POLYPROPYLENE, WIRE, WIRE_FIBER, FIBER, IRE_WIRE, custom, Custom, CUSTOM]
                                     description: Type of material for property lookup
                                 mass_density:
                                     type: number
-                                    unit: kilogram/meter
+                                    units: kilogram/meter
                                     description: mass per unit length (in air)
                                     minimum: 0.0
                                 stiffness:
                                     type: number
-                                    unit: Newton
+                                    units: Newton
                                     description: axial line stiffness, product of elasticity modulus and cross-sectional area
                                     minimum: 0.0
                                 cost:
                                     type: number
-                                    unit: USD/meter
+                                    units: USD/meter
                                     description: cost per unit length
                                     minimum: 0.0
                                 breaking_load:
                                     type: number
-                                    unit: Newton
+                                    units: Newton
                                     description: line break tension
                                     minimum: 0.0
                                 damping:
                                     type: number
-                                    unit: Newton * second
+                                    units: Newton * second
                                     description: internal damping (BA)
                                     default: 0.0
                                 transverse_added_mass:
@@ -1984,22 +1982,22 @@ properties:
                                     description: Type of anchor for property lookup
                                 mass:
                                     type: number
-                                    unit: kilogram
+                                    units: kilogram
                                     description: mass of the anchor
                                     minimum: 0.0
                                 cost:
                                     type: number
-                                    unit: USD
+                                    units: USD
                                     description: cost of the anchor
                                     minimum: 0.0
                                 max_lateral_load:
                                     type: number
-                                    unit: Newton
+                                    units: Newton
                                     description: Maximum lateral load (parallel to the sea floor) that the anchor can support
                                     minimum: 0.0
                                 max_vertical_load:
                                     type: number
-                                    unit: Newton
+                                    units: Newton
                                     description: Maximum vertical load (perpendicular to the sea floor) that the anchor can support
                                     minimum: 0.0
     airfoils:
@@ -2022,7 +2020,7 @@ properties:
                             type: array
                             items:
                                 type: number
-                                unit: none
+                                units: none
                                 minItems: 3
                                 minimum: 0.0
                                 maximum: 1.0
@@ -2031,20 +2029,20 @@ properties:
                             type: array
                             items:
                                 type: number
-                                unit: none
+                                units: none
                                 minItems: 3
                                 minimum: -1.0
                                 maximum: 1.0
                                 uniqueItems: false
                 relative_thickness:
                     type: number
-                    unit: none
+                    units: none
                     minimum: 0
                     maximum: 1
                     description: Thickness of the airfoil expressed non-dimensional
                 aerodynamic_center:
                     type: number
-                    unit: none
+                    units: none
                     minimum: 0
                     maximum: 1
                     description: Non-dimensional chordwise coordinate of the aerodynamic center
@@ -2124,19 +2122,19 @@ properties:
                 rho:
                     description: Density of the material. For composites, this is the density of the laminate once cured
                     type: number
-                    unit: kg/m3
+                    units: kg/m3
                     minimum: 0
                     maximum: 20000
                 E:
                     description: Stiffness modulus. For orthotropic materials, it consists of an array with E11, E22 and E33.
                     oneOf:
                         - type: number
-                          unit: Pa
+                          units: Pa
                           minimum: 0
                         - type: array
                           items:
                             type: number
-                            unit: Pa
+                            units: Pa
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2145,12 +2143,12 @@ properties:
                     description: Shear stiffness modulus. For orthotropic materials, it consists of an array with G12, G13 and G23
                     oneOf:
                         - type: number
-                          unit: Pa
+                          units: Pa
                           minimum: 0
                         - type: array
                           items:
                             type: number
-                            unit: Pa
+                            units: Pa
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2159,13 +2157,13 @@ properties:
                     description: Poisson ratio. For orthotropic materials, it consists of an array with nu12, nu13 and nu23. For isotropic materials, a minimum of -1 and a maximum of 0.5 are imposed. No limits are imposed to anisotropic materials.
                     oneOf:
                         - type: number
-                          unit: none
+                          units: none
                           minimum: -1.
                           maximum: 0.5
                         - type: array
                           items:
                             type: number
-                            unit: none
+                            units: none
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2173,11 +2171,11 @@ properties:
                     description: Thermal coefficient of expansion
                     oneOf:
                         - type: number
-                          unit: 1/K
+                          units: 1/K
                         - type: array
                           items:
                             type: number
-                            unit: 1/K
+                            units: 1/K
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2185,12 +2183,12 @@ properties:
                     description: Ultimate tensile strength. For orthotropic materials, it consists of an array with the strength in directions 11, 22 and 33. The values must be positive
                     oneOf:
                         - type: number
-                          unit: Pa
+                          units: Pa
                           minimum: 0
                         - type: array
                           items:
                             type: number
-                            unit: Pa
+                            units: Pa
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2199,12 +2197,12 @@ properties:
                     description: Ultimate compressive strength. For orthotropic materials, it consists of an array with the strength in directions 11, 22 and 33. The values must be positive
                     oneOf:
                         - type: number
-                          unit: Pa
+                          units: Pa
                           minimum: 0
                         - type: array
                           items:
                             type: number
-                            unit: Pa
+                            units: Pa
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2213,12 +2211,12 @@ properties:
                     description: Ultimate yield strength for metals. For orthotropic materials, it consists of an array with the strength in directions 12, 13 and 23
                     oneOf:
                         - type: number
-                          unit: Pa
+                          units: Pa
                           minimum: 0
                         - type: array
                           items:
                             type: number
-                            unit: Pa
+                            units: Pa
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2227,12 +2225,12 @@ properties:
                     description: Ultimate shear strength. For orthotropic materials, it consists of an array with the strength in directions 12, 13 and 23
                     oneOf:
                         - type: number
-                          unit: Pa
+                          units: Pa
                           minimum: 0
                         - type: array
                           items:
                             type: number
-                            unit: Pa
+                            units: Pa
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2240,79 +2238,79 @@ properties:
                 ply_t:
                     type: number
                     description: Ply thickness of the composite material
-                    unit: m
+                    units: m
                     minimum : 0
                     maximum: 0.1
                 unit_cost:
                     type: number
                     description: Unit cost of the material. For composites, this is the unit cost of the dry fabric.
-                    unit: USD/kg
+                    units: USD/kg
                     minimum : 0
                     maximum: 1000
                 fvf:
                     type: number
                     description: Fiber volume fraction of the composite material
-                    unit: none
+                    units: none
                     minimum : 0
                     maximum: 1
                 fwf:
                     type: number
                     description: Fiber weight fraction of the composite material
-                    unit: none
+                    units: none
                     minimum : 0
                     maximum: 1
                 fiber_density:
                     type: number
                     description: Density of the fibers of a composite material.
-                    unit: kg/m3
+                    units: kg/m3
                     minimum : 0
                     maximum: 10000
                 area_density_dry:
                     type: number
                     description: Aerial density of a fabric of a composite material.
-                    unit: kg/m2
+                    units: kg/m2
                     minimum : 0
                     maximum: 10000
                 component_id:
                     type: integer
                     description: Flag used by the NREL blade cost model https://www.nrel.gov/docs/fy19osti/73585.pdf to define the manufacturing process behind the laminate. 0 - coating, 1 - sandwich filler , 2 - shell skin, 3 - shear webs, 4 - spar caps, 5 - TE reinf.
-                    unit: none
+                    units: none
                     enum: [0,1,2,3,4,5]
                 waste:
                     type: number
                     description: Fraction of material that ends up wasted during manufacturing. This quantity is used in the NREL blade cost model https://www.nrel.gov/docs/fy19osti/73585.pdf
-                    unit: none
+                    units: none
                     minimum : 0
                     maximum: 1
                 roll_mass:
                     type: number
                     description: Mass of a fabric roll. This quantity is used in the NREL blade cost model https://www.nrel.gov/docs/fy19osti/73585.pdf
-                    unit: kg
+                    units: kg
                     minimum : 0
                     maximum: 10000
                 GIc:
                     type: number
                     description: Mode 1 critical energy-release rate. It is used by NuMAD from Sandia National Laboratories
-                    unit: J/m^2
+                    units: J/m^2
                 GIIc:
                     type: number
                     description: Mode 2 critical energy-release rate. It is used by NuMAD from Sandia National Laboratories
-                    unit: J/m^2
+                    units: J/m^2
                 alp0:
                     type: number
                     description: Fracture angle under pure transverse compression. It is used by NuMAD from Sandia National Laboratories
-                    unit: rad
+                    units: rad
                 A:
                     description: Fatigue S/N curve fitting parameter S=A*N^(-1/m)
                     oneOf:
                         - type: number
-                          unit: none
+                          units: none
                           minimum: 0
                           default: 0.0
                         - type: array
                           items:
                             type: number
-                            unit: none
+                            units: none
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2322,13 +2320,13 @@ properties:
                     description: Fatigue S/N curve fitting parameter S=A*N^(-1/m)
                     oneOf:
                         - type: number
-                          unit: none
+                          units: none
                           minimum: 0
                           default: 1.0
                         - type: array
                           items:
                             type: number
-                            unit: none
+                            units: none
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2339,12 +2337,12 @@ properties:
                     description: Fatigue stress ratio
                     oneOf:
                         - type: number
-                          unit: none
+                          units: none
                           default: -1.0
                         - type: array
                           items:
                             type: number
-                            unit: none
+                            units: none
                             minItems: 3
                             maxItems: 3
                             uniqueItems: false
@@ -2368,19 +2366,19 @@ properties:
                     Vin:
                         type: number
                         description: Cut-in wind speed of the wind turbine.
-                        unit: m/s
+                        units: m/s
                         minimum: 0
                         maximum: 10
                     Vout:
                         type: number
                         description: Cut-out wind speed of the wind turbine.
-                        unit: m/s
+                        units: m/s
                         minimum: 0
                         maximum: 50
                     maxTS:
                         type: number
                         description: Maximum allowable blade tip speed.
-                        unit: m/s
+                        units: m/s
                         minimum: 60
                         maximum: 120
             pitch:
@@ -2391,14 +2389,14 @@ properties:
                     min_pitch:
                         type: number
                         description: Minimum pitch angle, where the default is 0 degrees. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                        unit: rad
+                        units: rad
                         minimum: -0.5
                         maximum: 1.
                         default: 0
                     max_pitch_rate:
                         type: number
                         description: Maximum pitch rate of the rotor blades.
-                        unit: rad/s
+                        units: rad/s
                         minimum: 0
                         maximum: 0.2
             torque:
@@ -2410,25 +2408,25 @@ properties:
                     max_torque_rate:
                         type: number
                         description: Maximum torque rate of the wind turbine generator.
-                        unit: Nm/s
+                        units: Nm/s
                         minimum: 1000
                         maximum: 100000000
                     tsr:
                         type: number
                         description: Rated tip speed ratio of the wind turbine. As default, it is maintained constant in region II.
-                        unit: none
+                        units: none
                         minimum: 0
                         maximum: 15
                     VS_minspd:
                         type: number
                         description: Minimum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                        unit: rad/s
+                        units: rad/s
                         minimum: 0
                         maximum: 5
                     VS_maxspd:
                         type: number
                         description: Maximum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                        unit: rad/s
+                        units: rad/s
                         minimum: 0
                         default: 10.
     environment:
@@ -2452,91 +2450,91 @@ properties:
             gravity:
                 type: number
                 description: Gravitational acceleration
-                unit: m/s/s
+                units: m/s/s
                 minimum: 0
                 maximum: 100.0
                 default: 9.80665
             air_density:
                 type: number
                 description: Density of air.
-                unit: kg/m3
+                units: kg/m3
                 minimum: 0
                 maximum: 1.5
                 default: 1.225
             air_dyn_viscosity:
                 type: number
                 description: Dynamic viscosity of air.
-                unit: kg/(ms)
+                units: kg/(ms)
                 minimum: 0
                 maximum: 2.e-5
                 default: 1.81e-5
             air_pressure:
                 type: number
                 description: Atmospheric pressure of air
-                unit: kg/(ms^2)
+                units: kg/(ms^2)
                 minimum: 0
                 maximum: 1.e+6
                 default: 1.035e+5
             air_vapor_pressure:
                 type: number
                 description: Vapor pressure of fluid
-                unit: kg/(ms^2)
+                units: kg/(ms^2)
                 minimum: 0
                 maximum: 1.e+6
                 default: 1.7e+3
             weib_shape_parameter:
                 type: number
                 description: Shape factor of the Weibull wind distribution.
-                unit: none
+                units: none
                 minimum: 1
                 maximum: 3
                 default: 2.
             air_speed_sound:
                 type: number
                 description: Speed of sound in air.
-                unit: m/s
+                units: m/s
                 minimum: 330.
                 maximum: 350.
                 default: 340.
             shear_exp:
                 type: number
                 description: Shear exponent of the atmospheric boundary layer.
-                unit: none
+                units: none
                 minimum: 0
                 maximum: 1
                 default: 0.2
             water_density:
                 type: number
                 description: Density of water.
-                unit: kg/m3
+                units: kg/m3
                 minimum: 950
                 maximum: 1100
                 default: 1025.0
             water_dyn_viscosity:
                 type: number
                 description: Dynamic viscosity of water.
-                unit: kg/(ms)
+                units: kg/(ms)
                 minimum: 1.e-3
                 maximum: 2.e-3
                 default: 1.3351e-3
             water_depth:
                 type: number
                 description: Water depth for offshore environment.
-                unit: m
+                units: m
                 minimum: 0.0
                 maximum: 1.e+4
                 default: 0.0
             soil_shear_modulus:
                 type: number
                 description: Shear modulus of the soil.
-                unit: Pa
+                units: Pa
                 minimum: 10.e+6
                 maximum: 500.e+6
                 default: 140.e+6
             soil_poisson:
                 type: number
                 description: Poisson ratio of the soil.
-                unit: none
+                units: none
                 minimum: 0
                 maximum: 0.6
                 default: 0.4
@@ -2553,112 +2551,112 @@ properties:
             plant_turbine_spacing:
                 type: number
                 description: Distance between turbines in the primary grid streamwise direction in rotor diameters
-                unit: none
+                units: none
                 minimum: 1
                 maximum: 100
                 default: 7
             plant_row_spacing:
                 type: number
                 description: Distance between turbine rows in the cross-wind direction in rotor diameters
-                unit: none
+                units: none
                 minimum: 1
                 maximum: 100
                 default: 7
             commissioning_pct:
                 type: number
                 description: Fraction of total BOS cost that is due to commissioning
-                unit: none
+                units: none
                 minimum: 0
                 maximum: 1
                 default: 0.01
             decommissioning_pct:
                 type: number
                 description: Fraction of total BOS cost that is due to decommissioning
-                unit: none
+                units: none
                 minimum: 0
                 maximum: 1
                 default: 0.15
             distance_to_substation:
                 type: number
                 description: Distance from centroid of plant to substation in km
-                unit: km
+                units: km
                 minimum: 0
                 maximum: 1000
                 default: 2
             distance_to_interconnection:
                 type: number
                 description: Distance from substation to grid connection in km
-                unit: km
+                units: km
                 minimum: 0
                 maximum: 1000
                 default: 50
             distance_to_landfall:
                 type: number
                 description: Distance from plant centroid to export cable landfall for offshore plants
-                unit: km
+                units: km
                 minimum: 0
                 maximum: 1000
                 default: 100
             distance_to_site:
                 type: number
                 description: Distance from port to plant centroid for offshore plants
-                unit: km
+                units: km
                 minimum: 0
                 maximum: 1000
                 default: 100
             interconnect_voltage:
                 type: number
                 description: Voltage of cabling to grid interconnection
-                unit: kV
+                units: kV
                 minimum: 0
                 maximum: 1000
                 default: 130
             port_cost_per_month:
                 type: number
                 description: Monthly port rental fees
-                unit: USD
+                units: USD
                 minimum: 0
                 maximum: 1.e+9
                 default: 2.e+6
             site_auction_price:
                 type: number
                 description: Cost to secure site lease
-                unit: USD
+                units: USD
                 minimum: 0
                 maximum: 1.e+9
                 default: 0.0
             site_assessment_plan_cost:
                 type: number
                 description: Cost to do engineering plan for site assessment
-                unit: USD
+                units: USD
                 minimum: 0
                 maximum: 1.e+9
                 default: 0.0
             site_assessment_cost:
                 type: number
                 description: Cost to execute site assessment
-                unit: USD
+                units: USD
                 minimum: 0
                 maximum: 1.e+9
                 default: 0.0
             construction_operations_plan_cost:
                 type: number
                 description: Cost to do construction planning
-                unit: USD
+                units: USD
                 minimum: 0
                 maximum: 1.e+9
                 default: 0.0
             boem_review_cost:
                 type: number
                 description: Cost for additional review by U.S. Dept of Interior Bureau of Ocean Energy Management (BOEM)
-                unit: USD
+                units: USD
                 minimum: 0
                 maximum: 1.e+9
                 default: 0.0
             design_install_plan_cost:
                 type: number
                 description: Cost to do installation planning
-                unit: USD
+                units: USD
                 minimum: 0
                 maximum: 1.e+9
                 default: 0.0
@@ -2668,203 +2666,203 @@ properties:
             wake_loss_factor:
                 type: number
                 description: Factor to model losses in annual energy production in a wind farm compared to the annual energy production at the turbine level (wakes mostly).
-                unit: none
+                units: none
                 minimum: 0
                 maximum: 1
                 default: 0.15
             fixed_charge_rate:
                 type: number
                 description: Fixed charge rate to compute the levelized cost of energy. See this for inspiration https://www.nrel.gov/docs/fy20osti/74598.pdf
-                unit: none
+                units: none
                 minimum: 0
                 maximum: 1
                 default: 0.075
             bos_per_kW:
                 type: number
                 description: Balance of stations costs expressed in USD per kW. See this for inspiration https://www.nrel.gov/docs/fy20osti/74598.pdf
-                unit: USD/kW
+                units: USD/kW
                 minimum: 0
                 maximum: 10000
                 default: 0.0
             opex_per_kW:
                 type: number
                 description: Operational expenditures expressed in USD per kW. See this for inspiration https://www.nrel.gov/docs/fy20osti/74598.pdf
-                unit: USD/kW
+                units: USD/kW
                 minimum: 0
                 maximum: 1000
                 default: 0.0
             turbine_number:
                 type: integer
                 description: Number of turbines in the park, used to compute levelized cost of energy. Often wind parks are assumed of 600 MW. See this for inspiration https://www.nrel.gov/docs/fy20osti/74598.pdf
-                unit: none
+                units: none
                 minimum: 0
                 maximum: 10000
                 default: 50
             labor_rate:
                 type: number
                 description: Hourly loaded wage per worker including all benefits and overhead.  This is currently only applied to steel, column structures.
-                unit: USD/h
+                units: USD/h
                 minimum: 0.0
                 maximum: 1000.0
                 default: 58.8
             painting_rate:
                 type: number
                 description: Cost per unit area for finishing and surface treatments.  This is currently only applied to steel, column structures.
-                unit: USD/m^2
+                units: USD/m^2
                 minimum: 0.0
                 maximum: 1000.0
                 default: 30.0
             blade_mass_cost_coeff:
                 type: number
                 description: Regression-based blade cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 14.6
             hub_mass_cost_coeff:
                 type: number
                 description: Regression-based hub cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 3.9
             pitch_system_mass_cost_coeff:
                 type: number
                 description: Regression-based pitch system cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 22.1
             spinner_mass_cost_coeff:
                 type: number
                 description: Regression-based spinner cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 11.1
             lss_mass_cost_coeff:
                 type: number
                 description: Regression-based low speed shaft cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 11.9
             bearing_mass_cost_coeff:
                 type: number
                 description: Regression-based bearing cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 4.5
             gearbox_mass_cost_coeff:
                 type: number
                 description: Regression-based gearbox cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 12.9
             hss_mass_cost_coeff:
                 type: number
                 description: Regression-based high speed side cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 6.8
             generator_mass_cost_coeff:
                 type: number
                 description: Regression-based generator cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 12.4
             bedplate_mass_cost_coeff:
                 type: number
                 description: Regression-based bedplate cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 2.9
             yaw_mass_cost_coeff:
                 type: number
                 description: Regression-based yaw system cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 8.3
             converter_mass_cost_coeff:
                 type: number
                 description: Regression-based converter cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 18.8
             transformer_mass_cost_coeff:
                 type: number
                 description: Regression-based transformer cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 18.8
             hvac_mass_cost_coeff:
                 type: number
                 description: Regression-based HVAC system cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 124.0
             cover_mass_cost_coeff:
                 type: number
                 description: Regression-based nacelle cover cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 5.7
             elec_connec_machine_rating_cost_coeff:
                 type: number
                 description: Regression-based electrical plant connection cost/rating ratio
-                unit: USD/kW
+                units: USD/kW
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 41.85
             platforms_mass_cost_coeff:
                 type: number
                 description: Regression-based nacelle platform cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 17.1
             tower_mass_cost_coeff:
                 type: number
                 description: Regression-based tower cost/mass ratio
-                unit: USD/kg
+                units: USD/kg
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 2.9
             controls_machine_rating_cost_coeff:
                 type: number
                 description: Regression-based controller and sensor system cost/rating ratio
-                unit: USD/kW
+                units: USD/kW
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 21.15
             crane_cost:
                 type: number
                 description: crane cost if present
-                unit: USD
+                units: USD
                 minimum: 0.0
                 maximum: 1.e+6
                 default: 12.e+3
             electricity_price:
                 type: number
                 description: Electricity price used to compute value in beyond lcoe metrics
-                unit: USD/kW/h
+                units: USD/kW/h
                 minimum: 0.
                 maximum: 1.
                 default: 0.04
             reserve_margin_price:
                 type: number
                 description: Reserve margin price used to compute value in beyond lcoe metrics
-                unit: USD/kW/yr
+                units: USD/kW/yr
                 minimum: 0.
                 maximum: 1.e+4
                 default: 120.
@@ -2877,7 +2875,7 @@ properties:
             benchmark_price:
                 type: number
                 description: Benchmark price used to nondimensionalize value in beyond lcoe metrics
-                unit: USD/kW/h
+                units: USD/kW/h
                 minimum: 0.
                 maximum: 1.
                 default: 0.071
@@ -2889,7 +2887,7 @@ definitions:
             default: [0.0, 1.0]
             items:
                 type: number
-                unit: none
+                units: none
                 minItems: 2
                 minimum: 0.0
                 maximum: 1.0
@@ -2899,7 +2897,7 @@ definitions:
             description: Grid along an arc length, expressed non dimensionally where 0 is the leading edge, -1 is the trailing edge on the pressure side and +1 the trailing edge on the pressure side
             items:
                 type: number
-                unit: none
+                units: none
                 minItems: 2
                 minimum: -1.0
                 maximum: 1.0
@@ -2910,7 +2908,7 @@ definitions:
             default: [-3.14159265359, 3.14159265359]
             items:
                 type: number
-                unit: radians
+                units: radians
                 minItems: 2
                 minimum: -3.14159265359
                 maximum:  3.14159265359
@@ -2920,7 +2918,7 @@ definitions:
             description: Lift, drag and moment coefficients
             items:
                 type: number
-                unit: none
+                units: none
                 minItems: 2
                 uniqueItems: false
         strings:
@@ -2935,7 +2933,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: none
+                units: none
                 minItems: 2
                 uniqueItems: false
         length:
@@ -2944,7 +2942,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: meter
+                units: meter
                 minItems: 2
                 uniqueItems: false
         angle:
@@ -2953,7 +2951,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: radians
+                units: radians
                 minItems: 2
                 uniqueItems: false
         mass_length:
@@ -2962,7 +2960,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: kg/m
+                units: kg/m
                 minItems: 2
                 uniqueItems: false
         area:
@@ -2971,7 +2969,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: m2
+                units: m2
                 minItems: 2
                 uniqueItems: false
                 description: Cross sectional area
@@ -2981,7 +2979,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: N m2
+                units: N m2
                 minItems: 2
                 uniqueItems: false
                 description: Modulus of elasticity
@@ -2991,7 +2989,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: N/m2
+                units: N/m2
                 minItems: 2
                 uniqueItems: false
                 description: Shear modulus of elasticity
@@ -3001,7 +2999,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: m4
+                units: m4
                 minItems: 2
                 uniqueItems: false
                 description: Area moment of inertia
@@ -3011,7 +3009,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: kg*m2/m
+                units: kg*m2/m
                 minItems: 2
                 uniqueItems: false
                 description: Mass moment of inertia per unit span
@@ -3021,7 +3019,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: m4/rad
+                units: m4/rad
                 minItems: 2
                 uniqueItems: false
         shear_stiff:
@@ -3030,7 +3028,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: N
+                units: N
                 minItems: 2
                 uniqueItems: false
         axial_stiff:
@@ -3039,7 +3037,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: N
+                units: N
                 minItems: 2
                 uniqueItems: false
         bending_stiff:
@@ -3048,7 +3046,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: N/m2
+                units: N/m2
                 minItems: 2
                 uniqueItems: false
         tors_stiff:
@@ -3057,7 +3055,7 @@ definitions:
             default: [0.0, 0.0]
             items:
                 type: number
-                unit: N/m2
+                units: N/m2
                 minItems: 2
                 uniqueItems: false
         nd_arc_position:
@@ -3562,28 +3560,30 @@ definitions:
         description: Linear filter, could be a LPF, HPF, NF, INF, or user_defined
         required:
             - filt_type
-            - filt_def
-        filt_type:
-            type: string
-            description: Type of filter used, could be a LPF, HPF, NF, INF, or user_defined
-            enum:
-                - LPF
-                - HPF
-                - NF
-                - INF
-                - user_defined
-        filt_def:
-            LPF:
-                type: object
-                description: Low pass filter
-                required:
-                    - omega
-                    - order
-                optional:
-                    - damping
-            HPF:
-            NF:
-            INF:
+            #- filt_def
+        properties:
+            filt_type:
+                type: string
+                description: Type of filter used, could be a LPF, HPF, NF, INF, or user_defined
+                enum:
+                    - LPF
+                    - HPF
+                    - NF
+                    - INF
+                    - user_defined
+            # Seems unfinished - kenloen
+            #filt_def:
+            #LPF:
+            #    type: object
+            #    description: Low pass filter
+            #    required:
+            #        - omega
+            #        - order
+            #    optional:
+            #        - damping
+            #HPF:
+            #NF:
+            #INF:
             user_defined:
                 type: object
                 description: User defined filter
@@ -3592,26 +3592,27 @@ definitions:
                     - den
                 optional:
                     - dt
-                num:
-                    type: array
-                    description: Numerator coefficients of linear filter
-                    items:
+                properties:
+                    num:
+                        type: array
+                        description: Numerator coefficients of linear filter
+                        items:
+                            type: number
+                            units: none
+                            minItems: 0
+                            uniqueItems: false
+                    den:
+                        type: array
+                        description: Numerator coefficients of linear filter
+                        items:
+                            type: number
+                            units: none
+                            minItems: 1
+                            uniqueItems: false
+                    dt:
                         type: number
-                        unit: none
-                        minItems: 0
-                        uniqueItems: false
-                den:
-                    type: array
-                    description: Numerator coefficients of linear filter
-                    items:
-                        type: number
-                        unit: none
-                        minItems: 1
-                        uniqueItems: false
-                dt:
-                    type: number
-                    description: Sampling rate of filter, -1 for continuous   # DZ: will probably convert all to dt of simulation... not sure how to handle this
-                    minimum: -1
+                        description: Sampling rate of filter, -1 for continuous   # DZ: will probably convert all to dt of simulation... not sure how to handle this
+                        minimum: -1
 
     state_space:
         type: object
@@ -3621,43 +3622,40 @@ definitions:
             - ss_B
             - ss_C
             - ss_D
-        ss_A:
-            type: array
-            description: A matrix of linear state space model, flattened with n_states^2 elements
-            items:
+        properties:
+            ss_A:
+                type: array
+                description: A matrix of linear state space model, flattened with n_states^2 elements
+                items:
+                    type: number
+                    minItems: 1
+                    uniqueItems: false
+            ss_B:
+                type: array
+                description: B matrix of linear state space model, flattened with n_states x n_inputs elements
+                items:
+                    type: number
+                    minItems: 1
+                    uniqueItems: false
+            ss_C:
+                type: array
+                description: C matrix of linear state space model, flattened with n_outputs x n_states elements
+                items:
+                    type: number
+                    minItems: 1
+                    uniqueItems: false
+            ss_D:
+                type: array
+                description: D matrix of linear state space model, flattened with n_outputs x n_inputs elements
+                items:
+                    type: number
+                    minItems: 1
+                    uniqueItems: false
+            # DZ: might be a good idea to check the number of states
+            ss_dt:
                 type: number
-                unit: none
-                minItems: 1
-                uniqueItems: false
-        ss_B:
-            type: array
-            description: B matrix of linear state space model, flattened with n_states x n_inputs elements
-            items:
-                type: number
-                unit: none
-                minItems: 1
-                uniqueItems: false
-        ss_C:
-            type: array
-            description: C matrix of linear state space model, flattened with n_outputs x n_states elements
-            items:
-                type: number
-                unit: none
-                minItems: 1
-                uniqueItems: false
-        ss_D:
-            type: array
-            description: D matrix of linear state space model, flattened with n_outputs x n_inputs elements
-            items:
-                type: number
-                unit: none
-                minItems: 1
-                uniqueItems: false
-        # DZ: might be a good idea to check the number of states
-        ss_dt:
-            type: number
-            description: Sampling rate of filter, -1 for continuous   # DZ: will probably convert all to dt of simulation... not sure how to handle this
-            minimum: -1
+                description: Sampling rate of filter, -1 for continuous   # DZ: will probably convert all to dt of simulation... not sure how to handle this
+                minimum: -1
 
     timeseries:
         type: object
@@ -3667,26 +3665,27 @@ definitions:
             - value
         optional:
             - filename
-        time:
-            type: array
-            description: Time in timeseries
-            items:
-                type: number
-                unit: seconds
-                minItems: 1
-                uniqueItems: true   # probably?
-        value:
-            type: array
-            description: Value in timeseries
-            items:
-                type: number
-                unit: none  #any
-                minItems: 1
-                uniqueItems: false
-                # can we check that number of elements are equal?
-        filename:
-            type: string
-            description: Name of file with timeseries data
+        properties:
+            time:
+                type: array
+                description: Time in timeseries
+                items:
+                    type: number
+                    units: seconds
+                    minItems: 1
+                    uniqueItems: true   # probably?
+            value:
+                type: array
+                description: Value in timeseries
+                items:
+                    type: number
+                    units: none  #any
+                    minItems: 1
+                    uniqueItems: false
+                    # can we check that number of elements are equal?
+            filename:
+                type: string
+                description: Name of file with timeseries data
 
     activator:
         type: object
@@ -3694,21 +3693,22 @@ definitions:
         required:
             - wind_speeds
             - act_gain
-        wind_speeds:
-            type: array
-            description: Array of wind speed breakpoints for activators
-            items:
-                type: number
-                unit: m/s
-                minItems: 1
-                uniqueItems: true
-        act_gain:
-            type: array
-            description: Array of gains from 0 to 1, enabling/disabling control element
-            items:
-                type: number
-                unit: none
-                minItems: 1
-                uniqueItems: false
-                minimum: 0
-                maximum: 1
+        properties:
+            wind_speeds:
+                type: array
+                description: Array of wind speed breakpoints for activators
+                items:
+                    type: number
+                    units: m/s
+                    minItems: 1
+                    uniqueItems: true
+            act_gain:
+                type: array
+                description: Array of gains from 0 to 1, enabling/disabling control element
+                items:
+                    type: number
+                    units: none
+                    minItems: 1
+                    uniqueItems: false
+                    minimum: 0
+                    maximum: 1
