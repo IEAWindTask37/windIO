@@ -1,6 +1,5 @@
 Contributing Guide
 ==================
-
 windIO was started under IEA Wind Task 37 and has been additionally supported by IEA Wind Task 55
 as well as other community-based groups, research organization, and private companies.
 Being a collaborative effort, it is important to establish a common understanding of the
@@ -14,9 +13,9 @@ and various other files that serve as infrastructure.
 Changes to anything that is tracked with git in the windIO repository is considered a contribution,
 and these guidelines apply.
 
+
 Code of Conduct
 ~~~~~~~~~~~~~~~
-
 As members of the wind energy community, we all agree that the advancement of wind
 energy technologies is critical for the sustainability of our planet.
 This shared goal should be reflected in our interactions with each other.
@@ -27,9 +26,9 @@ Two principles should guide our conduct:
 - `Think that you might be wrong. <https://en.wikipedia.org/wiki/Cromwell%27s_rule>`_
 - `Assume good faith. <https://en.wikipedia.org/wiki/Wikipedia:Assume_good_faith>`_
 
+
 Contribution management
 ~~~~~~~~~~~~~~~~~~~~~~~
-
 Contributions are tracked with `git <https://docs.github.com/en/get-started/start-your-journey/about-github-and-git#about-git>`_
 and coordinated with `GitHub <https://docs.github.com/en/get-started/start-your-journey/about-github-and-git#about-github>`_.
 
@@ -50,7 +49,6 @@ Here's a brief summary:
 
 Pull requests
 -------------
-
 Once a set of changes is ready for review, the author should submit a pull request.
 This signals to the windIO community that a change is coming, and it triggers the review
 process to begin.
@@ -76,7 +74,6 @@ Some guidelines:
 
 Reviews
 -------
-
 The review process is as critical to the success of windIO as the code contributions themselves.
 The objective of code reviews is to ensure that windIO stays within its intended scope
 and satisfies its requirements in a stable and sustainable manner.
@@ -91,89 +88,71 @@ Reviews should consider the following:
 - How does this change impact the complexity of windIO?
 
 
-
 Roles, Responsibilities and Expectations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The collaborative development process involves various people with distinct roles, and 
 a single person may participate as multiple roles.
 In the context of windIO, the following are identified:
 
 - **Contributor**: Adds to or modifies content in the windIO repository.
-- **Reviewer**: Reviews and critiques contributions by **developers**.
+- **Reviewer**: Reviews and critiques changes by contributors.
 - **Maintainer**: Manages the repository by supporting the review process, managing issues,
   and generally ensuring the quality of the repository.
 
 All roles are required to work together in the development of windIO, and
 authorship of a change is given to contributors, reviewers, and maintainers.
+Contributors should drive the progress of windIO, reviewers should ensure quality and
+control, and maintainers should serve as a facilitators and enablers.
+There is an implicit tension between these roles, and an effective development process
+requires maintaining a balance.
 
 Contributor Responsibilities
 ----------------------------
-Contributors are responsible for communicating their intention to make a change to the rest
-of the community of stakeholders.
-A change should be proposed through a GitHub Issue or Discussion, and relevant people
-should be tagged directly for feedback.
+Contributors are responsible for communicating their intention to make a change through
+a GitHub Issue or Discussion, and relevant people should be tagged directly for feedback.
 After accepting feedback and updating the proposal, the contributor is responsible for
 implementing the change and submitting a pull request.
 
 A pull request is owned by the *contributor*.
 It is their responsibility to fully describe the change, the motivation behind it, and the
 impact on windIO and the adjacent ecosystem.
+The contributor should work work maintainers to establish a timeline for review and
+incorporating feedback.
+They should also keep a pull request up to date with the latest changes in the target branch.
 
 Reviewer Responsibilities
 -------------------------
 Reviewers are responsible for providing feedback on the pull request.
-Approving a change indicates agreement with the change, and it implies that they will accept
-responsibility for the consequences of the change.
+Approving a change indicates agreement with the change, and it implies that the reviewer,
+in addition to the contributor, is a relevant person to contact for future questions.
+
+After being assigned to a pull request, a reviewer should coordinate with the contributor and
+maintainers to establish a reasonable review timeline.
 
 
+Maintainer Responsibilities
+---------------------------
+Maintainers are responsible for ensuring that the windIO repository and processes around 
+and within it continue to serve the windIO community well.
+While the contributor and reviewer roles are activated by a specific pull request,
+the maintainer role is always active.
+Maintainers should keep a high level perspective of the project scope and intent, the
+repository infrastructure, and the processes used to develop windIO.
+This includes managing issues and discussions, reviewing pull requests, and ensuring that
+the repository infrastructure is up to date.
+Maintainers should also work with contributors and reviewers to keep the development process
+moving forward.
 
+While a pull request is active, maintainers should ensure the following:
 
-
-
-
-
-
-
-At this point, it is the responsibility of *reviewers* and *maintainers* to evaluate the proposed
-change and provide feedback.
-
-
-After a pull request is submitted, *maintainers* should ensure the following:
-- An appropriate *reviewer* is listed
+- An appropriate reviewer is listed
 - Conflicting works in progress are flagged
 - A tentative timeline for review, design iteration, and merge is established
 
+Otherwise, maintainers should consider the following:
 
-
-.. .. mermaid::
-..     sequenceDiagram
-..         autonumber
-
-..         participant Contributor
-..         participant Reviewer
-..         participant Maintainer
-
-..         activate Contributor
-
-..         Contributor -> Contributor: Create Issue / Discussion describing a proposed change
-
-..         activate Reviewer
-..         activate Maintainer
-..         loop Design Discussion
-..             Reviewer->>Contributor: Feedback
-..             Maintainer->>Contributor: Feedback
-..             Developer->>Reviewer: Propose implementation
-..             Developer->>Maintainer: Propose implementation
-..         end
-
-..         loop Implementation & Review
-..             Contributor->>Reviewer: Submit a Pull Request
-..             Contributor->>Maintainer: Submit a Pull Request
-..             Maintainer->>Contributor: Provide code review feedback
-..             Reviewer->>Contributor: Provide code review feedback
-..         end
-..         deactivate Contributor
-
-..         Maintainer->>Contributor: Merge Pull Request
-..         deactivate Maintainer
+- Dependencies are up to date
+- Documentation sites are functioning
+- Tests are running, passing, and addressing the intended targets
+- Issues and discussions are engaging the relevant people
+- Whether gaps or conflicts have emerged from individual development efforts
