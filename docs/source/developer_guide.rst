@@ -87,6 +87,18 @@ Reviews should consider the following:
   change in two months or two years?
 - How does this change impact the complexity of windIO?
 
+.. Code progress and stability
+.. ---------------------------
+.. By default, windIO should be more adaptable / more conservative to change.
+
+
+.. If adaptable:
+.. Non-breaking changes should be evaluated for meeting scope and stability.
+.. However, completeness and rigor are not critical.
+
+.. If conservative:
+.. Any change should be fully reviewed for scope, whole system impact, completeness, and rigor.
+
 
 Roles, Responsibilities and Expectations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
