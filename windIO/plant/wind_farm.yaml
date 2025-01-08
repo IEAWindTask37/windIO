@@ -138,3 +138,20 @@ definitions:
         items:
           type: number
 
+  electrical_substation:
+    title: Electrical substation
+    type: object
+    required:
+      - coordinates
+    optional:
+      - capacity
+    additionalProperties: false
+    properties:
+      coordinates:
+        title: Substation coordinates
+        $ref: "common.yaml#/definitions/coordinates"
+      capacity:
+        title: Substation capacity
+        description: Capacity of the electrical substation in megawatts
+        type: number
+        units: MW
