@@ -22,50 +22,7 @@ class Loader(yaml.SafeLoader):
         with open(filename, 'r') as f:
             return yaml.load(f, self.__class__)
 
-
-    def includeTimeseriesNetCDF(self, node):
-        filename = os.path.join(self._root, self.construct_scalar(node))
-        print(f"Loading NetCDF file from: {filename}")
-        
-        timeseries = xr.open_dataset(filename)
-        timeseries_dicts = []
-
-        for time_slice in timeseries.time:
-            entry = {'time': str(time_slice.values)}
-            print(f"Processing time: {time_slice.values}")
-
-            # Extract the slice of data for this time
-            data_slice = timeseries.sel(time=time_slice)
-            
-            # Add z coordinate to the entry
-            z_values = data_slice.z.values if 'z' in data_slice.coords else None
-            if z_values is not None:
-                entry['z'] = z_values.tolist()
-            
-            # Process data variables
-            for var in data_slice.data_vars:
-                print(f"Processing variable: {var}")
-                values = data_slice[var].values
-                if values.size > 1:
-                    entry[var] = values.tolist()
-                else:
-                    entry[var] = float(values)
-            timeseries_dicts.append(entry)
-
-        return timeseries_dicts
-
-
-
-Loader.add_constructor('!includeTimeseriesNetCDF', Loader.includeTimeseriesNetCDF)
-
 Loader.add_constructor('!include', Loader.include)
-
-
-
-Loader.add_constructor('!includeTimeseriesNetCDF', Loader.includeTimeseriesNetCDF)
-
-Loader.add_constructor('!include', Loader.include)
-
 
 class XrResourceLoader(Loader):
 
@@ -75,7 +32,7 @@ class XrResourceLoader(Loader):
         ext = os.path.splitext(filename)[1].lower()
         if ext in ['.yaml', '.yml']:
             with open(filename, 'r') as f:
-                return yaml.load(f, XRResourceLoader)
+                return yaml.load(f, XrResourceLoader)
         elif ext in ['.nc']:
             def fmt(v):
                 if isinstance(v, dict):
@@ -95,14 +52,15 @@ class XrResourceLoader(Loader):
 XrResourceLoader.add_constructor('!include', XrResourceLoader.include)
 
 
-def load_yaml(filename, loader=Loader):
+def load_yaml(filename, loader=XrResourceLoader):
     if isinstance(filename, dict):
         return filename  # filename already yaml dict
     with open(filename) as fid:
         return yaml.load(fid, loader)
 
 
-def validate_yaml(data_file, schema_file, loader=Loader):
+def validate_yaml(data_file, schema_file, loader=XrResourceLoader):
+
     def add_local_schemas_to(resolver, schema_folder, base_uri, schema_ext_lst=['.json', '.yaml', '.yml']):
         '''Function from https://gist.github.com/mrtj/d59812a981da17fbaa67b7de98ac3d4b#file-local_ref-py
         Add local schema instances to a resolver schema cache.

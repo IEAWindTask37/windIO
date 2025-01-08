@@ -3,9 +3,9 @@ Materials
 
 windIO defines a material database, which consists of a list of entries each marked by a dash. 
 
-.. literalinclude:: ../../test/turbine/turbine_example.yaml
-    :start-after: # Materials
-    :end-before: # Assembly
+.. literalinclude:: ../../test/turbine/IEA-15-240-RWT.yaml
+    :start-after: materials
+    :end-before: control
 
 :code:`name` : String
     Name of the material
