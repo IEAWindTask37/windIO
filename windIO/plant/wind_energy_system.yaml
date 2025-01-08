@@ -223,3 +223,25 @@ properties:
             items:
               type: string
 
+    initial_design:
+      properties:
+        layout:
+          title: Initial layout
+          $ref: "wind_farm.yaml#/definition/layout"
+        turbine_types:  # Examples for future development
+          title: Initial turbine types
+        number_turbines:
+          title: Initial number turbines
+        turbine_hub_heights:
+          title: Initial turbine hub heights
+    final_design:
+      properties:
+        layout:
+          title: Final layout
+          $ref: "wind_farm.yaml#/definition/layout"
+        turbine_types:  # Examples for future development
+          title: Final turbine types
+        number_turbines:
+          title: Final number turbines
+        turbine_hub_heights:
+          title: Final turbine hub heights
