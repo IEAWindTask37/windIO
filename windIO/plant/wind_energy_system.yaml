@@ -442,11 +442,8 @@ properties:
                 type: array
                 items:
                   type: string
-          power_table:
-            title: Power Table
-            description: Specific power table configurations
-            type: array
-            items:
+
+
   optimisation:
     design_variables:
       title: List of design variables
