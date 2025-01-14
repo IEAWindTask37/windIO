@@ -32,20 +32,19 @@ Contribution management
 Contributions are tracked with `git <https://docs.github.com/en/get-started/start-your-journey/about-github-and-git#about-git>`_
 and coordinated with `GitHub <https://docs.github.com/en/get-started/start-your-journey/about-github-and-git#about-github>`_.
 
-In general, the `git-flow <https://nvie.com/posts/a-successful-git-branching-model/>`_ model is used
-to navigate parallel development efforts.
+In general, a form of the `git-flow <https://nvie.com/posts/a-successful-git-branching-model/>`_
+model is used to navigate parallel development efforts.
 Here's a brief summary:
 
 - Day to day work happens on feature branches on the principle repository or forks. The feature
   branches may be unstable, and there's no expectation that they are complete.
   These branches should have a simple name that is indicative of the scope of the work such as
   `feature/support_supersonic_tipspeeds`.
-- The `develop` branch absorbs completed feature branches through pull requests.
-  This branch is stable, but not yet complete and ready for general use. For example,
-  documentation or infrastructure improvements may be required in order to support changes
-  introduced through feature branches.
-- The `main` branch is the stable and well-tested with the lowest frequency of changes.
-  It should always represent the "released" version of windIO.
+- The `main` branch absorbs completed feature branches through pull requests.
+  This branch is expected to be stable and available for general use. However, breaking changes
+  are allowed since the previous release.
+- A tag is added to a commit on the `main` branch to note a released version of windIO. Tags
+  typically have a version number such as `v1.2.3`.
 
 Pull requests
 -------------
