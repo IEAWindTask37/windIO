@@ -7,7 +7,7 @@ name = "windIO"
 version = "1.0"
 description = "Frameworks defining the inputs and outputs for systems engineering MDAO of wind turbine and plants."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 authors = [
     {name = "IEA Wind Task 37"},
 #     { name = "", email = "" },
@@ -18,7 +18,6 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
