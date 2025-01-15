@@ -1,14 +1,14 @@
 # yaml-language-server: $schema=http://json-schema.org/draft-07/schema#
 # Author: Pietro Bortolotti
 # Organization: National Renewable Energy Laboratory, Golden, CO
-# Date: 2020-04-28
+# Date: 2025-01-14
 
 
 
 $schema: "http://json-schema.org/draft-07/schema#"
 $id: IEA_ontology_v1.0
 title: IEA wind turbine ontology
-description: Ontology definition for wind turbines as defined in WP1 of IEA Wind Task 37 - Phase II
+description: Ontology definition for wind turbines
 type: object
 required:
     - name
@@ -128,7 +128,11 @@ properties:
                                     grid:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     labels:
-                                        $ref: "#/definitions/distributed_data/strings"
+                                        type: array
+                                        items:
+                                            type: string
+                                            minItems: 2
+                                            uniqueItems: false
                             chord:
                                 type: object
                                 required:
@@ -205,14 +209,7 @@ properties:
                                     # description: Coordinates expressed in the blade root coordinate system.
                                     # $ref: "#/definitions/distributed_data/coordinates"
                     elastic_properties_mb:
-                        type: object
-                        properties:
-                            timoschenko_hawc:
-                                $ref: "#/definitions/beam/timoschenko_hawc"
-                            cp_lambda_beam:
-                                $ref: "#/definitions/beam/cp_lambda_beam"
-                            six_x_six:
-                                $ref: "#/definitions/beam/six_x_six"
+                        $ref: "#/definitions/beam"
 
                     internal_structure_2d_fem:
                         type: object
@@ -405,9 +402,9 @@ properties:
                             cone_angle:
                                 type: number
                                 description: Rotor precone angle, defined positive for both upwind and downwind rotors.
-                                units: rad
+                                units: deg
                                 minimum: 0
-                                maximum: 0.4
+                                maximum: 50
                             drag_coefficient:
                                 type: number
                                 description: Equivalent drag coefficient to compute the aerodynamic forces generated on the hub.
@@ -453,10 +450,10 @@ properties:
                             uptilt:
                                 type: number
                                 description: Tilt angle of the nacelle, always defined positive.
-                                units: rad
+                                units: deg
                                 minimum: 0.
-                                maximum: 0.2
-                                default: 0.08726 # 5 deg
+                                maximum: 20.
+                                default: 5.
                             distance_tt_hub:
                                 type: number
                                 description: Vertical distance between the tower top and the hub center.
@@ -899,8 +896,8 @@ properties:
                           description: Words
                         phi:
                           type: number
-                          default: 1.5707963267948966 #90deg
-                          units: rad
+                          default: 90
+                          units: deg
                           minimum: 0.0
                           maximum: 7.0
                           description: Words
@@ -1134,14 +1131,7 @@ properties:
                                     values:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                     elastic_properties_mb:
-                        type: object
-                        properties:
-                            timoschenko_hawc:
-                                $ref: "#/definitions/beam/timoschenko_hawc"
-                            cp_lambda_beam:
-                                $ref: "#/definitions/beam/cp_lambda_beam"
-                            six_x_six:
-                                $ref: "#/definitions/beam/six_x_six"
+                        $ref: "#/definitions/beam"
                     internal_structure_2d_fem:
                         type: object
                         required:
@@ -1244,14 +1234,7 @@ properties:
                                     values:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                     elastic_properties_mb:
-                        type: object
-                        properties:
-                            timoschenko_hawc:
-                                $ref: "#/definitions/beam/timoschenko_hawc"
-                            cp_lambda_beam:
-                                $ref: "#/definitions/beam/cp_lambda_beam"
-                            six_x_six:
-                                $ref: "#/definitions/beam/six_x_six"
+                        $ref: "#/definitions/beam"
                     internal_structure_2d_fem:
                         type: object
                         required:
@@ -1506,12 +1489,12 @@ properties:
                                             items:
                                                 type: number
                                                 minItems: 3
-                                                units: rad
+                                                units: deg
                                                 minimum: 0
                                         rotation:
                                             type: number
                                             description: Angle between principle axes of the cross-section and the member coordinate system.  Essentially the rotation of the member if both joints were placed on the global x-y axis with the first side length along the z-axis
-                                            units: rad
+                                            units: deg
                                 internal_structure:
                                     type: object
                                     required:
@@ -1605,11 +1588,11 @@ properties:
                                                 web_height: *stiff_wh
                                                 web_thickness: *stiff_wt
                                                 spacing:
-                                                    description: Spacing between stiffeners in angle (radians). Value of 0.0 means no stiffeners
-                                                    units: radians
-                                                    default: 1.5707963267948966 # 90 deg
+                                                    description: Spacing between stiffeners in angle (deg). Value of 0.0 means no stiffeners
+                                                    units: deg
+                                                    default: 90
                                                     minimum: 0.0
-                                                    maximum: 6.283185307179586 # 360 deg
+                                                    maximum: 360
                                         bulkhead:
                                             type: object
                                             required:
@@ -2299,7 +2282,7 @@ properties:
                 alp0:
                     type: number
                     description: Fracture angle under pure transverse compression. It is used by NuMAD from Sandia National Laboratories
-                    units: rad
+                    units: deg
                 A:
                     description: Fatigue S/N curve fitting parameter S=A*N^(-1/m)
                     oneOf:
@@ -2388,17 +2371,17 @@ properties:
                 properties:
                     min_pitch:
                         type: number
-                        description: Minimum pitch angle, where the default is 0 degrees. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                        units: rad
+                        description: Minimum pitch angle, where the default is 0 deg. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        units: deg
                         minimum: -0.5
-                        maximum: 1.
+                        maximum: 90.
                         default: 0
                     max_pitch_rate:
                         type: number
                         description: Maximum pitch rate of the rotor blades.
-                        units: rad/s
+                        units: deg/s
                         minimum: 0
-                        maximum: 0.2
+                        maximum: 30.
             torque:
                 type: object
                 required:
@@ -2420,15 +2403,15 @@ properties:
                     VS_minspd:
                         type: number
                         description: Minimum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                        units: rad/s
+                        units: rpm
                         minimum: 0
-                        maximum: 5
+                        maximum: 20.
                     VS_maxspd:
                         type: number
                         description: Maximum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
-                        units: rad/s
+                        units: rpm
                         minimum: 0
-                        default: 10.
+                        default: 100.
     environment:
         type: object
         required:
@@ -2892,26 +2875,16 @@ definitions:
                 minimum: 0.0
                 maximum: 1.0
                 uniqueItems: true
-        grid_al:
-            type: array
-            description: Grid along an arc length, expressed non dimensionally where 0 is the leading edge, -1 is the trailing edge on the pressure side and +1 the trailing edge on the pressure side
-            items:
-                type: number
-                units: none
-                minItems: 2
-                minimum: -1.0
-                maximum: 1.0
-                uniqueItems: true
         grid_aoa:
             type: array
             description: Grid of angles of attack to describe polars
-            default: [-3.14159265359, 3.14159265359]
+            default: [-180, 180]
             items:
                 type: number
-                units: radians
+                units: deg
                 minItems: 2
-                minimum: -3.14159265359
-                maximum:  3.14159265359
+                minimum: -180
+                maximum:  180
                 uniqueItems: true
         polar_coeff:
             type: array
@@ -2919,12 +2892,6 @@ definitions:
             items:
                 type: number
                 units: none
-                minItems: 2
-                uniqueItems: false
-        strings:
-            type: array
-            items:
-                type: string
                 minItems: 2
                 uniqueItems: false
         nd:
@@ -2947,115 +2914,11 @@ definitions:
                 uniqueItems: false
         angle:
             type: array
-            description: Angle quantity along a beam, expressed in radians
+            description: Angle quantity along a beam, expressed in deg
             default: [0.0, 0.0]
             items:
                 type: number
-                units: radians
-                minItems: 2
-                uniqueItems: false
-        mass_length:
-            type: array
-            description: Mass per unit length along a beam, expressed in kilogram per meter
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: kg/m
-                minItems: 2
-                uniqueItems: false
-        area:
-            type: array
-            description: Cross sectional area along a beam, expressed in meter squared
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: m2
-                minItems: 2
-                uniqueItems: false
-                description: Cross sectional area
-        elast_mod:
-            type: array
-            description: Modulus of elasticity of a material along a beam, expressed in Newton over meter squared
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: N m2
-                minItems: 2
-                uniqueItems: false
-                description: Modulus of elasticity
-        shear_mod:
-            type: array
-            description: Shear modulus of elasticity of a material along a beam, expressed in Newton over meter squared
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: N/m2
-                minItems: 2
-                uniqueItems: false
-                description: Shear modulus of elasticity
-        area_moment:
-            type: array
-            description: Area moment of inertia of a section along a beam, expressed in meter to the power of four
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: m4
-                minItems: 2
-                uniqueItems: false
-                description: Area moment of inertia
-        mass_moment:
-            type: array
-            description: Mass moment of inertia of a section along a beam, expressed in kilogram times meter squared per meter
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: kg*m2/m
-                minItems: 2
-                uniqueItems: false
-                description: Mass moment of inertia per unit span
-        tors_stiff_const:
-            type: array
-            description: Torsional stiffness constant with respect to ze axis at the shear center [m4/rad]. For a circular section only this is identical to the polar moment of inertia
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: m4/rad
-                minItems: 2
-                uniqueItems: false
-        shear_stiff:
-            type: array
-            description: Shearing stiffness along the beam
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: N
-                minItems: 2
-                uniqueItems: false
-        axial_stiff:
-            type: array
-            description: Axial stiffness EA along the beam
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: N
-                minItems: 2
-                uniqueItems: false
-        bending_stiff:
-            type: array
-            description: Bending stiffness E11-E22 along the beam
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: N/m2
-                minItems: 2
-                uniqueItems: false
-        tors_stiff:
-            type: array
-            description: Torsional stiffness GJ along the beam
-            default: [0.0, 0.0]
-            items:
-                type: number
-                units: N/m2
+                units: deg
                 minItems: 2
                 uniqueItems: false
         nd_arc_position:
@@ -3065,10 +2928,18 @@ definitions:
                 grid:
                     $ref: "#/definitions/distributed_data/grid_nd"
                 values:
-                    $ref: "#/definitions/distributed_data/grid_al"
-                fixed:
-                    type: string
-                    description: Name of the layer to lock the edge
+                    type: array
+                    description: Grid along an arc length, expressed non dimensionally where 0 is the leading edge, -1 is the trailing edge on the pressure side and +1 the trailing edge on the pressure side
+                    items:
+                        type: number
+                        units: none
+                        minItems: 2
+                        minimum: -1.0
+                        maximum: 1.0
+                        uniqueItems: true
+                        fixed:
+                            type: string
+                            description: Name of the layer to lock the edge
         offset:
             type: object
             description: dimensional offset in respect to the pitch axis along the x axis, which is the chord line rotated by a user-defined angle. Negative values move the midpoint towards the leading edge, positive towards the trailing edge
@@ -3130,431 +3001,257 @@ definitions:
                         values:
                             $ref: "#/definitions/distributed_data/length"
     beam:
-        timoschenko_hawc:
-            type: object
-            description: Timoschenko beam as in HAWC2
-            required:
-                - reference_axis
-                - A
-                - E
-                - G
-                - I_x
-                - I_y
-                - K
-                - dm
-                - k_x
-                - k_y
-                - pitch
-                - ri_x
-                - ri_y
-                - x_cg
-                - x_e
-                - x_sh
-                - y_cg
-                - y_e
-                - y_sh
-            properties:
-                reference_axis:
-                    $ref: "#/definitions/distributed_data/axis_coordinates"
-                A:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/area"
-                E:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/elast_mod"
-                G:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/shear_mod"
-                I_x:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/area_moment"
-                I_y:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/area_moment"
-                K:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/tors_stiff_const"
-                dm:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/mass_length"
-                k_x:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/nd"
-                k_y:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/nd"
-                pitch:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/angle"
-                ri_x:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                ri_y:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                x_cg:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                x_e:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                x_sh:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                y_cg:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                y_e:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                y_sh:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-        cp_lambda_beam:
-            type: object
-            description: Geometrically exact beams with simplified properties
-            required:
-                - reference_axis
-                - T11
-                - T22
-                - EA
-                - E11
-                - E22
-                - GJ
-                - x_ce
-                - y_ce
-                - dm
-                - delta_theta
-                - x_sh
-                - y_sh
-                - J1
-                - J2
-                - J3
-                - x_cg
-                - y_cg
-            properties:
-                reference_axis:
-                    $ref: "#/definitions/distributed_data/axis_coordinates"
-                T11:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/shear_stiff"
-                T22:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/shear_stiff"
-                EA:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/axial_stiff"
-                E11:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/bending_stiff"
-                E22:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/bending_stiff"
-                GJ:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/tors_stiff"
-                x_ce:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                y_ce:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                dm:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/mass_length"
-                delta_theta:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/angle"
-                x_sh:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                y_sh:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                J1:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/mass_moment"
-                J2:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/mass_moment"
-                J3:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/mass_moment"
-                x_cg:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-                y_cg:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            $ref: "#/definitions/distributed_data/length"
-        six_x_six:
-            type: object
-            required:
-                - reference_axis
-                - stiff_matrix
-            properties:
-                reference_axis:
-                    $ref: "#/definitions/distributed_data/axis_coordinates"
-                stiff_matrix:
-                    type: object
-                    required:
-                        - grid
-                        - values
-                    properties:
-                        grid:
-                            $ref: "#/definitions/distributed_data/grid_nd"
-                        values:
-                            type: array
-                            items:
-                                type: array
-                                description: Stiffness matrix 6x6, only upper diagonal reported line by line (21 elements), specified at each grid point
-                                minItems: 21
-                                maxItems: 21
-                                uniqueItems: false
+        type: object
+        required:
+            - reference_axis
+            - stiffness_matrix
+            - inertia_matrix
+        properties:
+            reference_axis:
+                $ref: "#/definitions/distributed_data/axis_coordinates"
+            stiffness_matrix:
+                type: object
+                required:
+                    - grid
+                    - K44
+                    - K55
+                properties:
+                    grid:
+                        $ref: "#/definitions/distributed_data/grid_nd"
+                    K11:
+                        type: array
+                        description: Distribution of the K11 element of the stiffness matrix along blade span. K11 corresponds to the shear stiffness along the x axis (in a blade, x points to the trailing edge)
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K22:
+                        type: array
+                        description: Distribution of the K22 element of the stiffness matrix along blade span. K22 corresponds to the shear stiffness along the y axis (in a blade, y points to the suction side)
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K33:
+                        type: array
+                        description: Distribution of the K33 element of the stiffness matrix along blade span. K33 corresponds to the axial stiffness along the z axis (in a blade, z runs along the span and points to the tip)
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K44:
+                        type: array
+                        description: Distribution of the K44 element of the stiffness matrix along blade span. K44 corresponds to the bending stiffness around the x axis (in a blade, x points to the trailing edge and K44 corresponds to the flapwise stiffness)
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K55:
+                        type: array
+                        description: Distribution of the K55 element of the stiffness matrix along blade span. K55 corresponds to the bending stiffness around the y axis (in a blade, y points to the suction side and K55 corresponds to the edgewise stiffness)
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K66:
+                        type: array
+                        description: Distribution of K66 element of the stiffness matrix along blade span. K66 corresponds to the torsional stiffness along the z axis (in a blade, z runs along the span and points to the tip)
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K12:
+                        type: array
+                        description: Distribution of the K12 element of the stiffness matrix along blade span. K12 is a cross term between shear terms
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K13:
+                        type: array
+                        description: Distribution of the K13 element of the stiffness matrix along blade span. K13 is a cross term shear - axial
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K14:
+                        type: array
+                        description: Distribution of the K14 element of the stiffness matrix along blade span. K14 is a cross term shear - bending
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K15:
+                        type: array
+                        description: Distribution of the K15 element of the stiffness matrix along blade span. K15 is a cross term shear - bending
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K16:
+                        type: array
+                        description: Distribution of the K16 element of the stiffness matrix along blade span. K16 is a cross term shear - torsion
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K23:
+                        type: array
+                        description: Distribution of the K23 element of the stiffness matrix along blade span. K23 is a cross term shear - axial
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K24:
+                        type: array
+                        description: Distribution of the K24 element of the stiffness matrix along blade span. K24 is a cross term shear - bending
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K25:
+                        type: array
+                        description: Distribution of the K25 element of the stiffness matrix along blade span. K25 is a cross term shear - bending
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K26:
+                        type: array
+                        description: Distribution of the K26 element of the stiffness matrix along blade span. K26 is a cross term shear - torsion
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K34:
+                        type: array
+                        description: Distribution of the K34 element of the stiffness matrix along blade span. K34 is a cross term axial - bending
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K35:
+                        type: array
+                        description: Distribution of the K35 element of the stiffness matrix along blade span. K35 is a cross term axial - bending
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K36:
+                        type: array
+                        description: Distribution of the K36 element of the stiffness matrix along blade span. K36 is a cross term axial - torsion
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K45:
+                        type: array
+                        description: Distribution of the K45 element of the stiffness matrix along blade span. K45 is a cross term flapwise bending - edgewise bending
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K46:
+                        type: array
+                        description: Distribution of the K46 element of the stiffness matrix along blade span. K46 is a cross term flapwise bending - torsion
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+                    K56:
+                        type: array
+                        description: Distribution of the K56 element of the stiffness matrix along blade span. K56 is a cross term edgewise bending - torsion
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            minItems: 2
+                            uniqueItems: false
+            inertia_matrix:
+                type: object
+                required:
+                    - grid
+                    - mass
+                properties:
+                    grid:
+                        $ref: "#/definitions/distributed_data/grid_nd"
+                    mass:
+                        type: array
+                        description: Mass per unit length along the beam, expressed in kilogram per meter
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            units: kg/m
+                            minItems: 2
+                            uniqueItems: false
+                    cm_x:
+                        description: Distance between the reference axis and the center of mass along the x axis
+                        $ref: "#/definitions/distributed_data/length"
+                    cm_y:
+                        description: Distance between the reference axis and the center of mass along the y axis
+                        $ref: "#/definitions/distributed_data/length"
+                    i_edge:
+                        description: Edgewise mass moment of inertia per unit span (around y axis)
+                        type: array
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            units: kg*m^2
+                            minimum: 0
+                    i_flap:
+                        description: Flapwise mass moment of inertia per unit span (around x axis)
+                        type: array
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            units: kg*m^2
+                            minimum: 0
+                    i_plr:
+                        description: Polar moment of inertia per unit span (around z axis)
+                        type: array
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            units: kg*m^2
+                            minimum: 0
+                    i_cp:
+                        description: Sectional cross-product of inertia per unit span (cross term x y)
+                        type: array
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            units: kg*m^2
+                            minimum: 0
+            structural_damping:
+                mu:
+                    type: array
+                    default: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+                    description: Six damping coefficients to model viscous damping, where the damping forces are proportional to the strain rate
+                    items:
+                        type: number
+                        minItems: 6
+                        maxItems: 6
+                        uniqueItems: false
+
     filter:
         type: object
         description: Linear filter, could be a LPF, HPF, NF, INF, or user_defined
