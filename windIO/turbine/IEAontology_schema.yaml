@@ -1660,7 +1660,7 @@ properties:
                                 Ca: &ca
                                     description: User-defined added mass coefficient
                                     type: number
-                                    default: 0.0
+                                    default: 1.0
                                     minimum: 0.0
                                 Cp: &cp
                                     description: User-defined pressure coefficient
