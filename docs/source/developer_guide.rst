@@ -127,7 +127,7 @@ implementing the change and submitting a pull request.
 A pull request is owned by the *contributor*.
 It is their responsibility to fully describe the change, the motivation behind it, and the
 impact on windIO and the adjacent ecosystem.
-The contributor should work work maintainers to establish a timeline for review and
+The contributor should work maintainers to establish a timeline for review and
 incorporating feedback.
 They should also keep a pull request up to date with the latest changes in the target branch.
 
