@@ -3399,6 +3399,23 @@ definitions:
                         minItems: 6
                         maxItems: 6
                         uniqueItems: false
+            point_mass:
+                type: object
+                required:
+                    - grid
+                    - mass
+                properties:
+                    grid:
+                        $ref: "#/definitions/distributed_data/grid_nd"
+                    mass:
+                        type: array
+                        description: Point masses distributed along the beam, expressed in kilogram. These can be used to model features such as flanges.
+                        default: [0.0, 0.0]
+                        items:
+                            type: number
+                            units: kg
+                            minItems: 2
+                            uniqueItems: false
     point_mass:
         type: object
         required:
