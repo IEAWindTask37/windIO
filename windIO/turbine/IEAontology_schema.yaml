@@ -215,7 +215,6 @@ properties:
                                     # $ref: "#/definitions/distributed_data/coordinates"
                     elastic_properties_mb:
                         $ref: "#/definitions/beam"
-
                     internal_structure_2d_fem:
                         type: object
                         default: {}
@@ -417,40 +416,14 @@ properties:
                                 minimum: 0
                                 maximum: 2.
                     elastic_properties_mb:
-                        type: object
-                        required:
-                            - system_mass
-                            - system_inertia
-                        properties:
-                            system_mass:
-                                type: number
-                                description: Mass of the hub system, which includes the hub, the spinner, the blade bearings, the pitch actuators, the cabling, ....
-                                units: kg
-                                minimum: 0
-                            system_inertia:
-                                type: array
-                                description: Inertia of the hub system, on the hub reference system, which has the x aligned with the rotor axis, and y and z perpendicular to it.
-                                items:
-                                    type: number
-                                    units: kgm2
-                                    minItems: 6
-                                    maxItems: 6
-                                    uniqueItems: false
-                            system_center_mass:
-                                type: array
-                                description: Center of mass of the hub system. Work in progress.
-                                items:
-                                    type: number
-                                    units: m
-                                    minItems: 3
-                                    maxItems: 3
-                                    uniqueItems: false
-            nacelle:
+                        $ref: "#/definitions/point_mass"
+                        description: Point mass modeling the full hub system, which includes the hub, the spinner, the blade bearings, the pitch actuators, the cabling, ....
+            drivetrain:
                 type: object
                 properties:
-                    drivetrain:
+                    outer_shape_bem:
                         type: object
-                        description: Inputs to WISDEM specific drivetrain sizing tool, DrivetrainSE
+                        description: Geometrical metrics describing the drivetrain. These are inputs to WISDEM specific drivetrain sizing tool, DrivetrainSE
                         properties:
                             uptilt:
                                 type: number
@@ -487,39 +460,10 @@ properties:
                                 minimum: 0.
                                 maximum: 20.
                                 default: 5.0
-                            generator_length:
-                                type: number
-                                description: Length of generator along the shaft
-                                units: meter
-                                minimum: 0.
-                                maximum: 20.
-                                default: 2.0
-                            generator_radius_user:
-                                type: number
-                                description: User input override of generator radius, only used when using simple generator scaling
-                                units: m
-                                minimum: 0.
-                                maximum: 20.0
-                                default: 0.0
-                            generator_mass_user:
-                                type: number
-                                description: User input override of generator mass, only used when using simple generator mass scaling
-                                units: kg
-                                minimum: 0.
-                                maximum: 1.e+9
-                                default: 0.0
-                            generator_rpm_efficiency_user:
-                                type: object
-                                description: User input override of generator rpm-efficiency values, with rpm as grid input and eff as values input
-                                default: {'grid':[0.0], 'values':[0.0]}
-                                required:
-                                    - grid
-                                    - values
-                                properties:
-                                    grid:
-                                        $ref: "#/definitions/distributed_data/length"
-                                    values:
-                                        $ref: "#/definitions/distributed_data/length"
+                    gearbox:
+                        type: object
+                        description: Inputs describing the gearbox, when present
+                        properties: 
                             gear_ratio:
                                 type: number
                                 description: Gear ratio of the drivetrain. Set it to 1 for direct drive machines.
@@ -527,28 +471,28 @@ properties:
                                 minimum: 1
                                 maximum: 1000
                                 default: 1.0
-                            gearbox_length_user:
+                            length_user:
                                 type: number
                                 description: User input override of gearbox length along shaft, only used when using gearbox_mass_user is > 0
                                 units: meter
                                 minimum: 0.
                                 maximum: 20.
                                 default: 0.0
-                            gearbox_radius_user:
+                            radius_user:
                                 type: number
                                 description: User input override of gearbox radius, only used when using gearbox_mass_user is > 0
                                 units: m
                                 minimum: 0.
                                 maximum: 20.0
                                 default: 0.0
-                            gearbox_mass_user:
+                            mass_user:
                                 type: number
                                 description: User input override of gearbox mass
                                 units: kg
                                 minimum: 0.
                                 maximum: 1.e+9
                                 default: 0.0
-                            gearbox_efficiency:
+                            efficiency:
                                 type: number
                                 description: Efficiency of the gearbox system.
                                 units: none
@@ -562,7 +506,30 @@ properties:
                                 minimum: 0.0
                                 maximum: 1.
                                 default: 0.005
-                            lss_diameter:
+                            gear_configuration:
+                                type: string
+                                description: 3-letter string of Es or Ps to denote epicyclic or parallel gear configuration
+                                default: EEP
+                            planet_numbers:
+                                type: array
+                                default: [3, 3, 0]
+                                description: Number of planets for epicyclic stages (use 0 for parallel)
+                                items:
+                                    type: integer
+                                    units: none
+                                    minItems: 3
+                                    maxItems: 3
+                                    uniqueItems: false
+                                    minimum: 0
+                                    maximum: 6
+                            elastic_properties_mb:
+                                $ref: "#/definitions/point_mass"
+                                description: Point mass modeling the gearbox
+                    lss:
+                        type: object
+                        description: Inputs describing the low speed shaft
+                        properties:         
+                            diameter:
                                 type: array
                                 description: Diameter of the low speed shaft at beginning (generator/gearbox) and end (hub) points
                                 default: [0.3, 0.3]
@@ -572,7 +539,7 @@ properties:
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.3
-                            lss_wall_thickness:
+                            wall_thickness:
                                 type: array
                                 description: Thickness of the low speed shaft at beginning (generator/gearbox) and end (hub) points
                                 default: [0.1, 0.1]
@@ -582,18 +549,25 @@ properties:
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.1
-                            lss_material:
+                            material:
                                 type: string
                                 description: Material name identifier
                                 default: steel
-                            hss_length:
+                            elastic_properties_mb:
+                                $ref: "#/definitions/beam"
+                                description: Beam modelling the low speed shaft
+                    hss:
+                        type: object
+                        description: Inputs describing the high speed shaft, when present
+                        properties:          
+                            length:
                                 type: number
                                 description: Length of the high speed shaft
                                 units: meter
                                 minimum: 0.
                                 maximum: 10.
                                 default: 1.5
-                            hss_diameter:
+                            diameter:
                                 type: array
                                 description: Diameter of the high speed shaft at beginning (generator) and end (generator) points
                                 default: [0.3, 0.3]
@@ -603,7 +577,7 @@ properties:
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.3
-                            hss_wall_thickness:
+                            wall_thickness:
                                 type: array
                                 description: Thickness of the high speed shaft at beginning (generator) and end (generator) points
                                 default: [0.1, 0.1]
@@ -613,11 +587,17 @@ properties:
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.1
-                            hss_material:
+                            material:
                                 type: string
                                 description: Material name identifier
                                 default: steel
-                            nose_diameter:
+                            elastic_properties_mb:
+                                $ref: "#/definitions/beam"
+                                description: Beam modelling the high speed shaft
+                    nose:
+                        type: object
+                        description: Inputs describing the nose/turret at beginning (bedplate) and end (main bearing) points
+                            diameter:
                                 type: array
                                 description: Diameter of the nose/turret at beginning (bedplate) and end (main bearing) points
                                 default: [0.3, 0.3]
@@ -637,7 +617,13 @@ properties:
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.1
-                            bedplate_wall_thickness:
+                            elastic_properties_mb:
+                                $ref: "#/definitions/beam"
+                                description: Beam modelling the nose
+                    bedplate:
+                        type: object
+                            description: Inputs describing the hollow elliptical bedplate used in direct drive configurations
+                            wall_thickness:
                                 type: object
                                 description: Thickness of the hollow elliptical bedplate used in direct drive configurations
                                 default: {'grid':[0.0, 1.0], 'values':[0.05, 0.05]}
@@ -649,27 +635,32 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/length"
-                            bedplate_flange_width:
+                            flange_width:
                                 type: number
                                 description: Bedplate I-beam flange width used in geared configurations
                                 units: meter
                                 minimum: 0.
                                 maximum: 3.
                                 default: 1.0
-                            bedplate_flange_thickness:
+                            flange_thickness:
                                 type: number
                                 description: Bedplate I-beam flange thickness used in geared configurations
                                 units: meter
                                 minimum: 0.
                                 maximum: 1.
                                 default: 0.05
-                            bedplate_web_thickness:
+                            web_thickness:
                                 type: number
                                 description: Bedplate I-beam web thickness used in geared configurations
                                 units: meter
                                 minimum: 0.
                                 maximum: 1.
                                 default: 0.05
+                            bedplate_material:
+                                type: string
+                                description: Material name identifier
+                                default: steel
+                    other_components:
                             brake_mass_user:
                                 type: number
                                 default: 0.0
@@ -693,11 +684,7 @@ properties:
                                 default: 0.0
                                 units: kg
                                 description: Override regular regression-based calculation of transformer mass with this value
-                                minimum: 0.0
-                            bedplate_material:
-                                type: string
-                                description: Material name identifier
-                                default: steel
+                                minimum: 0.0                     
                             mb1Type:
                                 type: string
                                 description: Type of bearing for first main bearing
@@ -711,25 +698,45 @@ properties:
                             uptower:
                                 type: boolean
                                 description: If power electronics are located uptower (True) or at tower base (False)
-                                default: True
-                            gear_configuration:
-                                type: string
-                                description: 3-letter string of Es or Ps to denote epicyclic or parallel gear configuration
-                                default: EEP
-                            planet_numbers:
-                                type: array
-                                default: [3, 3, 0]
-                                description: Number of planets for epicyclic stages (use 0 for parallel)
-                                items:
-                                    type: integer
-                                    units: none
-                                    minItems: 3
-                                    maxItems: 3
-                                    uniqueItems: false
-                                    minimum: 0
-                                    maximum: 6
+                                default: True                  
+                            elastic_properties_mb:
+                                $ref: "#/definitions/point_mass"
+                                description: Point mass modeling the assembly of brake, hvac, converter, transformer, and main bearings
                     generator:
                       properties:
+                        generator_length:
+                            type: number
+                            description: Length of generator along the shaft
+                            units: meter
+                            minimum: 0.
+                            maximum: 20.
+                            default: 2.0
+                        generator_radius_user:
+                            type: number
+                            description: User input override of generator radius, only used when using simple generator scaling
+                            units: m
+                            minimum: 0.
+                            maximum: 20.0
+                            default: 0.0
+                        generator_mass_user:
+                            type: number
+                            description: User input override of generator mass, only used when using simple generator mass scaling
+                            units: kg
+                            minimum: 0.
+                            maximum: 1.e+9
+                            default: 0.0
+                        generator_rpm_efficiency_user:
+                            type: object
+                            description: User input override of generator rpm-efficiency values, with rpm as grid input and eff as values input
+                            default: {'grid':[0.0], 'values':[0.0]}
+                            required:
+                                - grid
+                                - values
+                            properties:
+                                grid:
+                                    $ref: "#/definitions/distributed_data/length"
+                                values:
+                                    $ref: "#/definitions/distributed_data/length"
                         mass_coefficient:
                           type: number
                           default: 0.0
@@ -1100,6 +1107,9 @@ properties:
                           minimum: 0.0
                           maximum: 100.0
                           description: Permanent magnet cost
+                        elastic_properties_mb:
+                                $ref: "#/definitions/point_mass"
+                                description: Point mass modeling the generator
             tower:
                 type: object
                 required:
@@ -3389,7 +3399,40 @@ definitions:
                         minItems: 6
                         maxItems: 6
                         uniqueItems: false
-
+    point_mass:
+        type: object
+        required:
+            - location
+            - mass
+            - inertia
+            - coordinate_system
+        properties:
+            mass:
+                type: number
+                description: Mass of the component modeled as a point
+                units: kg
+                minimum: 0
+            inertia:
+                type: array
+                description: Mass moment of inertia of the component modeled as a point
+                items:
+                    type: number
+                    units: kgm2
+                    minItems: 6
+                    maxItems: 6
+                    uniqueItems: false
+            location:
+                type: array
+                description: Location of the point mass with respect to the coordinate system
+                items:
+                    type: number
+                    units: m
+                    minItems: 3
+                    maxItems: 3
+                    uniqueItems: false
+            coordinate_system:
+                type: string
+                description: Coordinate system used to define the location of the point mass
     filter:
         type: object
         description: Linear filter, could be a LPF, HPF, NF, INF, or user_defined
