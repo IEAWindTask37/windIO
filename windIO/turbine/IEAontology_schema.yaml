@@ -178,7 +178,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/grid_nd"
-                            L/D:
+                            L_D:
                                 type: object
                                 required:
                                     - grid
