@@ -623,7 +623,8 @@ properties:
                                 description: Beam modelling the nose
                     bedplate:
                         type: object
-                            description: Inputs describing the hollow elliptical bedplate used in direct drive configurations
+                        description: Inputs describing the hollow elliptical bedplate used in direct drive configurations
+                        properties:
                             wall_thickness:
                                 type: object
                                 description: Thickness of the hollow elliptical bedplate used in direct drive configurations
@@ -662,6 +663,9 @@ properties:
                                 description: Material name identifier
                                 default: steel
                     other_components:
+                        type: object
+                        description: Inputs describing all other drivetrain components, the assembly of brake, hvac, converter, transformer, and main bearings
+                        properties:
                             brake_mass_user:
                                 type: number
                                 default: 0.0
