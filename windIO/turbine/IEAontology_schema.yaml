@@ -12,6 +12,7 @@ description: Ontology definition for wind turbines
 type: object
 required:
     - name
+    - windIO_version
     - components
     - materials
     - assembly
