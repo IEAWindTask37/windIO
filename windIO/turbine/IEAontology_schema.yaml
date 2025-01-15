@@ -395,7 +395,7 @@ properties:
                         required:
                             - diameter
                             - cone_angle
-                            - drag_coefficient
+                            - Cd
                         properties:
                             diameter:
                                 type: number
@@ -409,7 +409,7 @@ properties:
                                 units: deg
                                 minimum: 0
                                 maximum: 50
-                            drag_coefficient:
+                            Cd:
                                 type: number
                                 description: Equivalent drag coefficient to compute the aerodynamic forces generated on the hub.
                                 units: none
@@ -1121,7 +1121,7 @@ properties:
                         required:
                             - reference_axis
                             - outer_diameter
-                            - drag_coefficient
+                            - Cd
                         properties:
                             reference_axis:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
@@ -1135,7 +1135,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/length"
-                            drag_coefficient:
+                            Cd:
                                 type: object
                                 required:
                                     - grid
@@ -1224,7 +1224,7 @@ properties:
                         required:
                             - reference_axis
                             - outer_diameter
-                            - drag_coefficient
+                            - Cd
                         properties:
                             reference_axis:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
