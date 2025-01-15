@@ -3074,126 +3074,128 @@ properties:
                                     maximum: 50.
                         integrated:
                             type: object
-                                properties:
-                                    mechanical_power:
-                                        type: number
-                                        description: Mechanical power of the rotor measured at the high speed shaft
-                                        units: W
-                                    electrical_power:
-                                        type: number
-                                        description: Eelectrical power of the rotor measured at the output of the generator
-                                        units: W
-                                    generator_torque:
-                                        type: number
-                                        description: Electrical torque of the generator
-                                        units: N*m
-                                    rotor_thrust:
-                                        type: number
-                                        description: Aerodynamic thrust of the rotor measured at the hub
-                                        units: N
-                                    rotor_torque:
-                                        type: number
-                                        description: Mechanical torque of the rotor measured at the hub
-                                        units: N*m
+                            description: Outputs integrated along blade span
+                            properties:
+                                mechanical_power:
+                                    type: number
+                                    description: Mechanical power of the rotor measured at the high speed shaft
+                                    units: W
+                                electrical_power:
+                                    type: number
+                                    description: Eelectrical power of the rotor measured at the output of the generator
+                                    units: W
+                                generator_torque:
+                                    type: number
+                                    description: Electrical torque of the generator
+                                    units: N*m
+                                rotor_thrust:
+                                    type: number
+                                    description: Aerodynamic thrust of the rotor measured at the hub
+                                    units: N
+                                rotor_torque:
+                                    type: number
+                                    description: Mechanical torque of the rotor measured at the hub
+                                    units: N*m
                         distributed:
                             type: object
-                                properties:
-                                    aero_force_axial:
-                                        type: object
-                                        description: Aerodynamic loading along the axial rotor direction
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/force"
-                                    aero_force_tangential:
-                                        type: object
-                                        description: Aerodynamic loading along the tangential rotor direction
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/force"
-                                    blade_translation_deflection_x_pitching:
-                                        type: object
-                                        description: Blade deflection with respect to the undeflected configuration along the x axis for the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/length"
-                                    blade_translation_deflection_y_pitching:
-                                        type: object
-                                        description: Blade deflection with respect to the undeflected configuration along the y axis for the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/length"
-                                    blade_translation_deflection_z_pitching:
-                                        type: object
-                                        description: Blade deflection with respect to the undeflected configuration along the z axis for the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/angle"
-                                    blade_rotation_deflection_z_pitching:
-                                        type: object
-                                        description: Blade rotation with respect to the undeflected configuration along the z axis for the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/length"
-                                    blade_Fx_pitching:
-                                        type: object
-                                        description: Distribution along blade span of the reaction force along the x axis (edgewise shear). The force follows the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/force"
-                                    blade_Fy_pitching:
-                                        type: object
-                                        description: Distribution along blade span of the reaction force along the y axis (flapwise shear). The force follows the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/force"
-                                    blade_Fz_pitching:
-                                        type: object
-                                        description: Distribution along blade span of the reaction force along the z axis (axial). The force follows the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/force"
-                                    blade_Mx_pitching:
-                                        type: object
-                                        description: Distribution along blade span of the reaction moment along the x axis (flapwise moment). The moment follows the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/moment"
-                                    blade_My_pitching:
-                                        type: object
-                                        description: Distribution along blade span of the reaction moment along the y axis (edgewise moment). The moment follows the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/moment"
-                                    blade_Mz_pitching:
-                                        type: object
-                                        description: Distribution along blade span of the reaction moment along the z axis (torsional moment). The moment follows the pitching blade root coordinate system
-                                        properties:
-                                            grid:
-                                                $ref: "#/definitions/distributed_data/grid_nd"
-                                            values:
-                                                $ref: "#/definitions/distributed_data/moment"
+                            description: Outputs distributed along blade span
+                            properties:
+                                aero_force_axial:
+                                    type: object
+                                    description: Aerodynamic loading along the axial rotor direction
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/force"
+                                aero_force_tangential:
+                                    type: object
+                                    description: Aerodynamic loading along the tangential rotor direction
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/force"
+                                blade_translation_deflection_x_pitching:
+                                    type: object
+                                    description: Blade deflection with respect to the undeflected configuration along the x axis for the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/length"
+                                blade_translation_deflection_y_pitching:
+                                    type: object
+                                    description: Blade deflection with respect to the undeflected configuration along the y axis for the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/length"
+                                blade_translation_deflection_z_pitching:
+                                    type: object
+                                    description: Blade deflection with respect to the undeflected configuration along the z axis for the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/angle"
+                                blade_rotation_deflection_z_pitching:
+                                    type: object
+                                    description: Blade rotation with respect to the undeflected configuration along the z axis for the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/length"
+                                blade_Fx_pitching:
+                                    type: object
+                                    description: Distribution along blade span of the reaction force along the x axis (edgewise shear). The force follows the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/force"
+                                blade_Fy_pitching:
+                                    type: object
+                                    description: Distribution along blade span of the reaction force along the y axis (flapwise shear). The force follows the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/force"
+                                blade_Fz_pitching:
+                                    type: object
+                                    description: Distribution along blade span of the reaction force along the z axis (axial). The force follows the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/force"
+                                blade_Mx_pitching:
+                                    type: object
+                                    description: Distribution along blade span of the reaction moment along the x axis (flapwise moment). The moment follows the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/moment"
+                                blade_My_pitching:
+                                    type: object
+                                    description: Distribution along blade span of the reaction moment along the y axis (edgewise moment). The moment follows the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/moment"
+                                blade_Mz_pitching:
+                                    type: object
+                                    description: Distribution along blade span of the reaction moment along the z axis (torsional moment). The moment follows the pitching blade root coordinate system
+                                    properties:
+                                        grid:
+                                            $ref: "#/definitions/distributed_data/grid_nd"
+                                        values:
+                                            $ref: "#/definitions/distributed_data/moment"
                         frequency_undamped:
                             type: array
                             description: Undamped natural frequencies of the system
