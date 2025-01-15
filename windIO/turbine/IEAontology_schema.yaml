@@ -188,7 +188,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/nd"
-                            c_d:
+                            Cd:
                                 type: object
                                 required:
                                     - grid
@@ -1238,8 +1238,26 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/length"
-                            drag_coefficient:
+                            Ca:
                                 type: object
+                                description: Added mass coefficient for the monopile defined in terms of grid and values that default to 1.
+                                required:
+                                    - grid
+                                    - values
+                                properties:
+                                    grid:
+                                        $ref: "#/definitions/distributed_data/grid_nd"
+                                    values:
+                                        type: array
+                                        default: [1.0, 1.0]
+                                        items:
+                                            type: number
+                                            units: none
+                                            minItems: 2
+                                            uniqueItems: False
+                            Cd:
+                                type: object
+                                description: Drag coefficient for the monopile
                                 required:
                                     - grid
                                     - values
@@ -2052,9 +2070,9 @@ properties:
                         required:
                             - configuration
                             - re
-                            - c_l
-                            - c_d
-                            - c_m
+                            - Cl
+                            - Cd
+                            - Cm
                         properties:
                             configuration:
                                 type: string
@@ -2063,7 +2081,7 @@ properties:
                                 type: number
                                 description: Reynolds number of the polars
                                 minimum: 0
-                            c_l:
+                            Cl:
                                 type: object
                                 required:
                                     - grid
@@ -2073,7 +2091,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_aoa"
                                     values:
                                         $ref: "#/definitions/distributed_data/polar_coeff"
-                            c_d:
+                            Cd:
                                 type: object
                                 required:
                                     - grid
@@ -2083,7 +2101,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_aoa"
                                     values:
                                         $ref: "#/definitions/distributed_data/polar_coeff"
-                            c_m:
+                            Cm:
                                 type: object
                                 required:
                                     - grid
