@@ -30,6 +30,9 @@ properties:
     name:
         description: Name of the turbine
         type: string
+    windIO_version:
+        description: Version of windIO used
+        type: string
     assembly:
         type: object
         default: {}
