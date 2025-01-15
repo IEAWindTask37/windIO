@@ -597,6 +597,7 @@ properties:
                     nose:
                         type: object
                         description: Inputs describing the nose/turret at beginning (bedplate) and end (main bearing) points
+                        properties:
                             diameter:
                                 type: array
                                 description: Diameter of the nose/turret at beginning (bedplate) and end (main bearing) points
