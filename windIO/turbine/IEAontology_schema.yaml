@@ -116,7 +116,7 @@ properties:
                             - airfoil_position
                             - chord
                             - twist
-                            - pitch_axis
+                            - reference_axis_aft_le
                             - reference_axis
                         properties:
                             airfoil_position:
@@ -153,8 +153,9 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/angle"
-                            pitch_axis:
+                            reference_axis_aft_le:
                                 type: object
+                                description: This parameter controls the airfoil position relative to the reference axis, by specifying how far along the chordline the reference axis lies. 0 means that the airfoil is pinned at the leading edge, 1 at the trailing edge, 0.5 at mid-chord.
                                 required:
                                     - grid
                                     - values
@@ -1710,7 +1711,6 @@ properties:
                                     description: Moments of inertia around body CM in Ixx, Iyy, Izz
                                     type: array
                                     items:
-                                        type: number
                                         units: kg*m^2
                                         maxItems: 3
                                         minItems: 3
@@ -2923,7 +2923,7 @@ definitions:
                 uniqueItems: false
         nd_arc_position:
             type: object
-            description: non-dimensional location of the point along the non-dimensional arc length
+            description: Non-dimensional location of the point along the non-dimensional arc length
             properties:
                 grid:
                     $ref: "#/definitions/distributed_data/grid_nd"
@@ -2942,7 +2942,7 @@ definitions:
                             description: Name of the layer to lock the edge
         offset:
             type: object
-            description: dimensional offset in respect to the pitch axis along the x axis, which is the chord line rotated by a user-defined angle. Negative values move the midpoint towards the leading edge, positive towards the trailing edge
+            description: Dimensional offset in respect to the pitch axis along the x axis, which is the chord line rotated by a user-defined angle. Negative values move the midpoint towards the leading edge, positive towards the trailing edge
             required:
                 - grid
                 - values
@@ -2953,7 +2953,7 @@ definitions:
                     $ref: "#/definitions/distributed_data/length"
         rotation:
             type: object
-            description: rotation of the chord axis around the pitch axis
+            description: Rotation of the chord axis around the pitch axis
             properties:
                 grid:
                     $ref: "#/definitions/distributed_data/grid_nd"
