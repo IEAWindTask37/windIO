@@ -2052,6 +2052,7 @@ properties:
                             re:
                                 type: number
                                 description: Reynolds number of the polars
+                                minimum: 0
                             c_l:
                                 type: object
                                 required:
@@ -2082,6 +2083,139 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_aoa"
                                     values:
                                         $ref: "#/definitions/distributed_data/polar_coeff"
+                            aoa0:
+                                type: number
+                                description: 0-lift angle of attack
+                                units: deg
+                            aoa1:
+                                type: number
+                                description: Angle of attack at f=0.7, (approximately the stall angle) for AOA>alpha0
+                                units: deg
+                            aoa2:
+                                type: number
+                                description: Angle of attack at f=0.7, (approximately the stall angle) for AOA<alpha0
+                                units: deg
+                            eta_e:
+                                type: number
+                                description: Recovery factor in the range [0.85 - 0.95]
+                                default: 1.
+                            C_nalpha:
+                                type: number
+                                description: Slope of the 2D normal force coefficient curve
+                                units: 1/rad
+                                minimum: 0.
+                            T_f0:
+                                type: number
+                                description: Initial value of the time constant associated with Df in the expression of Df and f. [default = 3]
+                                default: 3.
+                                minimum: 0.
+                            T_V0:
+                                type: number
+                                description: Initial value of the time constant associated with the vortex lift decay process; it is used in the expression of Cvn. It depends on Re,M, and airfoil class. [default = 6]
+                                default: 6.
+                                minimum: 0.
+                            T_p:
+                                type: number
+                                description: Boundary-layer,leading edge pressure gradient time constant in the expression of Dp. It should be tuned based on airfoil experimental data. [default = 1.7]
+                                default: 1.7
+                                minimum: 0.
+                            T_VL:
+                                type: number
+                                description: Initial value of the time constant associated with the vortex advection process; it represents the non-dimensional time in semi-chords, needed for a vortex to travel from LE to trailing edge (TE); it is used in the expression of Cvn. It depends on Re, M (weakly), and airfoil. [valid range = 6 - 13, default = 11]
+                                default: 11
+                                minimum: 6.
+                                minimum: 13.
+                            b1:
+                                type: number
+                                description: Constant in the expression of phi_alpha^c and phi_q^c.  This value is relatively insensitive for thin airfoils, but may be different for turbine airfoils. [from experimental results, defaults to 0.14]
+                                default: 0.14
+                            b2:
+                                type: number
+                                description: Constant in the expression of phi_alpha^c and phi_q^c.  This value is relatively insensitive for thin airfoils, but may be different for turbine airfoils. [from experimental results, defaults to 0.53]
+                                default: 0.53
+                            b5:
+                                type: number
+                                description: Constant in the expression of K'''_q,Cm_q^nc, and k_m,q.  [from  experimental results, defaults to 5]
+                                default: 5.
+                            A1:
+                                type: number
+                                description: Constant in the expression of phi_alpha^c and phi_q^c.  This value is relatively insensitive for thin airfoils, but may be different for turbine airfoils. [from experimental results, defaults to 0.3]
+                                default: 0.3
+                            A2:
+                                type: number
+                                description: Constant in the expression of phi_alpha^c and phi_q^c.  This value is relatively insensitive for thin airfoils, but may be different for turbine airfoils. [from experimental results, defaults to 0.7]
+                                default: 0.7
+                            A5:
+                                type: number
+                                description: Constant in the expression of K'''_q,Cm_q^nc, and k_m,q. [from experimental results, defaults to 1]
+                                default: 1.
+                            S1:
+                                type: number
+                                description: Constant in the f curve best-fit for alpha0<=AOA<=alpha1; by definition it depends on the airfoil.
+                                default: 0.
+                            S2:
+                                type: number
+                                description: Constant in the f curve best-fit for AOA> alpha1; by definition it depends on the airfoil.
+                                default: 0.
+                            S3:
+                                type: number
+                                description: Constant in the f curve best-fit for alpha2<=AOA< alpha0; by definition it depends on the airfoil.
+                                default: 0.
+                            S4:
+                                type: number
+                                description: Constant in the f curve best-fit for AOA< alpha2; by definition it depends on the airfoil.
+                                default: 0.
+                            Cn1:
+                                type: number
+                                description: Critical value of C0n at leading edge separation. It should be extracted from airfoil data at a given Mach and Reynolds number. It can be calculated from the static value of Cn at either the break in the pitching moment or the loss of chord force at the onset of stall. It is close to the condition of maximum lift of the airfoil at low Mach numbers.
+                            Cn2:
+                                type: number
+                                description: As Cn1 for negative AOAs
+                            St_sh:
+                                type: number
+                                description: Strouhal's shedding frequency constant. [default = 0.19]
+                                default: 0.19
+                            Cd0:
+                                type: number
+                                description: 2D drag coefficient value at 0-lift.
+                            Cm0:
+                                type: number
+                                description: 2D pitching moment coefficient about 1/4-chord location, at 0-lift, positive if nose up.
+                                default: 0.
+                            k0:
+                                type: number
+                                description: Constant in the \hat(x)_cp curve best-fit; = (\hat(x)_AC-0.25).
+                                default: 0.
+                            k1:
+                                type: number
+                                description: Constant in the \hat(x)_cp curve best-fit.
+                                default: 0.
+                            k2:
+                                type: number
+                                description: Constant in the \hat(x)_cp curve best-fit.
+                                default: 0.
+                            k3:
+                                type: number
+                                description: Constant in the \hat(x)_cp curve best-fit.
+                                default: 0.
+                            k1_hat:
+                                type: number
+                                description: Constant in the expression of Cc due to leading edge vortex effects.
+                                default: 0.
+                            x_cp_bar:
+                                type: number
+                                description: Constant in the expression of \hat(x)_cp^v. [default = 0.2]
+                                default: 0.2
+                            UACutout:
+                                type: number
+                                description: Angle of attack above which unsteady aerodynamics are disabled (deg). [Specifying the string "Default" sets UACutout to 45 degrees]
+                                units: deg
+                                default: 45
+                            filtCutOff:
+                                type: number
+                                description: Cut-off frequency (-3 dB corner frequency) for low-pass filtering the AoA input to UA, as well as the 1st and 2nd derivatives (Hz) [default = 20]
+                                units: Hz
+                                default: 20
     materials:
         type: array
         description: Database of the materials
