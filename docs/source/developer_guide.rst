@@ -129,6 +129,8 @@ the motivation behind it, and the impact on windIO and the adjacent ecosystem.
 The contributor should work with maintainers to establish a timeline for review and
 incorporating feedback.
 They should also keep a pull request up to date with the latest changes in the target branch.
+While the maintainer will ultimately determine whether a pull request is complete, contributors
+should push the process by providing information and requesting additional reviews.
 
 **Summary: Contributors should strive to make high quality changes and create pull requests that encourage an approval from reviewers.**
 
@@ -159,6 +161,7 @@ This includes managing issues and discussions, reviewing pull requests, and ensu
 the repository infrastructure is up to date.
 Maintainers should also work with contributors and reviewers to keep the development process
 moving forward.
+They are responsible for ultimately merging a pull request.
 
 While a pull request is active, maintainers should ensure the following:
 
