@@ -176,3 +176,21 @@ Otherwise, maintainers should consider the following:
 
 **Summary: Maintainers should steer the collaborative development process and provide reviews that support the objectives of the windIO project.**
 
+
+Sequence
+--------
+Here's a typical sequence of events for a contribution:
+
+0. **Identify a need**: *Contributors* identify and characterize a need for a change in windIO.
+   Ideally, this need is discussed with domain experts within the windIO community through a
+   GitHub Issue or Discussion.
+1. **Implement a change**: *Contributors* implement the change in a feature branch.
+2. **Submit a pull request**: When ready for review, *contributors* create a pull request
+   to the windIO repository. A change is ready for review when it is complete, tested,
+   and documented. The pull request should include the context, description and motivation for
+   a description of the change.
+3. **Review and Iteration**: *Reviewers* and *maintainers* provide feedback on the pull request.
+   *Contributors* update the pull request to address feedback. This often occurs over multiple
+   cycles, and it is rare for a pull request to be accepted without changes.
+4. **Merge**: Once the pull request is approved, a *maintainer* merges the pull request into
+   the main branch. The change is now part of windIO.
