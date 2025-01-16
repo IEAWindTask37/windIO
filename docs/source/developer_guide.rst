@@ -124,21 +124,27 @@ a GitHub Issue or Discussion, and relevant people should be tagged directly for 
 After accepting feedback and updating the proposal, the contributor is responsible for
 implementing the change and submitting a pull request.
 
-A pull request is owned by the *contributor*.
-It is their responsibility to fully describe the change, the motivation behind it, and the
-impact on windIO and the adjacent ecosystem.
-The contributor should work maintainers to establish a timeline for review and
+It is the responsibility of the contributor to fully describe the change,
+the motivation behind it, and the impact on windIO and the adjacent ecosystem.
+The contributor should work with maintainers to establish a timeline for review and
 incorporating feedback.
 They should also keep a pull request up to date with the latest changes in the target branch.
 
+**Summary: Contributors should strive to make high quality changes and create pull requests that encourage an approval from reviewers.**
+
 Reviewer Responsibilities
 -------------------------
-Reviewers are responsible for providing feedback on the pull request.
+Reviewers are responsible for providing feedback on the pull request from the perspective
+of the domain included in the change.
+For example, changes to a given area of the ontology should be reviewed by a domain expert
+in that area who understands the contextual impacts.
 Approving a change indicates agreement with the change, and it implies that the reviewer,
 in addition to the contributor, is a relevant person to contact for future questions.
 
 After being assigned to a pull request, a reviewer should coordinate with the contributor and
 maintainers to establish a reasonable review timeline.
+
+**Summary: Reviewers should strive to provide meaningful and constructive feedback that helps the contributor make quality changes and supports the objectives of the windIO project.**
 
 
 Maintainer Responsibilities
@@ -167,3 +173,6 @@ Otherwise, maintainers should consider the following:
 - Tests are running, passing, and addressing the intended targets
 - Issues and discussions are engaging the relevant people
 - Whether gaps or conflicts have emerged from individual development efforts
+
+**Summary: Maintainers should steer the collaborative development process and provide reviews that support the objectives of the windIO project.**
+
