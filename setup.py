@@ -26,7 +26,7 @@ EXTRAS = {
 
 metadata = dict(
     name="windIO",
-    url='https://github.com/IEAWindTask37/windIO',
+    url='https://github.com/IEAWindSystems/windIO',
     version="1.0",
     description="Frameworks defining the inputs and outputs for systems engineering MDAO of wind turbine and plants.",
     author="IEA Wind Task 37",
