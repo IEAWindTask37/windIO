@@ -195,5 +195,6 @@ Here's a typical sequence of events for a contribution:
 3. **Review and Iteration**: *Reviewers* and *maintainers* provide feedback on the pull request.
    *Contributors* update the pull request to address feedback. This often occurs over multiple
    cycles, and it is rare for a pull request to be accepted without changes.
-4. **Merge**: Once the pull request is approved, a *maintainer* merges the pull request into
+4. **Merge**: Once the pull request is approved by *reviewers* and the *contributor* signals
+   that it is ready to merge, a *maintainer* does final checks and merges the pull request into
    the main branch. The change is now part of windIO.
