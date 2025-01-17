@@ -3297,7 +3297,7 @@ definitions:
                     $ref: "#/definitions/distributed_data/grid_nd"
                 values:
                     type: array
-                    description: Grid along an arc length, expressed non dimensionally where 0 is the leading edge, -1 is the trailing edge on the pressure side and +1 the trailing edge on the pressure side
+                    description: Grid along an arc length, expressed non dimensionally where 0 is the trailing edge on the suction side and 1 is the trailing edge on the pressure side. The arc starts and ends at the mid-point of the trailing edge in the case of open trailing edges.
                     items:
                         type: number
                         units: none
