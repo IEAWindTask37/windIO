@@ -365,7 +365,7 @@ properties:
                         required:
                             - diameter
                             - cone_angle
-                            - Cd
+                            - cd
                         properties:
                             diameter:
                                 type: number
@@ -379,7 +379,7 @@ properties:
                                 units: deg
                                 minimum: 0
                                 maximum: 50
-                            Cd:
+                            cd:
                                 type: number
                                 description: Equivalent drag coefficient to compute the aerodynamic forces generated on the hub.
                                 units: none
@@ -1096,7 +1096,7 @@ properties:
                         required:
                             - reference_axis
                             - outer_diameter
-                            - Cd
+                            - cd
                         properties:
                             reference_axis:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
@@ -1110,7 +1110,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/length"
-                            Cd:
+                            cd:
                                 type: object
                                 required:
                                     - grid
@@ -1199,7 +1199,7 @@ properties:
                         required:
                             - reference_axis
                             - outer_diameter
-                            - Cd
+                            - cd
                         properties:
                             reference_axis:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
@@ -1213,7 +1213,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/length"
-                            Ca:
+                            ca:
                                 type: object
                                 description: Added mass coefficient for the monopile defined in terms of grid and values that default to 1.
                                 required:
@@ -1230,7 +1230,7 @@ properties:
                                             units: none
                                             minItems: 2
                                             uniqueItems: False
-                            Cd:
+                            cd:
                                 type: object
                                 description: Drag coefficient for the monopile
                                 required:
@@ -1427,9 +1427,9 @@ properties:
                                 - internal_structure
                             optional:
                                 # TODO: Move these to the modeling file?
-                                - Ca
-                                - Cp
-                                - Cd
+                                - ca
+                                - cp
+                                - cd
                             properties:
                                 name:
                                     description: Name of the member
@@ -1665,16 +1665,16 @@ properties:
                                                 minimum: 0.0
                                                 maximum: 1.0
                                                 description: Non-dimensional value along member axis
-                                Ca: &ca
+                                ca: &ca
                                     description: User-defined added mass coefficient
                                     type: number
                                     default: 1.0
                                     minimum: 0.0
-                                Cp: &cp
+                                cp: &cp
                                     description: User-defined pressure coefficient
                                     type: number
                                     default: 0.0
-                                Cd: &cd
+                                cd: &cd
                                     description: User-defined drag coefficient
                                     type: number
                                     default: 0.0
@@ -1691,9 +1691,9 @@ properties:
                                 - cm_offset
                                 - moments_of_inertia
                             optional:
-                                - Ca
-                                - Cp
-                                - Cd
+                                - ca
+                                - cp
+                                - cd
                             properties:
                                 joint1: *jointid
                                 mass:
@@ -1722,9 +1722,9 @@ properties:
                                         maxItems: 3
                                         minItems: 3
                                         minimum: 0
-                                Ca: *ca
-                                Cp: *cp
-                                Cd: *cd
+                                ca: *ca
+                                cp: *cp
+                                cd: *cd
                     transition_piece_mass: *m_tp
                     transition_piece_cost: *c_tp
             mooring:
@@ -2045,9 +2045,9 @@ properties:
                         required:
                             - configuration
                             - re
-                            - Cl
-                            - Cd
-                            - Cm
+                            - cl
+                            - cd
+                            - cm
                         properties:
                             configuration:
                                 type: string
@@ -2056,7 +2056,7 @@ properties:
                                 type: number
                                 description: Reynolds number of the polars
                                 minimum: 0
-                            Cl:
+                            cl:
                                 type: object
                                 required:
                                     - grid
@@ -2066,7 +2066,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_aoa"
                                     values:
                                         $ref: "#/definitions/distributed_data/polar_coeff"
-                            Cd:
+                            cd:
                                 type: object
                                 required:
                                     - grid
@@ -2076,7 +2076,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_aoa"
                                     values:
                                         $ref: "#/definitions/distributed_data/polar_coeff"
-                            Cm:
+                            cm:
                                 type: object
                                 required:
                                     - grid
@@ -2102,7 +2102,7 @@ properties:
                                 type: number
                                 description: Recovery factor in the range [0.85 - 0.95]
                                 default: 1.
-                            C_nalpha:
+                            c_nalpha:
                                 type: number
                                 description: Slope of the 2D normal force coefficient curve
                                 units: 1/rad
@@ -2138,7 +2138,7 @@ properties:
                                 default: 0.53
                             b5:
                                 type: number
-                                description: Constant in the expression of K'''_q,Cm_q^nc, and k_m,q.  [from  experimental results, defaults to 5]
+                                description: Constant in the expression of K'''_q,cm_q^nc, and k_m,q.  [from  experimental results, defaults to 5]
                                 default: 5.
                             A1:
                                 type: number
@@ -2150,7 +2150,7 @@ properties:
                                 default: 0.7
                             A5:
                                 type: number
-                                description: Constant in the expression of K'''_q,Cm_q^nc, and k_m,q. [from experimental results, defaults to 1]
+                                description: Constant in the expression of K'''_q,cm_q^nc, and k_m,q. [from experimental results, defaults to 1]
                                 default: 1.
                             S1:
                                 type: number
@@ -2168,20 +2168,20 @@ properties:
                                 type: number
                                 description: Constant in the f curve best-fit for AOA< alpha2; by definition it depends on the airfoil.
                                 default: 0.
-                            Cn1:
+                            cn1:
                                 type: number
                                 description: Critical value of C0n at leading edge separation. It should be extracted from airfoil data at a given Mach and Reynolds number. It can be calculated from the static value of Cn at either the break in the pitching moment or the loss of chord force at the onset of stall. It is close to the condition of maximum lift of the airfoil at low Mach numbers.
-                            Cn2:
+                            cn2:
                                 type: number
                                 description: As Cn1 for negative AOAs
                             St_sh:
                                 type: number
                                 description: Strouhal's shedding frequency constant. [default = 0.19]
                                 default: 0.19
-                            Cd0:
+                            cd0:
                                 type: number
                                 description: 2D drag coefficient value at 0-lift.
-                            Cm0:
+                            cm0:
                                 type: number
                                 description: 2D pitching moment coefficient about 1/4-chord location, at 0-lift, positive if nose up.
                                 default: 0.
@@ -3118,7 +3118,7 @@ properties:
                                             $ref: "#/definitions/distributed_data/grid_nd"
                                         values:
                                             $ref: "#/definitions/distributed_data/length"
-                                blade_Fx_pitching:
+                                blade_fx_pitching:
                                     type: object
                                     description: Distribution along blade span of the reaction force along the x axis (edgewise shear). The force follows the pitching blade root coordinate system
                                     properties:
@@ -3126,7 +3126,7 @@ properties:
                                             $ref: "#/definitions/distributed_data/grid_nd"
                                         values:
                                             $ref: "#/definitions/distributed_data/force"
-                                blade_Fy_pitching:
+                                blade_fy_pitching:
                                     type: object
                                     description: Distribution along blade span of the reaction force along the y axis (flapwise shear). The force follows the pitching blade root coordinate system
                                     properties:
@@ -3134,7 +3134,7 @@ properties:
                                             $ref: "#/definitions/distributed_data/grid_nd"
                                         values:
                                             $ref: "#/definitions/distributed_data/force"
-                                blade_Fz_pitching:
+                                blade_fz_pitching:
                                     type: object
                                     description: Distribution along blade span of the reaction force along the z axis (axial). The force follows the pitching blade root coordinate system
                                     properties:
@@ -3142,7 +3142,7 @@ properties:
                                             $ref: "#/definitions/distributed_data/grid_nd"
                                         values:
                                             $ref: "#/definitions/distributed_data/force"
-                                blade_Mx_pitching:
+                                blade_mx_pitching:
                                     type: object
                                     description: Distribution along blade span of the reaction moment along the x axis (flapwise moment). The moment follows the pitching blade root coordinate system
                                     properties:
@@ -3150,7 +3150,7 @@ properties:
                                             $ref: "#/definitions/distributed_data/grid_nd"
                                         values:
                                             $ref: "#/definitions/distributed_data/moment"
-                                blade_My_pitching:
+                                blade_my_pitching:
                                     type: object
                                     description: Distribution along blade span of the reaction moment along the y axis (edgewise moment). The moment follows the pitching blade root coordinate system
                                     properties:
@@ -3158,7 +3158,7 @@ properties:
                                             $ref: "#/definitions/distributed_data/grid_nd"
                                         values:
                                             $ref: "#/definitions/distributed_data/moment"
-                                blade_Mz_pitching:
+                                blade_mz_pitching:
                                     type: object
                                     description: Distribution along blade span of the reaction moment along the z axis (torsional moment). The moment follows the pitching blade root coordinate system
                                     properties:
@@ -3280,7 +3280,7 @@ definitions:
                             description: Name of the layer to lock the edge
         offset:
             type: object
-            description: Dimensional offset in respect to the pitch axis along the x axis, which is the chord line rotated by a user-defined angle. Negative values move the midpoint towards the leading edge, positive towards the trailing edge
+            description: Dimensional offset in respect to the reference axis along the x axis, which is the chord line rotated by a user-defined angle. Negative values move the midpoint towards the leading edge, positive towards the trailing edge
             required:
                 - grid
                 - values
@@ -3291,7 +3291,7 @@ definitions:
                     $ref: "#/definitions/distributed_data/length"
         rotation:
             type: object
-            description: Rotation of the chord axis around the pitch axis
+            description: Rotation of the chord axis around the reference axis
             properties:
                 grid:
                     $ref: "#/definitions/distributed_data/grid_nd"
