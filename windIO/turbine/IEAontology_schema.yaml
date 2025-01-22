@@ -308,7 +308,7 @@ properties:
                             joint:
                                 type: object
                                 default: {}
-                                description: This is a spanwise joint along the blade, usually adopted to ease transportation constraints. WISDEM currently supports a single joint.
+                                description: This is a spanwise joint along the blade, usually adopted to ease transportation constraints
                                 properties:
                                     position:
                                         type: number
@@ -393,7 +393,7 @@ properties:
                 properties:
                     outer_shape_bem:
                         type: object
-                        description: Geometrical metrics describing the drivetrain. These are inputs to WISDEM specific drivetrain sizing tool, DrivetrainSE
+                        description: Geometrical metrics describing the drivetrain. Currently, these are inputs to WISDEM specific drivetrain sizing tool, DrivetrainSE
                         properties:
                             uptilt:
                                 type: number
@@ -2512,7 +2512,7 @@ properties:
                 properties:
                     min_pitch:
                         type: number
-                        description: Minimum pitch angle, where the default is 0 deg. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        description: Minimum pitch angle, where the default is 0 deg
                         units: deg
                         minimum: -0.5
                         maximum: 90.
@@ -2543,13 +2543,13 @@ properties:
                         maximum: 15
                     VS_minspd:
                         type: number
-                        description: Minimum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        description: Minimum rotor speed.
                         units: rpm
                         minimum: 0
                         maximum: 20.
                     VS_maxspd:
                         type: number
-                        description: Maximum rotor speed. It is used by the ROSCO controller (https://github.com/NREL/ROSCO)
+                        description: Maximum rotor speed.
                         units: rpm
                         minimum: 0
                         default: 100.
