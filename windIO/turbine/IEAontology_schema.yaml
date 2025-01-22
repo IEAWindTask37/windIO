@@ -1122,9 +1122,9 @@ properties:
                         properties:
                             reference_axis:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
-                            outer_diameter: Outer diameters of the tower defined from base (grid = 0) to top (grid = 1).
+                            outer_diameter: 
                                 type: object
-                                description: 
+                                description: Outer diameters of the tower defined from base (grid = 0) to top (grid = 1).
                                 required:
                                     - grid
                                     - values
@@ -1228,7 +1228,7 @@ properties:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
                             outer_diameter:
                                 type: object
-                                outer_diameter: Outer diameters of the monopile defined from base (grid = 0) to top (grid = 1).
+                                description: Outer diameters of the monopile defined from base (grid = 0) to top (grid = 1).
                                 required:
                                     - grid
                                     - values
