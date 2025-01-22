@@ -120,7 +120,7 @@ properties:
                             - airfoil_position
                             - chord
                             - twist
-                            - reference_axis_aft_le
+                            - section_offset_x
                             - reference_axis
                         properties:
                             airfoil_position:
@@ -157,9 +157,9 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
                                         $ref: "#/definitions/distributed_data/angle"
-                            reference_axis_aft_le:
+                            section_offset_x:
                                 type: object
-                                description: This parameter controls the airfoil position relative to the reference axis, by specifying how far along the chordline the reference axis lies. 0 means that the airfoil is pinned at the leading edge, 1 at the trailing edge, 0.5 at mid-chord.
+                                description: This parameter controls the airfoil position relative to the reference axis, by specifying the distance in meters along the chordline from the reference axis to the leading edge. 0 means that the airfoil is pinned at the leading edge, a positive offset means that the leading edge is upstream of the reference axis in local chordline coordinates, and a negative offset that the leading edge aft of the reference axis.
                                 required:
                                     - grid
                                     - values
@@ -167,7 +167,18 @@ properties:
                                     grid:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                                     values:
+                                        $ref: "#/definitions/distributed_data/length"
+                            section_offset_y:
+                                type: object
+                                description: This parameter controls the airfoil position relative to the reference axis, by specifying the chordline normal distance in meters from the reference axis. 0 means that the reference axis lies on the airfoil chordline, a positive offset means that the chordline is shifted in the direction of the suction side relative to the reference axis, and a negative offset that the section is shifted in the direction of the pressure side of the airfoil.
+                                required:
+                                    - grid
+                                    - values
+                                properties:
+                                    grid:
                                         $ref: "#/definitions/distributed_data/grid_nd"
+                                    values:
+                                        $ref: "#/definitions/distributed_data/length"
                             rthick:
                                 type: object
                                 required:
@@ -180,9 +191,6 @@ properties:
                                         $ref: "#/definitions/distributed_data/grid_nd"
                             reference_axis:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
-                            # coordinates:
-                                    # description: Coordinates expressed in the blade root coordinate system.
-                                    # $ref: "#/definitions/distributed_data/coordinates"
                     elastic_properties_mb:
                         $ref: "#/definitions/beam"
                     internal_structure_2d_fem:
