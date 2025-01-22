@@ -26,10 +26,10 @@ optional:
 # additionalProperties: true
 properties:
     comments:
-        description: Description of the model
+        description: Text field to describe the wind turbine, the changes to previous versions, etc,
         type: string
     name:
-        description: Name of the turbine
+        description: Unique identifier of the wind turbine model
         type: string
     windIO_version:
         description: Version of windIO used
@@ -37,6 +37,7 @@ properties:
     assembly:
         type: object
         default: {}
+        description: The field assembly includes nine entries that aim at describing the overall configuration of the wind turbine
         optional:
             - turbine_class
             - turbulence_class
@@ -51,33 +52,33 @@ properties:
             turbine_class:
                 type: string
                 default: I
-                description: IEC wind class of the wind turbine. The options are "I", "II", "III", and 'IV'
+                description: IEC wind class. The entry should be :code:`I`, :code:`II`, :code:`III`, or :code:`IV`.
                 enum: [I, II, III, IV, i, ii, iii, iv, 1, 2, 3, 4]
             turbulence_class:
                 type: string
                 default: B
-                description: IEC turbulence class of the wind turbine. The options are "A", "B", and "C"
+                description: IEC turbulence class of the wind turbine. The options are :code:`A`, :code:`B`, :code:`C`, and :code:`D`.
                 enum: [A, B, C, D, a, b, c, d]
             drivetrain:
                 type: string
                 default: geared
-                description: String characterizing the drivetrain configuration
+                description: Drivetrain configuration. This is intended to inform an automated interpreter of the yaml about the data specified in the field drivetrain
             rotor_orientation:
                 type: string
                 default: Upwind
-                description: Orientation of the horizontal-axis rotor. The options are "Upwind" and "Downwind"
+                description: Switch between :code:`upwind` and :code:`downwind` rotor configurations.
                 enum: [Upwind, upwind, UPWIND, downwind, Downwind, DOWNWIND]
             number_of_blades:
                 type: integer
                 default: 3
-                description: Number of blades of the rotor
+                description: Integer setting the number of blades of the rotor
                 units: none
                 minimum: 0
                 maximum: 10
             rotor_diameter:
                 type: number
                 default: 0
-                description: Diameter of the rotor, defined as two times the blade length plus the hub diameter
+                description: Rotor diameter, defined as the sum of hub diameter and two times the blade length along its z axis, see blade
                 units: m
                 minimum: 0
                 maximum: 1000
@@ -101,6 +102,7 @@ properties:
                 default: 25.0
     components:
         type: object
+        description: Nested dictionary structure of components describing the wind turbine assembly
         default: {}
         optional:
             - blade
@@ -113,9 +115,11 @@ properties:
         properties:
             blade:
                 type: object
+                description: The component :code:`blade` includes three subcomponents, namely :code:`outer_shape_bem`, :code:`elastic_properties_mb`, and :code:`internal_structure_2d_fem`. A fourth and a fifth subfields :code:`cfd_geometry` and :code:`3D_fem` will be added to support higher fidelity modeling of the rotor. All distributed quantities, such as blade chord or the thickness of a structural component, are expressed in terms of pair arrays :code:`grid` and :code:`values`, which must have a minimum length of two elements and the same size. :code:`grid` is defined nondimensional between 0 (root) and 1 (tip) along the, possibly curved, :code:`reference_axis`.
                 properties:
                     outer_shape_bem:
                         type: object
+                        description: :code:`outer_shape_bem` consists of a dictionary containing the data for blade BEM-based aerodynamics. 
                         required:
                             - airfoil_position
                             - chord
@@ -125,6 +129,7 @@ properties:
                         properties:
                             airfoil_position:
                                 type: object
+                                description: The array :code:`labels` specifies the names of the airfoils to be placed along the blade. The positions are specified in the field :code:`grid`. The two arrays must share the same length and to keep an airfoil constant along blade span, this must be defined twice. The :code:`labels` must match the :code:`names` of the airfoils listed in the top level :code:`airfoils`. In between airfoils, the recommended interpolation scheme for both coordinates and polars is the Piecewise Cubic Hermite Interpolating Polynomial (PCHIP), which is implemented in `Matlab <https://www.mathworks.com/help/matlab/ref/pchip.html>`_ and in the Python library `SciPy  <https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.PchipInterpolator.html>`_. Optionally, the field :code:`rthick.values` can also be defined, see below.
                                 required:
                                     - grid
                                     - labels
@@ -139,6 +144,7 @@ properties:
                                             uniqueItems: False
                             chord:
                                 type: object
+                                description: The array :code:`values` specifies the chord along blade span.
                                 required:
                                     - grid
                                     - values
@@ -149,6 +155,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/length"
                             twist:
                                 type: object
+                                description: The array :code:`values` specifies the aerodynamic twist along blade span. Twist is generally positive toward blade root, and may become negative toward blade tip.
                                 required:
                                     - grid
                                     - values
@@ -181,6 +188,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/length"
                             rthick:
                                 type: object
+                                description: This array has recently been added to windIO to overcome the uncertainty in the interpolated distribution of relative thickness along blade span. It should match the field :code:`airfoil_position`
                                 required:
                                     - grid
                                     - values
@@ -196,6 +204,7 @@ properties:
                     internal_structure_2d_fem:
                         type: object
                         default: {}
+                        description: The field :code:`internal_structure_2d_fem` contains the data to describe the internal structure of standard wind turbine blades. This is a fairly sophisticated process and the ontology proposed in this work supports different definitions. On the top level, the field :code:`internal_structure_2d_fem` has three sub-components, namely the :code:`reference_axis`, which is usually defined equal to the :code:`reference_axis` in the field :code:`outer_shape_bem`, the :code:`webs`, where the positions of the shear webs are defined, and the :code:`layers`, which describe all internal layers in terms of :code:`name`, :code:`material`, :code:`thickness`, number of plies :code:`n_plies`, :code:`fiber_orientation` (for composites), and position in the two-dimensional sections. Recently, the fields :code:`joint` and :code:`root` were added to support blades that are segmented spanwise and details about the blade root bolting.
                         required:
                             - reference_axis
                             - layers
@@ -222,7 +231,7 @@ properties:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
                             webs:
                                 type: array
-                                description: ...
+                                description: The field :code:`webs` consists of a list of entries, each representing a shear web defined in terms of :code:`name` and position.
                                 items:
                                     type: object
                                     required:
@@ -230,7 +239,7 @@ properties:
                                     properties:
                                         name:
                                             type: string
-                                            description: structural component identifier
+                                            description: String that identifies the web.
                                         start_nd_arc:
                                             $ref: "#/definitions/distributed_data/nd_arc_position"
                                         end_nd_arc:
@@ -241,7 +250,7 @@ properties:
                                             $ref: "#/definitions/distributed_data/offset"
                             layers:
                                 type: array
-                                description: ...
+                                description: The sub-field :code:`layers` defines the material layers of the wind turbine blade. In most cases, these are layers of composite materials. The most convenient approach to define the position of spar caps mimics the definition of the shear webs, adding the width and side that define the width of the layer in meters and the side where the layer is located, either “pressure” or “suction”. Layers that wrap the entire cross section, such as paint or outer shell skin, can be defined with :code:`start_nd_arc` set to 0 and :code:`end_nd_arc` set to 1. To define reinforcements, the best way is usually to define the width, in meters, and the midpoint, named :code:`midpoint_nd_arc` and defined nondimensional between 0 and 1. Converters should be able to look for the leading edge, marked as LE. Similar combinations can be constructed with the combination of :code:`width` and :code:`start_nd_arc` or :code:`end_nd_arc`. Finally, for composite layers belonging to the shear webs, a tag :code:`web` should contain the name of the web. The layers are then modeled from leading edge to trailing edge in the order they were specified.
                                 items:
                                     type: object
                                     required:
@@ -251,16 +260,16 @@ properties:
                                     properties:
                                         name:
                                             type: string
-                                            description: structural component identifier
+                                            description: String that identifies the layer.
                                         material:
                                             type: string
-                                            description: material identifier
+                                            description: String that identifies the material of the layer. The material and its properties must be defined in the top-level :code:`materials`.
                                         web:
                                             type: string
                                             description: web to which the layer is associated to, only to be defined for web layers
                                         thickness:
                                             type: object
-                                            description: thickness of the laminate
+                                            description: Dimensional thickness of the laminate, expressed in meters. This value is modeled constant along the section. To define ply drops along the 2D surface, the user is therefore required to define multiple layers, possibly ply by ply when many ply drops exist.
                                             required:
                                                 - grid
                                                 - values
@@ -271,7 +280,7 @@ properties:
                                                     $ref: "#/definitions/distributed_data/length"
                                         n_plies:
                                             type: object
-                                            description: number of plies of the laminate
+                                            description: In addition or in alternative to the dimensional thickness, the discrete number of plies of a composite laminate can be defined by the user. Notably, the ply thickness is a material property (not a layer property) and it is defined in the top-level field :code:`materials`.
                                             required:
                                                 - grid
                                                 - values
@@ -282,7 +291,7 @@ properties:
                                                     $ref: "#/definitions/distributed_data/nd"
                                         fiber_orientation:
                                             type: object
-                                            description: orientation of the fibers
+                                            description: For composite laminates, the orientation of the fibers in degrees can be specified. Looking from blade root, positive angles represent a rotation of the fibers towards the leading edge of the blade. Note that the angles are with respect to the cross section local reference system, not the reference system at blade root.
                                             default: {'grid':[0.0, 1.0], 'values':[0.0, 0.0]}
                                             required:
                                                 - grid
@@ -294,7 +303,7 @@ properties:
                                                     $ref: "#/definitions/distributed_data/angle"
                                         width:
                                             type: object
-                                            description: dimensional width of the component along the arc
+                                            description: The field width defines the width in meters along the arc of the layer. 
                                             required:
                                                 - grid
                                                 - values
@@ -305,6 +314,10 @@ properties:
                                                     $ref: "#/definitions/distributed_data/length"
                                         midpoint_nd_arc:
                                             $ref: "#/definitions/distributed_data/nd_arc_position"
+                                        side:
+                                            type: string
+                                            description: The field side is string that can be either :code:`suction` or :code:`pressure`, defining the side where a layer is defined.
+                                            enum: ['suction', 'pressure', 'Suction', 'Pressure', 'SUCTION', 'PRESSURE']
                                         start_nd_arc:
                                             $ref: "#/definitions/distributed_data/nd_arc_position"
                                         end_nd_arc:
@@ -377,10 +390,10 @@ properties:
                         properties:
                             diameter:
                                 type: number
-                                description: Diameter of the hub measured at the blade root positions.
+                                description: This is the outer diameter of the hub. It is also the diameter of the circle centered at the rotor apex and connecting the blade root centers.
                                 units: meter
                                 minimum: 0.
-                                maximum: 10.
+                                maximum: 30.
                             cone_angle:
                                 type: number
                                 description: Rotor precone angle, defined positive for both upwind and downwind rotors.
@@ -1095,6 +1108,7 @@ properties:
                                 description: Point mass modeling the generator
             tower:
                 type: object
+                description: Data describing the wind turbine tower.
                 required:
                     - outer_shape_bem
                     - internal_structure_2d_fem
@@ -1108,8 +1122,9 @@ properties:
                         properties:
                             reference_axis:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
-                            outer_diameter:
+                            outer_diameter: Outer diameters of the tower defined from base (grid = 0) to top (grid = 1).
                                 type: object
+                                description: 
                                 required:
                                     - grid
                                     - values
@@ -1140,7 +1155,7 @@ properties:
                         properties:
                             outfitting_factor:
                                 type: number
-                                description: Scaling factor for the tower mass to account for auxiliary structures, such as elevator, ladders, cables, platforms, etc
+                                description: Multiplier of tower mass to account for the mass of the auxiliary systems, such as stairs, elevator, paint, or extra structural elements. This can be used to convert the mass of the steel cylinders to the total mass of the monopile.
                                 units: none
                                 minimum: 1.0
                                 maximum: 2.0
@@ -1213,6 +1228,7 @@ properties:
                                 $ref: "#/definitions/distributed_data/axis_coordinates"
                             outer_diameter:
                                 type: object
+                                outer_diameter: Outer diameters of the monopile defined from base (grid = 0) to top (grid = 1).
                                 required:
                                     - grid
                                     - values
@@ -1261,7 +1277,7 @@ properties:
                         properties:
                             outfitting_factor:
                                 type: number
-                                description: Scaling factor for the tower mass to account for auxiliary structures, such as elevator, ladders, cables, platforms, etc
+                                description: Multiplier of monopile mass to account for the mass of the auxiliary systems, such as paint or extra structural elements. This can be used to convert the mass of the steel cylinders to the total mass of the monopile.
                                 units: none
                                 minimum: 1.0
                                 maximum: 2.0
@@ -1353,7 +1369,7 @@ properties:
                         type: number
                         description: Leg diameter, meters. Constant throughout each leg.
             floating_platform:
-                description: Ontology definition for floating platforms (substructures) suitable for use with the WEIS co-design analysis tool
+                description: The floating platform ontology uses a *graph*-like representation of the geometry with Joints and Members.  Additional rigid body point masses can be defined at the joints as well.
                 type: object
                 required:
                     - joints
@@ -1365,6 +1381,7 @@ properties:
                 properties:
                     joints:
                         type: array
+                        description: Joints are the *nodes* of the graph representation of the floating platform.  They must be assigned a unique name for later reference by the members.
                         items:
                             type: object
                             required:
@@ -1657,7 +1674,7 @@ properties:
                                                         units: m^3
                                                         minimum: 0
                                 axial_joints:
-                                    description: Define joints along non-dimensional axis of this member
+                                    description: Additional joints that are defined along the non-dimensional member axis can be defined here.  Unlike the joints defined in the global coordinate system in the :code:`joints` section of the ontology, these joints will change their absolute (x,y,z) location if the member diameter is altered the or :code:`joint1` or :code:`joint2` locations are changed during an optimization.  This is especially useful when designing a truss-like structure with pontoons attaching to primary members or columns in a semisubmersible. Like the joints above, these must be given a unique name.
                                     type: array
                                     items:
                                         type: object
@@ -1736,8 +1753,7 @@ properties:
                     transition_piece_mass: *m_tp
                     transition_piece_cost: *c_tp
             mooring:
-                # Will insert mooring schema that we agreed to here or will keep as separate file
-                description: Ontology definition for mooring systems suitable for use with the WEIS co-design analysis tool
+                description: The mooring system ontology follows closely the input file format for MoorDyn or MAP++.  Additional information can be found in the `MoorDyn user guide <http://www.matt-hall.ca/files/MoorDyn-Users-Guide-2017-08-16.pdf>`_ .
                 type: object
                 required:
                     - nodes
@@ -2000,7 +2016,7 @@ properties:
                                     minimum: 0.0
     airfoils:
         type: array
-        description: Database of airfoils
+        description: Database of airfoils. windIO describes the airfoils in terms of coordinates, polars, and unsteady aerodynamic coefficients. The yaml entry airfoils consists of a list of elements. For each set of coordinates, multiple sets of polars and parameters can co-exist. Note that the airfoils listed in this database are not all necessarily used in the blade. Only the ones called in :code:`airfoil_position' within :code:`outer_shape_bem` of the :code:`component` :code:`blade` will actually be loaded to model the blade.
         items:
             type: object
             properties:
@@ -2009,7 +2025,7 @@ properties:
                     description: Name of the airfoil
                 coordinates:
                     type: object
-                    description: Airfoil coordinates described from trailing edge (x=1) along the suction side (y>0) to leading edge (x=0) back to trailing edge (x=1) along the pressure side (y<0)
+                    description: The airfoil :code:`coordinates` are specified here in the sub-fields :code:`x` and :code:`y`. :code:`x` and :code:`y` must have the same length. :code:`x` must be defined between 0, which corresponds to the leading edge, and 1, which corresponds to the trailing edge. Airfoil coordinates should be defined from trailing edge (:code:`x=1`) towards the suction side (mostly positive :code:`y` values), to leading edge (:code:`x=0`, :code:`y=0`), to the pressure side (mostly negative :code:`y`), and conclude at the trailing edge pressure side (:code:`x=1`). Flatback airfoils can be defined either open (:code:`x=1`, :code:`y!=0`) or closed (:code:`x=1`, :code:`y=0`).
                     required:
                         - x
                         - y
@@ -2037,19 +2053,19 @@ properties:
                     units: none
                     minimum: 0
                     maximum: 1
-                    description: Thickness of the airfoil expressed non-dimensional
+                    description: Float defined between 0 (plate) and 1 (cylinder) to specify the relative thickness of the airfoil. This generates a small redundancy (airfoil thickness could be determined from the field coordinates), but it simplifies the converters.
                 aerodynamic_center:
                     type: number
                     units: none
                     minimum: 0
                     maximum: 1
-                    description: Non-dimensional chordwise coordinate of the aerodynamic center
+                    description: Float defined between 0 (leading edge) and 1 (trailing edge) to specify the chordwise coordinate of the aerodynamic center used to define the polars.
                 polars:
                     type: array
-                    description: Different sets of polars at varying conditions
+                    description: Different sets of polars at varying conditions. 
                     items:
                         type: object
-                        description: Lift, drag and moment coefficients expressed in terms of angles of attack
+                        description: List of one or more sets of polars for the airfoil. The field :code:`polars` must include the sub-fields :code:`configuration`, :code:`re`, :code:`cl`, :code:`cd`, and :code:`cm`. Parameters characterizing the unsteady aerodynamics are optional.
                         required:
                             - configuration
                             - re
@@ -2066,6 +2082,7 @@ properties:
                                 minimum: 0
                             cl:
                                 type: object
+                                description: Lift coefficient as a function of angle of attack (deg)
                                 required:
                                     - grid
                                     - values
@@ -2076,6 +2093,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/polar_coeff"
                             cd:
                                 type: object
+                                description: Drag coefficient as a function of angle of attack (deg)
                                 required:
                                     - grid
                                     - values
@@ -2086,6 +2104,7 @@ properties:
                                         $ref: "#/definitions/distributed_data/polar_coeff"
                             cm:
                                 type: object
+                                description: Moment coefficient as a function of angle of attack (deg)
                                 required:
                                     - grid
                                     - values
@@ -2229,7 +2248,7 @@ properties:
                                 default: 20
     materials:
         type: array
-        description: Database of the materials
+        description: Database of the materials. The schema enforces that the fields :code:`name`, :code:`orth`, :code:`rho`, :code:`E`, and :code:`nu` are specified. For composites, direction 1 is aligned with the main fiber direction, direction 2 is in the plane transverse to the fibers, and direction 3 is perspendicular to the laminate plane. Note that fiber angles are specified in :code:`internal_structure_2d_fem` of the :code:`component` :code:`blade`.
         items:
             type: object
             required:
@@ -2244,21 +2263,21 @@ properties:
                     description: Name of the material
                 description:
                     type: string
-                    description: Optional field describing the material
+                    description: Optional string to describe the origin of the material, for example referencing a report or a paper
                 source:
                     type: string
                     description: Optional field describing where the data come from
                 orth:
                     type: integer
-                    description: Flag to switch between isotropic (0) and orthotropic (1) materials
+                    description: Flag specifying whether a material is isotropic (0) or orthotropic (1). This determines whether some of the fields below are specified as a float or an array of floats.
                 rho:
-                    description: Density of the material. For composites, this is the density of the laminate once cured
+                    description: Density of the material. For composites, this is the density of the laminate once cured.
                     type: number
                     units: kg/m3
                     minimum: 0
                     maximum: 20000
                 E:
-                    description: Stiffness modulus. For orthotropic materials, it consists of an array with E11, E22 and E33.
+                    description: Stiffness modulus. For orthotropic materials, it consists of an array with E11, E22, and E33.
                     oneOf:
                         - type: number
                           units: Pa
@@ -2272,7 +2291,7 @@ properties:
                             uniqueItems: False
                             minimum: 0
                 G:
-                    description: Shear stiffness modulus. For orthotropic materials, it consists of an array with G12, G13 and G23
+                    description: Shear stiffness modulus. For orthotropic materials, it consists of an array with G12, G13, and G23.
                     oneOf:
                         - type: number
                           units: Pa
@@ -2300,7 +2319,7 @@ properties:
                             maxItems: 3
                             uniqueItems: False
                 alpha:
-                    description: Thermal coefficient of expansion
+                    description: Thermal coefficient of expansion. For orthotropic materials, it consists of an array with alpha11, alpha22, and alpha33.
                     oneOf:
                         - type: number
                           units: 1/K
@@ -2312,7 +2331,7 @@ properties:
                             maxItems: 3
                             uniqueItems: False
                 Xt:
-                    description: Ultimate tensile strength. For orthotropic materials, it consists of an array with the strength in directions 11, 22 and 33. The values must be positive
+                    description: Ultimate tensile strength. For orthotropic materials, it consists of an array with Xt11, Xt22, and Xt33.
                     oneOf:
                         - type: number
                           units: Pa
@@ -2326,7 +2345,7 @@ properties:
                             uniqueItems: False
                             minimum: 0
                 Xc:
-                    description: Ultimate compressive strength. For orthotropic materials, it consists of an array with the strength in directions 11, 22 and 33. The values must be positive
+                    description: Ultimate compressive strength. For orthotropic materials, it consists of an array with Xc11, Xc22, and Xc33. Values are defined positive.
                     oneOf:
                         - type: number
                           units: Pa
@@ -2354,7 +2373,7 @@ properties:
                             uniqueItems: False
                             minimum: 0
                 S:
-                    description: Ultimate shear strength. For orthotropic materials, it consists of an array with the strength in directions 12, 13 and 23
+                    description: Ultimate shear strength. For orthotropic materials, it consists of an array with the strength in directions 12, 13 and 23. Values are defined positive.
                     oneOf:
                         - type: number
                           units: Pa
@@ -2369,7 +2388,7 @@ properties:
                             minimum: 0
                 ply_t:
                     type: number
-                    description: Ply thickness of the composite material
+                    description: Ply thickness of a composite material. The unit of measure is m. The actual laminate thickness is defined in the fields :code:`components`.
                     units: m
                     minimum : 0
                     maximum: 0.1
@@ -2381,19 +2400,19 @@ properties:
                     maximum: 1000
                 fvf:
                     type: number
-                    description: Fiber volume fraction of the composite material
+                    description: Fiber volume fraction of a composite material. The minimum values is 0 (only matrix), the maximum value is 1 (only fibers).
                     units: none
                     minimum : 0
                     maximum: 1
                 fwf:
                     type: number
-                    description: Fiber weight fraction of the composite material
+                    description: Fiber weight fraction of a composite material. The minimum values is 0 (only matrix), the maximum value is 1 (only fibers).
                     units: none
                     minimum : 0
                     maximum: 1
                 fiber_density:
                     type: number
-                    description: Density of the fibers of a composite material.
+                    description: Density of the fibers of a composite material. Standard glass fiber has a fiber density of approximately 2600 kg/m3, while standard carbon fiber has a fiber density of approximately 1800 kg/m3.
                     units: kg/m3
                     minimum : 0
                     maximum: 10000
@@ -2403,37 +2422,37 @@ properties:
                     units: kg/m2
                     minimum : 0
                     maximum: 10000
-                component_id:
+                manufacturing_id:
                     type: integer
-                    description: Flag used by the NREL blade cost model https://www.nrel.gov/docs/fy19osti/73585.pdf to define the manufacturing process behind the laminate. 0 - coating, 1 - sandwich filler , 2 - shell skin, 3 - shear webs, 4 - spar caps, 5 - TE reinf.
+                    description: Flag to define the manufacturing process behind the laminate, for example 0 - coating, 1 - sandwich filler , 2 - shell skin, 3 - shear webs, 4 - spar caps, 5 - TE reinf.
                     units: none
                     enum: [0,1,2,3,4,5]
                 waste:
                     type: number
-                    description: Fraction of material that ends up wasted during manufacturing. This quantity is used in the NREL blade cost model https://www.nrel.gov/docs/fy19osti/73585.pdf
+                    description: Fraction of material that ends up wasted during manufacturing.
                     units: none
                     minimum : 0
                     maximum: 1
                 roll_mass:
                     type: number
-                    description: Mass of a fabric roll. This quantity is used in the NREL blade cost model https://www.nrel.gov/docs/fy19osti/73585.pdf
+                    description: Mass of a fabric roll.
                     units: kg
                     minimum : 0
                     maximum: 10000
                 GIc:
                     type: number
-                    description: Mode 1 critical energy-release rate. It is used by NuMAD from Sandia National Laboratories
+                    description: Mode 1 critical energy-release rate.
                     units: J/m^2
                 GIIc:
                     type: number
-                    description: Mode 2 critical energy-release rate. It is used by NuMAD from Sandia National Laboratories
+                    description: Mode 2 critical energy-release rate.
                     units: J/m^2
                 alp0:
                     type: number
-                    description: Fracture angle under pure transverse compression. It is used by NuMAD from Sandia National Laboratories
+                    description: Fracture angle under pure transverse compression.
                     units: deg
                 A:
-                    description: Fatigue S/N curve fitting parameter S=A*N^(-1/m)
+                    description: Fatigue S/N curve fitting parameter S=A*N^(-1/m).
                     oneOf:
                         - type: number
                           units: none
@@ -2483,6 +2502,7 @@ properties:
                             default: -1.0
     control:
         type: object
+        description: Dictionary reporting the data describing the wind turbine controller
         required:
             - supervisory
             - torque
@@ -2563,6 +2583,7 @@ properties:
                         default: 100.
     environment:
         type: object
+        description: The field :code:`environment` includes the data characterizing air and water where the wind turbine operates.
         required:
             - air_density
             - air_dyn_viscosity
@@ -2678,6 +2699,7 @@ properties:
                 description: Average inflow wind speed. If different than 0, this will overwrite the V mean of the IEC wind class
     bos:
         type: object
+        descriptiopn: Data for a balance of station cost analysis.
         default: {}
         properties:
             plant_turbine_spacing:
@@ -2794,6 +2816,7 @@ properties:
                 default: 0.0
     costs:
         type: object
+        description: Data for a levelized cost of energy analysis.
         properties:
             wake_loss_factor:
                 type: number
@@ -3299,7 +3322,7 @@ definitions:
                     $ref: "#/definitions/distributed_data/length"
         rotation:
             type: object
-            description: Rotation of the chord axis around the reference axis
+            description: The rotation defines the angle between the chord line and the y axis and it has the opposite sign of the twist. For shear webs perpendicular to the chord line in the section(s) where twist is zero, it is easiest to simply use the keyword fixed :code:`twist`. Blades with straight shear webs will always have the field rotation equal to the twist plus/minus a constant angle and, assuming a non-swept blade (zero values in the blade y reference axis), a linear field offset.
             properties:
                 grid:
                     $ref: "#/definitions/distributed_data/grid_nd"
@@ -3310,7 +3333,7 @@ definitions:
                     description: Name of the layer to lock the edge
         axis_coordinates:
             type: object
-            description: The reference system is located at blade root, with z aligned with the pitch axis, x pointing towards the suction sides of the airfoils (standard prebend will be negative) and y pointing to the trailing edge (standard sweep will be positive)
+            description: For the blade, the reference system is located at blade root, with z aligned with the pitch axis, x pointing towards the suction sides of the airfoils (standard prebend will be negative) and y pointing to the trailing edge (standard sweep will be positive). The blade coordinate system is the one of `BeamDyn  <https://openfast.readthedocs.io/en/master/source/user/beamdyn/input_files.html#beamdyn-primary-input-file>`_ of OpenFAST and it is shown in the figure below. The consequences of this reference system is that standard wind turbine blades have positive twist inboard and close to zero or even slightly negative twist outboard, zero or negative x values for standard prebent blades, and positive y values for backward swept blades. The blade main direction is expressed along z, and total blade length must be computed integrating the fields x, y, and z three-dimensionally. For tower and moniopile, :code:`x` is parallel to the ground pointing downwind, :code:`y` is parallel to the ground and to the rotor plane, and :code:`z` is perpendicular to the ground pointing upwards. Standard monopiles are only defined along :code:`z`.
             required:
                 - x
                 - y
@@ -3348,6 +3371,7 @@ definitions:
                             $ref: "#/definitions/distributed_data/length"
     beam:
         type: object
+        description: The equivalent elastic properties of a beam are defined in :code:`elastic_properties_mb`. Here, 6x6 stiffness and mass matrices are defined. Out of 36 entries of the matrices, given the symmetry, the yaml file requires the definition of only 21 values as inputs for the stiffness matrix, whereas the inertia matrix is defined in terms of unit mass, coordinates of the center of mass, and mass moments of inertia.
         required:
             - reference_axis
             - stiffness_matrix
@@ -3572,7 +3596,7 @@ definitions:
                             units: kg*m^2
                             minimum: 0
                     i_plr:
-                        description: Polar moment of inertia per unit span (around z axis)
+                        description: Polar moment of inertia per unit span (around z axis). Please note that for beam-like structures iplr must be equal to iedge plus iflap.
                         type: array
                         default: [0.0, 0.0]
                         items:
