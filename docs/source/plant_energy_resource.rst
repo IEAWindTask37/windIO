@@ -32,7 +32,7 @@ These requirements are meant to be a bare minimum amount of information required
 characteristics are supported by the schema. As wind resource data can become quite large, the schema also
 supports using NetCDF files to contain the large data structures. These requirements and the additional
 options are detailed below, followed by several example :code:`energy_resource` definitions. More examples
-can be found `here <https://github.com/IEAWindTask37/windIO/tree/master/examples/plant/plant_energy_resource>`_.
+can be found `here <https://github.com/IEAWindSystems/windIO/tree/master/examples/plant/plant_energy_resource>`_.
 
 :code:`wind_direction` : Array or Number
     Either an array of numbers or a single number representing the wind direction(s).

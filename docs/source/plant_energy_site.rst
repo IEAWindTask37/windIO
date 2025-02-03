@@ -62,7 +62,7 @@ Examples
 
 Three plant energy site examples are shown below, all taken from the IEA Wind Task 37 Layout Optimization
 Case Studies. Details of the case studies are given
-`here <https://github.com/IEAWindTask37/iea37-wflo-casestudies>`_.
+`here <https://github.com/IEAWindSystems/iea37-wflo-casestudies>`_.
 
 IEA Wind Task 37 Case study 1+2, 16WT Plant Energy Site
 ```````````````````````````````````````````````````````

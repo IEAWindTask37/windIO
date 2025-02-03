@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools >= 40.6.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "windIO"
+version = "1.0"
+description = "Frameworks defining the inputs and outputs for systems engineering MDAO of wind turbine and plants."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    {name = "IEA Wind Task 37"},
+#     { name = "", email = "" },
+]
+license = { file = "LICENSE" }
+keywords = ["windIO"]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = [
+    'jsonschema',
+    'numpy',
+    'pyyaml',
+    'xarray',
+]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx",
+]
+test = [
+    "pytest",
+    "pytest-subtests",
+    "py_wake",
+    "topfarm",
+]
+
+[tool.setuptools.packages.find]
+exclude = [
+    "docs*",
+    "examples*",
+    "test*"
+]
+
+# [tool.setuptools.package-data]
+# windIO = [
+#     "",
+#     ""
+# ]
+
+[project.urls]
+Homepage = "https://github.com/IEAWindSystems/windIO"
+Documentation = "https://windio.readthedocs.io/"

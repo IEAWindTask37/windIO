@@ -7,4 +7,5 @@ dependencies:
   - numpy
   - pyyaml
   - pytest
+  - pytest-subtests
   - xarray
