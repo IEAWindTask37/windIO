@@ -82,7 +82,7 @@ def enforce_no_additional_properties(schema):
     return schema
 
 
-def validate_yaml(data_file, schema_file, loader=XrResourceLoader):
+def validate_yaml(data_file, schema_file, loader=XrResourceLoader, restrictive=True):
 
     def add_local_schemas_to(resolver, schema_folder, base_uri, schema_ext_lst=['.json', '.yaml', '.yml']):
         '''Function from https://gist.github.com/mrtj/d59812a981da17fbaa67b7de98ac3d4b#file-local_ref-py
@@ -115,7 +115,8 @@ def validate_yaml(data_file, schema_file, loader=XrResourceLoader):
 
     data = load_yaml(data_file, loader)
     schema = load_yaml(schema_file)
-    schema = enforce_no_additional_properties(schema)
+    if restrictive:
+        schema = enforce_no_additional_properties(schema)
 
     schema_folder = Path(schema_file).parent
     base_uri = 'https://www.example.com/schemas/'
