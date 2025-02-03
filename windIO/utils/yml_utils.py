@@ -1,10 +1,10 @@
-import yaml
-import os
-from pathlib import Path
-import jsonschema
-import json
-from urllib.parse import urljoin
+import yaml, os, jsonschema, json, copy, operator
 import xarray as xr
+import numpy as np
+import ruamel.yaml as ry
+from pathlib import Path
+from urllib.parse import urljoin
+from functools import reduce
 
 
 class Loader(yaml.SafeLoader):
@@ -101,3 +101,103 @@ def validate_yaml(data_file, schema_file, loader=XrResourceLoader):
     jsonschema.validate(data, schema, resolver=resolver)
 
     print("Validation succeeded")
+
+def remove_numpy(fst_vt : dict) -> dict:
+    """
+    Recursively converts numpy array elements within a nested dictionary to lists and ensures
+    all values are simple types (float, int, dict, bool, str) for writing to a YAML file.
+
+    Args:
+        fst_vt (dict): The dictionary to process.
+
+    Returns:
+        dict: The processed dictionary with numpy arrays converted to lists and unsupported types to simple types.
+    """
+
+    def get_dict(vartree, branch):
+        return reduce(operator.getitem, branch, vartree)
+
+    # Define conversion dictionary for numpy types
+    conversions = {
+        np.int_: int,
+        np.intc: int,
+        np.intp: int,
+        np.int8: int,
+        np.int16: int,
+        np.int32: int,
+        np.int64: int,
+        np.uint8: int,
+        np.uint16: int,
+        np.uint32: int,
+        np.uint64: int,
+        np.single: float,
+        np.double: float,
+        np.longdouble: float,
+        np.csingle: float,
+        np.cdouble: float,
+        np.float16: float,
+        np.float32: float,
+        np.float64: float,
+        np.complex64: float,
+        np.complex128: float,
+        np.bool_: bool,
+        np.ndarray: lambda x: x.tolist(),
+    }
+
+    def loop_dict(vartree, branch):
+        if not isinstance(vartree, dict):
+            return fst_vt
+        for var in vartree.keys():
+            branch_i = copy.copy(branch)
+            branch_i.append(var)
+            if isinstance(vartree[var], dict):
+                loop_dict(vartree[var], branch_i)
+            else:
+                current_value = get_dict(fst_vt, branch_i[:-1])[branch_i[-1]]
+                data_type = type(current_value)
+                if data_type in conversions:
+                    get_dict(fst_vt, branch_i[:-1])[branch_i[-1]] = conversions[data_type](current_value)
+                elif isinstance(current_value, (list, tuple)):
+                    for i, item in enumerate(current_value):
+                        current_value[i] = remove_numpy(item)
+
+    # set fast variables to update values
+    loop_dict(fst_vt, [])
+    return fst_vt
+
+def load_yaml(fname_input : str) -> dict:
+    """
+    Reads and parses a YAML file in a safe mode using the ruamel.yaml library.
+
+    Args:
+        fname_input (str): Path to the YAML file to be loaded.
+
+    Returns:
+        dict: Parsed YAML content as a dictionary.
+    """
+    reader = ry.YAML(typ="safe", pure=True)
+    with open(fname_input, "r", encoding="utf-8") as f:
+        input_yaml = reader.load(f)
+    return input_yaml
+
+def write_yaml(instance : dict, foutput : str) -> None:
+    """
+    Writes a dictionary to a YAML file using the ruamel.yaml library.
+
+    Args:
+        instance (dict): Dictionary to be written to the YAML file.
+        foutput (str): Path to the output YAML file.
+
+    Returns:
+        None
+    """
+    instance = remove_numpy(instance)
+
+    # Write yaml with updated values
+    yaml = ry.YAML()
+    yaml.default_flow_style = None
+    yaml.width = float("inf")
+    yaml.indent(mapping=4, sequence=6, offset=3)
+    yaml.allow_unicode = False
+    with open(foutput, "w", encoding="utf-8") as f:
+        yaml.dump(instance, f)
