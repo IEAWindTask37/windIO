@@ -1,8 +1,4 @@
 
-# import windIO.reference_library as ref_lib        # this would be better so you can import the reference library from the top
-# import windIO.reference_library.plant as windIO_plant_lib
-# import windIO.reference_library.turbine as windIO_turbine_lib
-
 import windIO
 from pathlib import Path
 

@@ -14,7 +14,7 @@ import windIO.reference_library.plant
 import windIO.reference_library.turbine
 import windIO.schemas
 import windIO.schemas.plant         # By importing plant and turbine here, we can use the schemas as windIO.schemas.plant and windIO.schemas.turbine
-import windIO.schemas.turbine       # by only importing windIO... import windIO; help(windIO.schemas.turbine); Is there any side effect?
+import windIO.schemas.turbine       # in the calling code after only importing windIO... import windIO; help(windIO.schemas.turbine)
 
 plant_lib = windIO.reference_library.plant
 turbine_lib = windIO.reference_library.turbine
@@ -97,15 +97,12 @@ def validate(input: dict | str | Path, schema_type: str) -> None:
     Args:
         input (dict | str | Path): Input to be validated. Could be a Python dictionary or
             a path to a yaml file.
-        schema_type (str): Type of schema to be used for validation.
-            Options are 'plant' and 'turbine'.
+        schema_type (str): Type of schema to be used for validation. This must map to one
+            of the schema files available in the `schemas/plant` or `schemas/turbine` folders.
+            Examples of valid schema types are 'plant/wind_energy_system' or
+            'turbine/IEAontology_schema'.
     """
-    # _schema_type_map = {
-    #     "plant": "plant/wind_energy_system.yaml",
-    #     "turbine": "turbine/IEAontology_schema.yaml",
-    # }
-    # schema_file = Path(__file__).parent.parent / f"{_schema_type_map[schema_type]}"
-    schema_file = Path(__file__).parent / "schemas" / f"{schema_type}.yaml"
+    schema_file = Path(windIO.schemas.__file__).parent / f"{schema_type}.yaml"
     if not schema_file.exists():
         raise FileNotFoundError(f"Schema file {schema_file} not found.")
 
