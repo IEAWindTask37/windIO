@@ -165,21 +165,6 @@ def remove_numpy(fst_vt : dict) -> dict:
     loop_dict(fst_vt, [])
     return fst_vt
 
-def load_yaml(fname_input : str) -> dict:
-    """
-    Reads and parses a YAML file in a safe mode using the ruamel.yaml library.
-
-    Args:
-        fname_input (str): Path to the YAML file to be loaded.
-
-    Returns:
-        dict: Parsed YAML content as a dictionary.
-    """
-    reader = ry.YAML(typ="safe", pure=True)
-    with open(fname_input, "r", encoding="utf-8") as f:
-        input_yaml = reader.load(f)
-    return input_yaml
-
 def write_yaml(instance : dict, foutput : str) -> None:
     """
     Writes a dictionary to a YAML file using the ruamel.yaml library.
