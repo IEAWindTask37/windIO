@@ -288,6 +288,28 @@ class v1p0_to_v2p0:
                 plr["cm"]["values"] = deepcopy(plr["c_m"]["values"])
                 plr.pop("c_m")
 
+        # Materials
+        # manufacturing_id instead of component_id
+        for i_mat in range(len(dict_v2p0["materials"])):
+            if "component_id" in dict_v2p0["materials"][i_mat]:
+                dict_v2p0["materials"][i_mat]["manufacturing_id"] = dict_v2p0["materials"][i_mat]["component_id"]
+                dict_v2p0["materials"][i_mat].pop("component_id")
+            if "alp0" in dict_v2p0["materials"][i_mat]:
+                alp0_rad = dict_v2p0["materials"][i_mat]["alp0"]
+                if alp0_rad < np.pi:
+                    dict_v2p0["materials"][i_mat]["alp0"] = np.rad2deg(alp0_rad)
+
+        # Controls, update a few fields from rad to deg and from rad/s to rpm
+        min_pitch_rad = dict_v2p0["control"]["pitch"]["min_pitch"]
+        dict_v2p0["control"]["pitch"]["min_pitch"] = np.rad2deg(min_pitch_rad)
+        max_pitch_rad = dict_v2p0["control"]["pitch"]["max_pitch"]
+        dict_v2p0["control"]["pitch"]["max_pitch"] = np.rad2deg(max_pitch_rad)
+        max_pitch_rate_rad = dict_v2p0["control"]["pitch"]["max_pitch_rate"]
+        dict_v2p0["control"]["pitch"]["max_pitch_rate"] = np.rad2deg(max_pitch_rate_rad)
+        VS_minspd_rads = dict_v2p0["control"]["torque"]["VS_minspd"]
+        dict_v2p0["control"]["torque"]["VS_minspd"] = VS_minspd_rads * 30. / np.pi
+        VS_maxspd_rads = dict_v2p0["control"]["torque"]["VS_maxspd"]
+        dict_v2p0["control"]["torque"]["VS_maxspd"] = VS_maxspd_rads * 30. / np.pi
 
         # Print out
         write_yaml(dict_v2p0, self.filename_v2p0)
@@ -305,6 +327,21 @@ if __name__ == "__main__":
                     os.path.dirname(os.path.realpath(__file__)),
                     "v2p0",
                     "IEA-15-240-RWT.yaml"
+                )
+    
+    converter = v1p0_to_v2p0(filename_v1p0, filename_v2p0)
+    converter.convert()
+    
+    filename_v1p0 = os.path.join(
+                        os.path.dirname(os.path.realpath(__file__)),
+                        "v1p0",
+                        "IEA-15-240-RWT_VolturnUS-S.yaml"
+                    )
+    
+    filename_v2p0 = os.path.join(
+                    os.path.dirname(os.path.realpath(__file__)),
+                    "v2p0",
+                    "IEA-15-240-RWT_VolturnUS-S.yaml"
                 )
     
     converter = v1p0_to_v2p0(filename_v1p0, filename_v2p0)

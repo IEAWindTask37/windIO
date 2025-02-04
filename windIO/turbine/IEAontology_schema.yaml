@@ -2552,6 +2552,13 @@ properties:
                         minimum: -0.5
                         maximum: 90.
                         default: 0
+                    max_pitch:
+                        type: number
+                        description: Maximum pitch angle, where the default is 90 deg
+                        units: deg
+                        minimum: 10.
+                        maximum: 120.
+                        default: 90.
                     max_pitch_rate:
                         type: number
                         description: Maximum pitch rate of the rotor blades.
