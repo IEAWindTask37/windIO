@@ -1003,7 +1003,6 @@ materials:
       unit_cost: 0.7
    -  name: steel_drive
       description: Steel of the drivetrain ASTM 4140 40Cr1Mo28
-      source: http://www.matweb.com/search/DataSheet.aspx?MatGUID=38108bfd64c44b4c9c6a02af78d5b6c6
       orth: 0
       rho: 7850
       alpha: 0.0
