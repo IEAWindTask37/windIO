@@ -141,7 +141,7 @@ properties:
                                         items:
                                             type: string
                                             minItems: 2
-                                            uniqueItems: False
+                                            uniqueItems: false
                             chord:
                                 type: object
                                 description: The array :code:`values` specifies the chord along blade span.
@@ -510,7 +510,7 @@ properties:
                                     units: none
                                     minItems: 3
                                     maxItems: 3
-                                    uniqueItems: False
+                                    uniqueItems: false
                                     minimum: 0
                                     maximum: 6
                             elastic_properties_mb:
@@ -1260,7 +1260,7 @@ properties:
                                             type: number
                                             units: none
                                             minItems: 2
-                                            uniqueItems: False
+                                            uniqueItems: false
                             cd:
                                 type: object
                                 description: Drag coefficient for the monopile
@@ -2045,7 +2045,7 @@ properties:
                                 minItems: 3
                                 minimum: 0.0
                                 maximum: 1.0
-                                uniqueItems: False
+                                uniqueItems: false
                         y:
                             type: array
                             items:
@@ -2054,7 +2054,7 @@ properties:
                                 minItems: 3
                                 minimum: -1.0
                                 maximum: 1.0
-                                uniqueItems: False
+                                uniqueItems: false
                 relative_thickness:
                     type: number
                     units: none
@@ -2295,7 +2295,7 @@ properties:
                             units: Pa
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                             minimum: 0
                 G:
                     description: Shear stiffness modulus. For orthotropic materials, it consists of an array with G12, G13, and G23.
@@ -2309,7 +2309,7 @@ properties:
                             units: Pa
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                             minimum: 0
                 nu:
                     description: Poisson ratio. For orthotropic materials, it consists of an array with nu12, nu13 and nu23. For isotropic materials, a minimum of -1 and a maximum of 0.5 are imposed. No limits are imposed to anisotropic materials.
@@ -2324,7 +2324,7 @@ properties:
                             units: none
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                 alpha:
                     description: Thermal coefficient of expansion. For orthotropic materials, it consists of an array with alpha11, alpha22, and alpha33.
                     oneOf:
@@ -2336,7 +2336,7 @@ properties:
                             units: 1/K
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                 Xt:
                     description: Ultimate tensile strength. For orthotropic materials, it consists of an array with Xt11, Xt22, and Xt33.
                     oneOf:
@@ -2349,7 +2349,7 @@ properties:
                             units: Pa
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                             minimum: 0
                 Xc:
                     description: Ultimate compressive strength. For orthotropic materials, it consists of an array with Xc11, Xc22, and Xc33. Values are defined positive.
@@ -2363,7 +2363,7 @@ properties:
                             units: Pa
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                             minimum: 0
                 Xy:
                     description: Ultimate yield strength for metals. For orthotropic materials, it consists of an array with the strength in directions 12, 13 and 23
@@ -2377,7 +2377,7 @@ properties:
                             units: Pa
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                             minimum: 0
                 S:
                     description: Ultimate shear strength. For orthotropic materials, it consists of an array with the strength in directions 12, 13 and 23. Values are defined positive.
@@ -2391,7 +2391,7 @@ properties:
                             units: Pa
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                             minimum: 0
                 ply_t:
                     type: number
@@ -2471,7 +2471,7 @@ properties:
                             units: none
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                             minimum: 0
                             default: 0.0
                 m:
@@ -2487,7 +2487,7 @@ properties:
                             units: none
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                             minimum: 0
                             maximum: 1000
                             default: 1.0
@@ -2503,7 +2503,7 @@ properties:
                             units: none
                             minItems: 3
                             maxItems: 3
-                            uniqueItems: False
+                            uniqueItems: false
                             minimum: -100
                             maximum: 100
                             default: -1.0
@@ -3211,14 +3211,14 @@ properties:
                                 type: number
                                 units: Hz
                                 minimum: 0.
-                                uniqueItems: False
+                                uniqueItems: false
                         damping_ratio:
                             type: array
                             description: Critical damping ratios of the modes characterizing the system
                             items:
                                 type: number
                                 minimum: 0.
-                                uniqueItems: False
+                                uniqueItems: false
 
 definitions:
     distributed_data:
@@ -3232,7 +3232,7 @@ definitions:
                 minItems: 2
                 minimum: 0.0
                 maximum: 1.0
-                uniqueItems: True
+                uniqueItems: true
         grid_aoa:
             type: array
             description: Grid of angles of attack to describe polars
@@ -3243,7 +3243,7 @@ definitions:
                 minItems: 2
                 minimum: -180
                 maximum:  180
-                uniqueItems: True
+                uniqueItems: true
         polar_coeff:
             type: array
             description: Lift, drag and moment coefficients
@@ -3251,7 +3251,7 @@ definitions:
                 type: number
                 units: none
                 minItems: 2
-                uniqueItems: False
+                uniqueItems: false
         nd:
             type: array
             description: Non dimensional quantity described along a beam and expressed non-dimensional
@@ -3260,7 +3260,7 @@ definitions:
                 type: number
                 units: none
                 minItems: 2
-                uniqueItems: False
+                uniqueItems: false
         length:
             type: array
             description: Length quantity described along a beam, expressed in meter
@@ -3269,7 +3269,7 @@ definitions:
                 type: number
                 units: meter
                 minItems: 2
-                uniqueItems: False
+                uniqueItems: false
         force:
             type: array
             description: Loading described along a beam, expressed in N per meter
@@ -3278,7 +3278,7 @@ definitions:
                 type: number
                 units: N / m
                 minItems: 2
-                uniqueItems: False
+                uniqueItems: false
         moment:
             type: array
             description: Loading described along a beam, expressed in N m per meter
@@ -3287,7 +3287,7 @@ definitions:
                 type: number
                 units: N * m / m
                 minItems: 2
-                uniqueItems: False
+                uniqueItems: false
         angle:
             type: array
             description: Angle quantity along a beam, expressed in deg
@@ -3296,7 +3296,7 @@ definitions:
                 type: number
                 units: deg
                 minItems: 2
-                uniqueItems: False
+                uniqueItems: false
         nd_arc_position:
             type: object
             description: Non-dimensional location of the point along the non-dimensional arc length
@@ -3312,7 +3312,7 @@ definitions:
                         minItems: 2
                         minimum: -1.0
                         maximum: 1.0
-                        uniqueItems: True
+                        uniqueItems: true
                         fixed:
                             type: string
                             description: Name of the layer to lock the edge
@@ -3415,7 +3415,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K22:
                         type: array
                         description: Distribution of the K22 element of the stiffness matrix along blade span. K22 corresponds to the shear stiffness along the y axis (in a blade, y points to the suction side)
@@ -3423,7 +3423,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K33:
                         type: array
                         description: Distribution of the K33 element of the stiffness matrix along blade span. K33 corresponds to the axial stiffness along the z axis (in a blade, z runs along the span and points to the tip)
@@ -3431,7 +3431,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K44:
                         type: array
                         description: Distribution of the K44 element of the stiffness matrix along blade span. K44 corresponds to the bending stiffness around the x axis (in a blade, x points to the trailing edge and K44 corresponds to the flapwise stiffness)
@@ -3439,7 +3439,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K55:
                         type: array
                         description: Distribution of the K55 element of the stiffness matrix along blade span. K55 corresponds to the bending stiffness around the y axis (in a blade, y points to the suction side and K55 corresponds to the edgewise stiffness)
@@ -3447,7 +3447,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K66:
                         type: array
                         description: Distribution of K66 element of the stiffness matrix along blade span. K66 corresponds to the torsional stiffness along the z axis (in a blade, z runs along the span and points to the tip)
@@ -3455,7 +3455,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K12:
                         type: array
                         description: Distribution of the K12 element of the stiffness matrix along blade span. K12 is a cross term between shear terms
@@ -3463,7 +3463,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K13:
                         type: array
                         description: Distribution of the K13 element of the stiffness matrix along blade span. K13 is a cross term shear - axial
@@ -3471,7 +3471,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K14:
                         type: array
                         description: Distribution of the K14 element of the stiffness matrix along blade span. K14 is a cross term shear - bending
@@ -3479,7 +3479,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K15:
                         type: array
                         description: Distribution of the K15 element of the stiffness matrix along blade span. K15 is a cross term shear - bending
@@ -3487,7 +3487,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K16:
                         type: array
                         description: Distribution of the K16 element of the stiffness matrix along blade span. K16 is a cross term shear - torsion
@@ -3495,7 +3495,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K23:
                         type: array
                         description: Distribution of the K23 element of the stiffness matrix along blade span. K23 is a cross term shear - axial
@@ -3503,7 +3503,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K24:
                         type: array
                         description: Distribution of the K24 element of the stiffness matrix along blade span. K24 is a cross term shear - bending
@@ -3511,7 +3511,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K25:
                         type: array
                         description: Distribution of the K25 element of the stiffness matrix along blade span. K25 is a cross term shear - bending
@@ -3519,7 +3519,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K26:
                         type: array
                         description: Distribution of the K26 element of the stiffness matrix along blade span. K26 is a cross term shear - torsion
@@ -3527,7 +3527,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K34:
                         type: array
                         description: Distribution of the K34 element of the stiffness matrix along blade span. K34 is a cross term axial - bending
@@ -3535,7 +3535,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K35:
                         type: array
                         description: Distribution of the K35 element of the stiffness matrix along blade span. K35 is a cross term axial - bending
@@ -3543,7 +3543,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K36:
                         type: array
                         description: Distribution of the K36 element of the stiffness matrix along blade span. K36 is a cross term axial - torsion
@@ -3551,7 +3551,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K45:
                         type: array
                         description: Distribution of the K45 element of the stiffness matrix along blade span. K45 is a cross term flapwise bending - edgewise bending
@@ -3559,7 +3559,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K46:
                         type: array
                         description: Distribution of the K46 element of the stiffness matrix along blade span. K46 is a cross term flapwise bending - torsion
@@ -3567,7 +3567,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     K56:
                         type: array
                         description: Distribution of the K56 element of the stiffness matrix along blade span. K56 is a cross term edgewise bending - torsion
@@ -3575,7 +3575,7 @@ definitions:
                         items:
                             type: number
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
             inertia_matrix:
                 type: object
                 required:
@@ -3592,7 +3592,7 @@ definitions:
                             type: number
                             units: kg/m
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
                     cm_x:
                         description: Distance between the reference axis and the center of mass along the x axis
                         $ref: "#/definitions/distributed_data/length"
@@ -3640,7 +3640,7 @@ definitions:
                         type: number
                         minItems: 6
                         maxItems: 6
-                        uniqueItems: False
+                        uniqueItems: false
             point_mass:
                 type: object
                 required:
@@ -3657,7 +3657,7 @@ definitions:
                             type: number
                             units: kg
                             minItems: 2
-                            uniqueItems: False
+                            uniqueItems: false
     point_mass:
         type: object
         required:
@@ -3679,7 +3679,7 @@ definitions:
                     units: kgm2
                     minItems: 6
                     maxItems: 6
-                    uniqueItems: False
+                    uniqueItems: false
             location:
                 type: array
                 description: Location of the point mass with respect to the coordinate system
@@ -3688,7 +3688,7 @@ definitions:
                     units: m
                     minItems: 3
                     maxItems: 3
-                    uniqueItems: False
+                    uniqueItems: false
             coordinate_system:
                 type: string
                 description: Coordinate system used to define the location of the point mass
@@ -3737,7 +3737,7 @@ definitions:
                             type: number
                             units: none
                             minItems: 0
-                            uniqueItems: False
+                            uniqueItems: false
                     den:
                         type: array
                         description: Numerator coefficients of linear filter
@@ -3745,7 +3745,7 @@ definitions:
                             type: number
                             units: none
                             minItems: 1
-                            uniqueItems: False
+                            uniqueItems: false
                     dt:
                         type: number
                         description: Sampling rate of filter, -1 for continuous   # DZ: will probably convert all to dt of simulation... not sure how to handle this
@@ -3766,28 +3766,28 @@ definitions:
                 items:
                     type: number
                     minItems: 1
-                    uniqueItems: False
+                    uniqueItems: false
             ss_B:
                 type: array
                 description: B matrix of linear state space model, flattened with n_states x n_inputs elements
                 items:
                     type: number
                     minItems: 1
-                    uniqueItems: False
+                    uniqueItems: false
             ss_C:
                 type: array
                 description: C matrix of linear state space model, flattened with n_outputs x n_states elements
                 items:
                     type: number
                     minItems: 1
-                    uniqueItems: False
+                    uniqueItems: false
             ss_D:
                 type: array
                 description: D matrix of linear state space model, flattened with n_outputs x n_inputs elements
                 items:
                     type: number
                     minItems: 1
-                    uniqueItems: False
+                    uniqueItems: false
             # DZ: might be a good idea to check the number of states
             ss_dt:
                 type: number
@@ -3810,7 +3810,7 @@ definitions:
                     type: number
                     units: seconds
                     minItems: 1
-                    uniqueItems: True   # probably?
+                    uniqueItems: true   # probably?
             value:
                 type: array
                 description: Value in timeseries
@@ -3818,7 +3818,7 @@ definitions:
                     type: number
                     units: none  #any
                     minItems: 1
-                    uniqueItems: False
+                    uniqueItems: false
                     # can we check that number of elements are equal?
             filename:
                 type: string
@@ -3838,7 +3838,7 @@ definitions:
                     type: number
                     units: m/s
                     minItems: 1
-                    uniqueItems: True
+                    uniqueItems: true
             act_gain:
                 type: array
                 description: Array of gains from 0 to 1, enabling/disabling control element
@@ -3846,6 +3846,6 @@ definitions:
                     type: number
                     units: none
                     minItems: 1
-                    uniqueItems: False
+                    uniqueItems: false
                     minimum: 0
                     maximum: 1

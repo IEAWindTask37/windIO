@@ -240,6 +240,7 @@ class v1p0_to_v2p0:
             dict_v2p0["components"]["monopile"]["outer_shape_bem"]["cd"] = cd_monopile
             dict_v2p0["components"]["monopile"]["outer_shape_bem"].pop("drag_coefficient")
 
+        # Rad to deg in some inputs to floating platform
         if "floating_platform" in dict_v2p0["components"]:
             members = dict_v2p0["components"]["floating_platform"]["members"]
             for i_memb in range(len(members)):
@@ -257,6 +258,35 @@ class v1p0_to_v2p0:
                     if "spacing" in members[i_memb]["internal_structure"]["ring_stiffeners"]:
                         spacing_rad = members[i_memb]["internal_structure"]["ring_stiffeners"]["spacing"]
                         members[i_memb]["internal_structure"]["ring_stiffeners"]["spacing"] = np.rad2deg(spacing_rad)
+
+        # Airfoils: angle of attack in deg and cl, cd, cm tags
+        for i_af in range(len(dict_v2p0["airfoils"])):
+            af = dict_v2p0["airfoils"][i_af]
+            for i_plr in range(len(af["polars"])):
+                plr = af["polars"][i_plr]
+                plr["cl"] = {}
+                aoa_rad = deepcopy(plr["c_l"]["grid"])
+                plr["cl"]["grid"] = np.rad2deg(aoa_rad)
+                plr["cl"]["grid"][0] = -180
+                plr["cl"]["grid"][-1] = 180
+                plr["cl"]["values"] = deepcopy(plr["c_l"]["values"])
+                plr.pop("c_l")
+
+                plr["cd"] = {}
+                aoa_rad = deepcopy(plr["c_d"]["grid"])
+                plr["cd"]["grid"] = np.rad2deg(aoa_rad)
+                plr["cd"]["grid"][0] = -180
+                plr["cd"]["grid"][-1] = 180
+                plr["cd"]["values"] = deepcopy(plr["c_d"]["values"])
+                plr.pop("c_d")
+
+                plr["cm"] = {}
+                aoa_rad = deepcopy(plr["c_m"]["grid"])
+                plr["cm"]["grid"] = np.rad2deg(aoa_rad)
+                plr["cm"]["grid"][0] = -180
+                plr["cm"]["grid"][-1] = 180
+                plr["cm"]["values"] = deepcopy(plr["c_m"]["values"])
+                plr.pop("c_m")
 
 
         # Print out
