@@ -462,21 +462,21 @@ properties:
                                 minimum: 1
                                 maximum: 1000
                                 default: 1.0
-                            length_user:
+                            length:
                                 type: number
                                 description: User input override of gearbox length along shaft, only used when using gearbox_mass_user is > 0
                                 units: meter
                                 minimum: 0.
                                 maximum: 20.
                                 default: 0.0
-                            radius_user:
+                            radius:
                                 type: number
                                 description: User input override of gearbox radius, only used when using gearbox_mass_user is > 0
                                 units: m
                                 minimum: 0.
                                 maximum: 20.0
                                 default: 0.0
-                            mass_user:
+                            mass:
                                 type: number
                                 description: User input override of gearbox mass
                                 units: kg
@@ -520,6 +520,13 @@ properties:
                         type: object
                         description: Inputs describing the low speed shaft
                         properties:         
+                            length:
+                                type: number
+                                description: Length of the low speed shaft
+                                units: meter
+                                minimum: 0.
+                                maximum: 10.
+                                default: 1.5
                             diameter:
                                 type: array
                                 description: Diameter of the low speed shaft at beginning (generator/gearbox) and end (hub) points
@@ -599,7 +606,7 @@ properties:
                                     minItems: 2
                                     maxItems: 2
                                     default: 0.3
-                            nose_wall_thickness:
+                            wall_thickness:
                                 type: array
                                 description: Thickness of the nose/turret at beginning (bedplate) and end (main bearing) points
                                 default: [0.1, 0.1]
@@ -657,7 +664,7 @@ properties:
                         type: object
                         description: Inputs describing all other drivetrain components, the assembly of brake, hvac, converter, transformer, and main bearings
                         properties:
-                            brake_mass_user:
+                            brake_mass:
                                 type: number
                                 default: 0.0
                                 units: kg
@@ -669,13 +676,13 @@ properties:
                                 units: kg/kW
                                 description: Regression-based scaling coefficient on machine rating to get HVAC system mass
                                 minimum: 0.0
-                            converter_mass_user:
+                            converter_mass:
                                 type: number
                                 default: 0.0
                                 units: kg
                                 description: Override regular regression-based calculation of converter mass with this value
                                 minimum: 0.0
-                            transformer_mass_user:
+                            transformer_mass:
                                 type: number
                                 default: 0.0
                                 units: kg
@@ -700,28 +707,28 @@ properties:
                                 description: Point mass modeling the assembly of brake, hvac, converter, transformer, and main bearings
                     generator:
                       properties:
-                        generator_length:
+                        length:
                             type: number
                             description: Length of generator along the shaft
                             units: meter
                             minimum: 0.
                             maximum: 20.
                             default: 2.0
-                        generator_radius_user:
+                        radius:
                             type: number
                             description: User input override of generator radius, only used when using simple generator scaling
                             units: m
                             minimum: 0.
                             maximum: 20.0
                             default: 0.0
-                        generator_mass_user:
+                        mass:
                             type: number
                             description: User input override of generator mass, only used when using simple generator mass scaling
                             units: kg
                             minimum: 0.
                             maximum: 1.e+9
                             default: 0.0
-                        generator_rpm_efficiency_user:
+                        rpm_efficiency:
                             type: object
                             description: User input override of generator rpm-efficiency values, with rpm as grid input and eff as values input
                             default: {'grid':[0.0], 'values':[0.0]}
@@ -739,7 +746,7 @@ properties:
                           units: none
                           description: When not doing a detailed generator design, use a simplified approach to generator scaling. This input allows for overriding of the regression-based scaling coefficient to obtain generator mass
                           minimum: 0.0
-                        generator_type:
+                        type:
                           type: string
                           default: DFIG
                           enum: [DFIG, dfig, EESG, eesg, SCIG, scig, PMSG_Arms, PMSG_ARMS, pmsg_arms, PMSG_Disc, PMSG_Disk, PMSG_DISC, PMSG_DISK, pmsg_disk, pmsg_disc, PMSG_Outer, PMSG_OUTER, pmsg_outer]
@@ -3377,6 +3384,7 @@ definitions:
             - twist
             - stiffness_matrix
             - inertia_matrix
+            - structural_damping
         properties:
             reference_axis:
                 $ref: "#/definitions/distributed_data/axis_coordinates"
