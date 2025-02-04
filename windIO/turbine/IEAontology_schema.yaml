@@ -246,7 +246,7 @@ properties:
                                             $ref: "#/definitions/distributed_data/nd_arc_position"
                                         rotation:
                                             $ref: "#/definitions/distributed_data/rotation"
-                                        offset_y_pa:
+                                        offset_y_ref_axis:
                                             $ref: "#/definitions/distributed_data/offset"
                             layers:
                                 type: array
@@ -324,7 +324,7 @@ properties:
                                             $ref: "#/definitions/distributed_data/nd_arc_position"
                                         rotation:
                                             $ref: "#/definitions/distributed_data/rotation"
-                                        offset_y_pa:
+                                        offset_y_ref_axis:
                                             $ref: "#/definitions/distributed_data/offset"
                             joint:
                                 type: object
