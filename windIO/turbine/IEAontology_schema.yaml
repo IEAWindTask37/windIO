@@ -3374,11 +3374,23 @@ definitions:
         description: The equivalent elastic properties of a beam are defined in :code:`elastic_properties_mb`. Here, 6x6 stiffness and mass matrices are defined. Out of 36 entries of the matrices, given the symmetry, the yaml file requires the definition of only 21 values as inputs for the stiffness matrix, whereas the inertia matrix is defined in terms of unit mass, coordinates of the center of mass, and mass moments of inertia.
         required:
             - reference_axis
+            - twist
             - stiffness_matrix
             - inertia_matrix
         properties:
             reference_axis:
                 $ref: "#/definitions/distributed_data/axis_coordinates"
+            twist:
+                type: object
+                description: The array :code:`values` specifies the structural twist along blade span.
+                required:
+                    - grid
+                    - values
+                properties:
+                    grid:
+                        $ref: "#/definitions/distributed_data/grid_nd"
+                    values:
+                        $ref: "#/definitions/distributed_data/angle"
             stiffness_matrix:
                 type: object
                 required:
