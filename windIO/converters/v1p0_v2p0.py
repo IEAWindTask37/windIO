@@ -112,6 +112,10 @@ class v1p0_to_v2p0:
                 I["i_cp"][igrid] = -I["values"][igrid][16]
             
             I.pop("values")
+
+            # Add required field structural damping
+            blade_beam["structural_damping"] = np.zeros(6)
+
             dict_v2p0["components"]["blade"]["elastic_properties_mb"] = blade_beam
 
         # Cone angle from rad to deg

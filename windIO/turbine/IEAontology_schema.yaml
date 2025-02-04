@@ -107,7 +107,7 @@ properties:
         optional:
             - blade
             - hub
-            - nacelle
+            - drivetrain
             - tower
             - monopile
             - floating_platform
@@ -914,7 +914,7 @@ properties:
                           default: 90
                           units: deg
                           minimum: 0.0
-                          maximum: 7.0
+                          maximum: 90.0
                           description: Words
                         q1:
                           type: integer
@@ -2713,7 +2713,7 @@ properties:
                 description: Average inflow wind speed. If different than 0, this will overwrite the V mean of the IEC wind class
     bos:
         type: object
-        descriptiopn: Data for a balance of station cost analysis.
+        description: Data for a balance of station cost analysis.
         default: {}
         properties:
             plant_turbine_spacing:
@@ -3637,7 +3637,7 @@ definitions:
                         items:
                             type: number
                             units: kg*m^2
-                            minimum: 0
+                            # minimum: 0 # not 100% sure, but i_cp could be negative
             structural_damping:
                 mu:
                     type: array

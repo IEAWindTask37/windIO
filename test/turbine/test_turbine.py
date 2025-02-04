@@ -17,10 +17,12 @@ path2schema = (
 
 class TestRegression(unittest.TestCase):
     def test_IEA_15_240_RWT(self):
-        path2yaml = (
-            os.path.dirname(os.path.realpath(__file__))
-            + os.sep
-            + "IEA-15-240-RWT.yaml"
+        path2yaml = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+            "windIO",
+            "converters",
+            "v2p0",
+            "IEA-15-240-RWT.yaml"
         )
         # Read the input yaml
         with open(path2yaml, "r") as myfile:
@@ -42,10 +44,12 @@ class TestRegression(unittest.TestCase):
         return None
 
     def test_IEA_15_240_RWT_VolturnUS_S(self):
-        path2yaml = (
-            os.path.dirname(os.path.realpath(__file__))
-            + os.sep
-            + "IEA-15-240-RWT.yaml"
+        path2yaml = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+            "windIO",
+            "converters",
+            "v2p0",
+            "IEA-15-240-RWT_VolturnUS-S.yaml"
         )
         # Read the input yaml
         with open(path2yaml, "r") as myfile:
