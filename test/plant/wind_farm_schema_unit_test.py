@@ -1,7 +1,7 @@
 
 import pytest
 import windIO
-from test.plant.conftest import SampleInputs
+from .conftest import SampleInputs
 from jsonschema.exceptions import ValidationError
 
 
