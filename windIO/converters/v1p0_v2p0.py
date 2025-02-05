@@ -114,7 +114,8 @@ class v1p0_to_v2p0:
             I.pop("values")
 
             # Add required field structural damping
-            blade_beam["structural_damping"] = np.zeros(6)
+            blade_beam["structural_damping"] = {}
+            blade_beam["structural_damping"]["mu"] = np.zeros(6)
 
             dict_v2p0["components"]["blade"]["elastic_properties_mb"] = blade_beam
 
