@@ -3555,6 +3555,22 @@ definitions:
                                 minItems: 21
                                 maxItems: 21
                                 uniqueItems: false
+                inertia_matrix:
+                    type: object
+                    required:
+                        - grid
+                        - values
+                    properties:
+                        grid:
+                            $ref: "#/definitions/distributed_data/grid_nd"
+                        values:
+                            type: array
+                            items:
+                                type: array
+                                description: Inertia matrix 6x6, only upper diagonal reported line by line (21 elements), specified at each grid point
+                                minItems: 21
+                                maxItems: 21
+                                uniqueItems: false
     filter:
         type: object
         description: Linear filter, could be a LPF, HPF, NF, INF, or user_defined
