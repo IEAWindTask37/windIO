@@ -5,7 +5,7 @@ from pathlib import Path
 
 def test_validation_IEA_case_studies_1_2():
 
-    plant_reference_path = Path(windIO.plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_ex.__file__).parent
     windIO.validate(
         input=plant_reference_path / 'wind_energy_system/IEA37_case_study_1_2_wind_energy_system.yaml',
         schema_type="plant/wind_energy_system"
@@ -28,7 +28,7 @@ def test_validation_IEA_case_studies_1_2():
 
 def test_validation_IEA_case_studies_3():
 
-    plant_reference_path = Path(windIO.plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_ex.__file__).parent
 
     windIO.validate(
         input=plant_reference_path / 'wind_energy_system/IEA37_case_study_3_wind_energy_system.yaml',
@@ -52,7 +52,7 @@ def test_validation_IEA_case_studies_3():
 
 def test_validation_IEA_case_studies_4():
 
-    plant_reference_path = Path(windIO.plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_ex.__file__).parent
 
     windIO.validate(
         input=plant_reference_path / 'wind_energy_system/IEA37_case_study_4_wind_energy_system.yaml',
@@ -76,7 +76,7 @@ def test_validation_IEA_case_studies_4():
 
 def test_validation_IEA_turbines():
 
-    plant_reference_path = Path(windIO.plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_ex.__file__).parent
 
     windIO.validate(
         input=plant_reference_path / 'plant_energy_turbine/IEA37_3.35MW_turbine.yaml',
@@ -95,7 +95,7 @@ def test_validation_IEA_turbines():
 
 def test_validation_energy_resources():
 
-    plant_reference_path = Path(windIO.plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_ex.__file__).parent
 
     # Uniform Resource
     windIO.validate(
@@ -143,7 +143,7 @@ def test_validation_energy_resources():
 
 def test_validation_timeseries():
 
-    plant_reference_path = Path(windIO.plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_ex.__file__).parent
 
     windIO.validate(
         input=plant_reference_path / "plant_energy_resource/timeseries.yaml",

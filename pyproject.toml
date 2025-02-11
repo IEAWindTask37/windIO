@@ -53,7 +53,7 @@ exclude = [
 windIO = [
     "schemas/plant/*.yaml",     # Plant schema files
     "schemas/turbine/*.yaml",   # Turbine schema files
-    "reference_library/**",     # WindIO reference files, previously examples/
+    "examples/**",              # WindIO examples
 ]
 
 [project.urls]

@@ -10,14 +10,14 @@ from urllib.parse import urljoin
 import xarray as xr
 
 ### API design
-import windIO.reference_library.plant
-import windIO.reference_library.turbine
+import windIO.examples.plant
+import windIO.examples.turbine
 import windIO.schemas
 import windIO.schemas.plant         # By importing plant and turbine here, we can use the schemas as windIO.schemas.plant and windIO.schemas.turbine
 import windIO.schemas.turbine       # in the calling code after only importing windIO... import windIO; help(windIO.schemas.turbine)
 
-plant_lib = windIO.reference_library.plant
-turbine_lib = windIO.reference_library.turbine
+plant_ex = windIO.examples.plant
+turbine_ex = windIO.examples.turbine
 schemas = windIO.schemas
 ### API design
 

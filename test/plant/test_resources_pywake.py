@@ -15,7 +15,7 @@ import windIO
 @pytest.mark.parametrize('ext', ['.yaml', '_nc.yaml', '.nc'])
 def test_uniform_resource(ext):
     filename = "UniformResource" + ext
-    plant_reference_path = Path(windIO.plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_ex.__file__).parent
     if ext.endswith('.yaml'):
         site = yml2Site(plant_reference_path / "plant_energy_resource/" / filename)
     else:
@@ -37,7 +37,7 @@ def test_uniform_resource(ext):
 @pytest.mark.parametrize('ext', ['.yaml', '_nc.yaml', '.nc'])
 def test_uniform_weibull_resource(ext):
     filename = "UniformWeibullResource" + ext
-    plant_reference_path = Path(windIO.plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_ex.__file__).parent
     if ext.endswith('.yaml'):
         site = yml2Site(plant_reference_path / "plant_energy_resource/" / filename)
     else:
@@ -67,7 +67,7 @@ def test_uniform_weibull_resource(ext):
 @pytest.mark.parametrize('ext', ['.yaml', '_nc.yaml', '.nc'])
 def test_wt_resource(ext):
     filename = "GriddedResource" + ext
-    plant_reference_path = Path(windIO.plant_lib.__file__).parent
+    plant_reference_path = Path(windIO.plant_ex.__file__).parent
     if ext.endswith('.yaml'):
         site = yml2Site(plant_reference_path / "plant_energy_resource/" / filename)
     else:
