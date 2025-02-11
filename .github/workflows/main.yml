@@ -10,40 +10,31 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     defaults:
-        run:
-            shell: bash -l {0}
-
+      run:
+        shell: bash -l {0}
 
     strategy:
       fail-fast: False
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
 
-      # Official way to do miniconda, but it messes with the worker environment and shell
-      - name: Install miniconda
-        uses: conda-incubator/setup-miniconda@v2
-        # https://github.com/marketplace/actions/setup-miniconda
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          miniconda-version: "latest"
-          channels: conda-forge
-          auto-update-conda: true
           python-version: ${{ matrix.python-version }}
-          environment-file: environment.yml
-          activate-environment: test
-          auto-activate-base: false
-          
-      - name: Install test dependencies
-        run: |
-          pip install py_wake
-        
 
-      # Run all tests
-      - name: Run tests
-        if: contains( matrix.os, 'ubuntu')
+      - name: Install dependencies
+        working-directory: ${{runner.workspace}}/windIO/
         run: |
-          py.test
+          python -m pip install --upgrade pip
+          pip install ".[test]"
+
+      - name: Run tests
+        working-directory: ${{runner.workspace}}/windIO/
+        run: |
+          pytest test
