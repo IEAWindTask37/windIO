@@ -64,10 +64,10 @@ class v1p0_to_v2p0:
         if "six_x_six" in dict_v2p0["components"]["blade"]["elastic_properties_mb"]:
             blade_beam = dict_v2p0["components"]["blade"]["elastic_properties_mb"]["six_x_six"]
 
-            # Start by moving structural twist from rad to deg
-            if "values" in blade_beam["twist"]:
-                twist_rad = blade_beam["twist"]["values"]
-                blade_beam["twist"]["values"] = np.rad2deg(twist_rad)
+            # # Start by moving structural twist from rad to deg
+            # if "values" in blade_beam["twist"]:
+            #     twist_rad = blade_beam["twist"]["values"]
+            #     blade_beam["twist"]["values"] = np.rad2deg(twist_rad)
 
             # # Move reference_axis up to level
             # blade_beam["reference_axis"] = blade_beam["reference_axis"]
