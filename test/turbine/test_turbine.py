@@ -3,6 +3,7 @@ import unittest
 
 import yaml
 from jsonschema import Draft7Validator, validate
+from windIO.converters.v1p0_v2p0 import v1p0_to_v2p0
 
 path2schema = (
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
@@ -17,10 +18,12 @@ path2schema = (
 
 class TestRegression(unittest.TestCase):
     def test_IEA_15_240_RWT(self):
-        path2yaml = (
-            os.path.dirname(os.path.realpath(__file__))
-            + os.sep
-            + "IEA-15-240-RWT.yaml"
+        path2yaml = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+            "windIO",
+            "converters",
+            "v2p0",
+            "IEA-15-240-RWT.yaml"
         )
         # Read the input yaml
         with open(path2yaml, "r") as myfile:
@@ -42,10 +45,12 @@ class TestRegression(unittest.TestCase):
         return None
 
     def test_IEA_15_240_RWT_VolturnUS_S(self):
-        path2yaml = (
-            os.path.dirname(os.path.realpath(__file__))
-            + os.sep
-            + "IEA-15-240-RWT.yaml"
+        path2yaml = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+            "windIO",
+            "converters",
+            "v2p0",
+            "IEA-15-240-RWT_VolturnUS-S.yaml"
         )
         # Read the input yaml
         with open(path2yaml, "r") as myfile:
@@ -64,6 +69,52 @@ class TestRegression(unittest.TestCase):
         # Move it to a dictionary
         _ = yaml.load(inputs, Loader=yaml.FullLoader)
 
+        return None
+    
+    def test_v1p0_2p0_converter_IEA_15_240_RWT(self):
+        
+        filename_v1p0 = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+            "windIO",
+            "converters",
+            "v1p0",
+            "IEA-15-240-RWT.yaml"
+        )
+        
+        filename_v2p0 = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+            "windIO",
+            "converters",
+            "v2p0",
+            "IEA-15-240-RWT.yaml"
+        )
+          
+        converter = v1p0_to_v2p0(filename_v1p0, filename_v2p0)
+        converter.convert()
+        
+        return None
+    
+    def test_v1p0_2p0_converter_IEA_15_240_RWT_VolturnUS_S(self):
+        
+        filename_v1p0 = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+            "windIO",
+            "converters",
+            "v1p0",
+            "IEA-15-240-RWT_VolturnUS-S.yaml"
+        )
+        
+        filename_v2p0 = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))),
+            "windIO",
+            "converters",
+            "v2p0",
+            "IEA-15-240-RWT_VolturnUS-S.yaml"
+        )
+          
+        converter = v1p0_to_v2p0(filename_v1p0, filename_v2p0)
+        converter.convert()
+        
         return None
     
     def test_valid_schema(self):
