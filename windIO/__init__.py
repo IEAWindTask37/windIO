@@ -22,18 +22,11 @@ schemas = windIO.schemas
 ### API design
 
 
-class Loader(yaml.SafeLoader):
+class XrResourceLoader(yaml.SafeLoader):
     def __init__(self, stream):
         self._root = os.path.split(stream.name)[0]
         super().__init__(stream)
 
-    def include(self, node):
-        filename = os.path.join(self._root, self.construct_scalar(node))
-        with open(filename, 'r') as f:
-            return yaml.load(f, self.__class__)
-Loader.add_constructor('!include', Loader.include)
-
-class XrResourceLoader(Loader):
     def include(self, node):
         filename = os.path.join(self._root, self.construct_scalar(node))
         ext = os.path.splitext(filename)[1].lower()
