@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 def yml2Site(yml, interp_method='nearest'):
-    resource = windIO.load_yaml(yml, windIO.XrResourceLoader)
+    resource = windIO.load_yaml(yml)
     if 'energy_resource' in resource:
         resource = resource['energy_resource']
     data = resource['wind_resource']

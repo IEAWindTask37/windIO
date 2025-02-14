@@ -1,9 +1,7 @@
 import unittest
-import yaml
 from pathlib import Path
 import windIO
 
-import yaml
 from jsonschema import Draft7Validator
 
 
@@ -27,9 +25,8 @@ class TestRegression(unittest.TestCase):
         windIO.load_yaml(path2yaml)
     
     def test_valid_schema(self):
-        schema = yaml.load(
-            open(Path(windIO.schemas.turbine.__file__).parent / "IEAontology_schema.yaml", "r"),
-            Loader=yaml.FullLoader
+        schema = windIO.load_yaml(
+            Path(windIO.schemas.turbine.__file__).parent / "IEAontology_schema.yaml",
         )
 
         Draft7Validator.META_SCHEMA["additionalProperties"] = False
@@ -57,13 +54,3 @@ class TestRegression(unittest.TestCase):
                             recursive_require_optional_in_properties(el, name_list+[name, iel])
                             
         recursive_require_optional_in_properties(schema)
-
-
-def suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestRegression))
-    return suite
-
-
-if __name__ == "__main__":
-    unittest.TextTestRunner().run(suite())
