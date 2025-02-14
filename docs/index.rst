@@ -13,6 +13,26 @@ The frameworks are implemented in two yaml-schemas, one for the turbine and one 
 
     Author: `IEA Wind Task 37 Team <mailto:pietro.bortolotti@nrel.gov>`_
 
+Supporting windIO in modeling software
+--------------------------------------
+
+The windIO data format is defined by the schemas included in this repository.
+In order for a software to support windIO, it must support the data as described in the schemas
+and use the included functions to validate the data.
+windIO can be included as a dependency and installed as a package with pip.
+The suggested method of incorporating windIO into your code is:
+
+.. code-block:: python
+
+   import windIO
+
+   # Other code here
+
+   windIO.validate(input="path/to/input.yaml", schema_type="plant/wind_energy_system <for example>")
+   windIO.load_yaml("path/to/input.yaml")
+
+   # Conversion to appropriate data structures here
+
 .. toctree::
    :maxdepth: 3
    :caption: Contents:
