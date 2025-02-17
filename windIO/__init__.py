@@ -8,6 +8,7 @@ import jsonschema
 import json
 from urllib.parse import urljoin
 import xarray as xr
+from typing import Any
 
 ### API design
 import windIO.examples.plant
@@ -23,6 +24,12 @@ schemas = windIO.schemas
 
 
 class XrResourceLoader(yaml.SafeLoader):
+    """
+    This class is a custom loader for yaml files that also enables loading
+    NetCDF files. For pure YAML files, it behaves like the default yaml.SafeLoader.
+    For NetCDF files, it uses xarray to load the data and then converts it to a dictionary.
+    Software incorporating windIO generally will not need to use this class directly.
+    """
     def __init__(self, stream):
         self._root = os.path.split(stream.name)[0]
         super().__init__(stream)
@@ -34,7 +41,14 @@ class XrResourceLoader(yaml.SafeLoader):
             with open(filename, 'r') as f:
                 return yaml.load(f, XrResourceLoader)
         elif ext in ['.nc']:
-            def fmt(v):
+            def fmt(v: Any) -> dict | list | str | float | int:
+                """
+                Formats a dictionary appropriately for yaml.load by converting Tuples to Lists.
+
+                Args:
+                    v (Any): Initially, a dictionary of inputs to format. Then, individual
+                        values within the dictionary.
+                """
                 if isinstance(v, dict):
                     return {k: fmt(v) for k, v in v.items() if fmt(v) != {}}
                 elif isinstance(v, tuple):
@@ -42,22 +56,41 @@ class XrResourceLoader(yaml.SafeLoader):
                 else:
                     return v
 
-            def ds2yml(ds):
+            def ds2yml(ds: xr.Dataset) -> dict:
+                """
+                Converts the input xr.Dataset to a format compatible with yaml.load.
+
+                Args:
+                    ds (xr.Dataset): NetCDF data loaded as a xr.Dataset
+                """
                 d = ds.to_dict()
                 return fmt({**{k: v['data'] for k, v in d['coords'].items()},
                             **d['data_vars']})
             return ds2yml(xr.open_dataset(filename))
+        else:
+            raise ValueError(f"Unsupported file extension: {ext}")
 XrResourceLoader.add_constructor('!include', XrResourceLoader.include)
 
-def load_yaml(filename, loader=XrResourceLoader):
+def load_yaml(filename: str, loader=XrResourceLoader) -> dict:
+    """
+    Opens ``filename`` and loads the content into a dictionary with the ``yaml.load``
+    function from pyyaml.
+
+    Args:
+        filename (str): Path to the local file to be loaded.
+        loader (yaml.SafeLoader, optional): Defaults to XrResourceLoader.
+
+    Returns:
+        dict: Dictionary representation of the YAML file given in ``filename``.
+    """
     with open(filename) as fid:
         return yaml.load(fid, loader)
 
-def add_local_schemas_to(resolver, schema_folder, base_uri, schema_ext_lst=['.json', '.yaml', '.yml']):
+def _add_local_schemas_to(resolver, schema_folder, base_uri, schema_ext_lst=['.json', '.yaml', '.yml']):
     '''Function from https://gist.github.com/mrtj/d59812a981da17fbaa67b7de98ac3d4b#file-local_ref-py
     Add local schema instances to a resolver schema cache.
 
-    Arguments:
+    Args:
         resolver (jsonschema.RefResolver): the reference resolver
         schema_folder (str): the local folder of the schemas.
         base_uri (str): the base URL that you actually use in your '$id' tags
@@ -85,15 +118,23 @@ def add_local_schemas_to(resolver, schema_folder, base_uri, schema_ext_lst=['.js
 def validate(input: dict | str | Path, schema_type: str) -> None:
     """
     Validates a given windIO input based on the selected schema type.
-    Raises jsonschema.exceptions.ValidationError if the input file is not valid.
 
     Args:
-        input (dict | str | Path): Input to be validated. Could be a Python dictionary or
-            a path to a yaml file.
+        input (dict | str | Path): Input data or path to file to be validated.
         schema_type (str): Type of schema to be used for validation. This must map to one
-            of the schema files available in the `schemas/plant` or `schemas/turbine` folders.
+            of the schema files available in the ``schemas/plant`` or ``schemas/turbine`` folders.
             Examples of valid schema types are 'plant/wind_energy_system' or
-            'turbine/IEAontology_schema'.
+            '`turbine/IEAontology_schema`'.
+
+    Raises:
+        FileNotFoundError: If the schema type is not found in the schemas folder.
+        TypeError: If the input type is not supported.
+        jsonschema.exceptions.ValidationError: If the input data fails validation
+            against the schema.
+        jsonschema.exceptions.SchemaError: if the schema itself is invalid.
+    
+    Returns:
+        None
     """
     schema_file = Path(windIO.schemas.__file__).parent / f"{schema_type}.yaml"
     if not schema_file.exists():
@@ -110,5 +151,5 @@ def validate(input: dict | str | Path, schema_type: str) -> None:
     base_uri = 'https://www.example.com/schemas/'
     resolver = jsonschema.RefResolver(base_uri=base_uri, referrer=schema)
     schema_folder = Path(schema_file).parent
-    add_local_schemas_to(resolver, schema_folder, base_uri)
+    _add_local_schemas_to(resolver, schema_folder, base_uri)
     jsonschema.validate(data, schema, resolver=resolver)
