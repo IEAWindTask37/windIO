@@ -31,20 +31,20 @@ The suggested method of incorporating windIO into your code is:
    windIO.validate(input="path/to/input.yaml", schema_type="plant/wind_energy_system <for example>")
    windIO.load_yaml("path/to/input.yaml")
 
-   # Conversion to appropriate data structures here
+   # Conversion to your software's data structures here
 
+Software library reference
+--------------------------
+
+.. automodule:: windIO
+   :members:
+
+
+Contents
+--------
 .. toctree::
    :maxdepth: 3
-   :caption: Contents:
 
    source/turbine
    source/plant
    source/developer_guide
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
