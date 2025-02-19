@@ -39,8 +39,7 @@ docs = [
 test = [
     "pytest",
     "pytest-subtests",
-    "py_wake",
-    "topfarm",
+    "netcdf",
 ]
 
 [tool.setuptools.packages.find]
