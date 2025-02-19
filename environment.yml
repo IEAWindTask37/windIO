@@ -5,6 +5,7 @@ channels:
 dependencies:
   - jsonschema
   - numpy
+  - netcdf4
   - pyyaml
   - pytest
   - pytest-subtests
