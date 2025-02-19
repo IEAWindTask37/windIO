@@ -36,11 +36,6 @@ jobs:
           environment-file: environment.yml
           activate-environment: test
           auto-activate-base: false
-          
-      - name: Install test dependencies
-        run: |
-          pip install py_wake
-        
 
       # Run all tests
       - name: Run tests
