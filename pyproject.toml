@@ -30,6 +30,7 @@ dependencies = [
     'numpy',
     'pyyaml',
     'xarray',
+    "netcdf4",
 ]
 
 [project.optional-dependencies]
@@ -39,8 +40,6 @@ docs = [
 test = [
     "pytest",
     "pytest-subtests",
-    "py_wake",
-    "topfarm",
 ]
 
 [tool.setuptools.packages.find]
