@@ -1,9 +1,7 @@
-import numpy as np
-import numpy.testing as npt
+
 import pytest
-from windIO.utils.yml_utils import load_yaml, validate_yaml
-from windIO.utils import plant_examples_data_path, plant_schemas_path
-from test.plant.conftest import SampleInputs
+import windIO
+from .conftest import SampleInputs
 from jsonschema.exceptions import ValidationError
 
 
@@ -14,17 +12,17 @@ def test_wind_farm_input(subtests):
     """
     with subtests.test("with valid config"):
         config = SampleInputs().wind_farm
-        assert validate_yaml(config, plant_schemas_path + "wind_farm.yaml") is None
+        windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("remove optional electrical_substations"):
         config = SampleInputs().wind_farm
         del config["electrical_substations"]
-        assert validate_yaml(config, plant_schemas_path + "wind_farm.yaml") is None
+        windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("remove optional electrical_collection_array"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]
-        assert validate_yaml(config, plant_schemas_path + "wind_farm.yaml") is None
+        windIO.validate(config, "plant/wind_farm")
 
 
 @pytest.mark.skip(reason="initial_layout is depreciated")
@@ -36,19 +34,19 @@ def test_wind_farm_invalid_inputs_layouts(subtests):
         config = SampleInputs().wind_farm
         del config["layouts"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing layouts initial_layout"):
         config = SampleInputs().wind_farm
         del config["layouts"]["initial_layout"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing layouts initial_layout coordinates"):
         config = SampleInputs().wind_farm
         del config["layouts"]["initial_layout"]["coordinates"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
 
 
 @pytest.mark.skip(reason="wind farm turbine has optional: true")
@@ -60,7 +58,7 @@ def test_wind_farm_invalid_inputs_turbines(subtests):
         config = SampleInputs().wind_farm
         del config["turbines"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
 
 
 def test_wind_farm_invalid_inputs_electrical_substations(subtests):
@@ -71,18 +69,18 @@ def test_wind_farm_invalid_inputs_electrical_substations(subtests):
         config = SampleInputs().wind_farm
         del config["electrical_substations"][0]["electrical_substation"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing electrical_substation coordinates"):
         config = SampleInputs().wind_farm
         del config["electrical_substations"][0]["electrical_substation"]["coordinates"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("remove optional electrical_substation capacity"):
         config = SampleInputs().wind_farm
         del config["electrical_substations"][0]["electrical_substation"]["capacity"]
-        assert validate_yaml(config, plant_schemas_path + "wind_farm.yaml") is None
+        windIO.validate(config, "plant/wind_farm") is None
 
 def test_wind_farm_invalid_inputs_electrical_collection_array(subtests):
     """
@@ -92,34 +90,34 @@ def test_wind_farm_invalid_inputs_electrical_collection_array(subtests):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["edges"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing electrical_collection_array cables"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
 
     with subtests.test("missing electrical_collection_array cables cable_type"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]["cable_type"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
     
     with subtests.test("missing electrical_collection_array cables cross_section"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]["cross_section"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
     
     with subtests.test("missing electrical_collection_array cables capacity"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]["capacity"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")
     
     with subtests.test("missing electrical_collection_array cables cost"):
         config = SampleInputs().wind_farm
         del config["electrical_collection_array"]["cables"]["cost"]
         with pytest.raises(ValidationError):
-            validate_yaml(config, plant_schemas_path + "wind_farm.yaml")
+            windIO.validate(config, "plant/wind_farm")

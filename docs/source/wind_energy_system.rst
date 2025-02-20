@@ -5,7 +5,7 @@ The wind energy system defintion is the highest level definition in the plant on
 Required properties include :code:`name`, :code:`site`, and :code:`wind_farm`. For specific details
 on the properties, see :ref:`below <wind_energy_system_properites>`
 
-.. literalinclude:: ../../examples/plant/wind_energy_system/IEA37_case_study_1_2_wind_energy_system.yaml
+.. literalinclude:: ../../windIO/examples/plant/wind_energy_system/IEA37_case_study_1_2_wind_energy_system.yaml
     :start-at: name: IEA Wind Task 37 Case study 1+2, 16WT Wind Energy System
     :end-at: name: Bastankhah’s Gaussian wake model (simplified version) 
 
@@ -39,7 +39,7 @@ IEA Wind Task 37 Case Study 1 & 2
 
 In this example, the IEA 37 Case Study 1 & 2 system definitions are given.
 
-.. literalinclude:: ../../examples/plant/wind_energy_system/IEA37_case_study_1_2_wind_energy_system.yaml
+.. literalinclude:: ../../windIO/examples/plant/wind_energy_system/IEA37_case_study_1_2_wind_energy_system.yaml
     :start-at: name: IEA Wind Task 37 Case study 1+2, 16WT Wind Energy System
     :end-at: name: Bastankhah’s Gaussian wake model (simplified version) 
 
@@ -48,7 +48,7 @@ IEA Wind Task 37 Case Study 3
 
 In this example, the IEA 37 Case Study 3 system definition is given.
 
-.. literalinclude:: ../../examples/plant/wind_energy_system/IEA37_case_study_3_wind_energy_system.yaml
+.. literalinclude:: ../../windIO/examples/plant/wind_energy_system/IEA37_case_study_3_wind_energy_system.yaml
     :start-at: name: IEA Wind Task 37 Case study 3, 25WT Wind Farm
     :end-at: name: Bastankhah’s Gaussian wake model (simplified version) 
 
@@ -57,6 +57,6 @@ IEA Wind Task 37 Case Study 4
 
 In this example, the IEA 37 Case Study 4 system definition is given.
 
-.. literalinclude:: ../../examples/plant/wind_energy_system/IEA37_case_study_4_wind_energy_system.yaml
+.. literalinclude:: ../../windIO/examples/plant/wind_energy_system/IEA37_case_study_4_wind_energy_system.yaml
     :start-at: name: IEA Wind Task 37 Case study 4, 81WT Wind Farm
     :end-at: name: Bastankhah’s Gaussian wake model (simplified version) 
