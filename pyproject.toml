@@ -29,6 +29,7 @@ dependencies = [
     'jsonschema',
     'pyyaml',
     'xarray',       # TODO: this is used to load netcdf files through the validation function XrResourceLoader
+    "netcdf4",
 ]
 
 [project.optional-dependencies]
@@ -39,8 +40,6 @@ test = [
     'numpy',
     "pytest",
     "pytest-subtests",
-    "py_wake",
-    "topfarm",
 ]
 
 [tool.setuptools.packages.find]
