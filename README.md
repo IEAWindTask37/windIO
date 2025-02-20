@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/IEAWindTask37/windIO/workflows/CI_windIO/badge.svg?branch=master)](https://github.com/IEAWindTask37/windIO/actions)
+[![Build Status](https://github.com/IEAWindSystems/windIO/workflows/CI_windIO/badge.svg?branch=master)](https://github.com/IEAWindSystems/windIO/actions)
 [![Documentation Status](https://readthedocs.org/projects/windio/badge/?version=latest)](https://windio.readthedocs.io/en/latest/)
 
 # windIO

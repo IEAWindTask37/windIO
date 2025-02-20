@@ -32,7 +32,7 @@ These requirements are meant to be a bare minimum amount of information required
 characteristics are supported by the schema. As wind resource data can become quite large, the schema also
 supports using NetCDF files to contain the large data structures. These requirements and the additional
 options are detailed below, followed by several example :code:`energy_resource` definitions. More examples
-can be found `here <https://github.com/IEAWindTask37/windIO/tree/master/examples/plant/plant_energy_resource>`_.
+can be found `here <https://github.com/IEAWindSystems/windIO/tree/master/examples/plant/plant_energy_resource>`_.
 
 :code:`wind_direction` : Array or Number
     Either an array of numbers or a single number representing the wind direction(s).
@@ -92,7 +92,7 @@ Uniform Resource
 In this example, wind directions and associated probabilities are specified, along with a single
 wind speed and turbulence intensity.
 
-.. literalinclude:: ../../examples/plant/plant_energy_resource/UniformResource.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_resource/UniformResource.yaml
     :start-at: name:
     :end-at: wind_speed:
 
@@ -102,7 +102,7 @@ Uniform Weibull Resource
 In this example, wind directions and associated probabilities are specified, along with Weibull parameters
 for each wind direction. 
 
-.. literalinclude:: ../../examples/plant/plant_energy_resource/UniformWeibullResource.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_resource/UniformWeibullResource.yaml
     :start-at: name:
     :end-at: - 330.0
 
@@ -112,6 +112,6 @@ IEA Wind Task 37 Case Study 3 Plant Energy Resource
 In this example, wind directions and associated probabilities are specified, along with Weibull parameters
 for each wind direction. 
 
-.. literalinclude:: ../../examples/plant/plant_energy_resource/IEA37_case_study_3_energy_resource.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_resource/IEA37_case_study_3_energy_resource.yaml
     :start-at: name:
     :end-at: dims:

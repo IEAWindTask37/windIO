@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.insert(0, os.path.abspath("../windIO"))
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -31,8 +35,14 @@ release = 'windIO'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autosectionlabel'
+    'sphinx.ext.autosectionlabel',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
 ]
+
+napoleon_google_docstring = True
+napoleon_use_param = False
+napoleon_use_rtype = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
