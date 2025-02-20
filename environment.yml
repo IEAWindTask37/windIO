@@ -9,4 +9,5 @@ dependencies:
   - pyyaml
   - pytest
   - pytest-subtests
+  - ruamel.yaml
   - xarray
