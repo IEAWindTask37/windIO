@@ -1,75 +1,34 @@
-import os
 import unittest
+from pathlib import Path
+import windIO
 
-import yaml
-from jsonschema import Draft7Validator, validate
-
-path2schema = (
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-    + os.sep
-    + "windIO"
-    + os.sep
-    + "turbine"
-    + os.sep
-    + "IEAontology_schema.yaml"
-)
+from jsonschema import Draft7Validator
 
 
 class TestRegression(unittest.TestCase):
     def test_IEA_15_240_RWT(self):
-        path2yaml = (
-            os.path.dirname(os.path.realpath(__file__))
-            + os.sep
-            + "IEA-15-240-RWT.yaml"
-        )
-        # Read the input yaml
-        with open(path2yaml, "r") as myfile:
-            inputs = myfile.read()
+        path2yaml = Path(__file__).parent / "IEA-15-240-RWT.yaml"
 
-        # Read the schema
-        with open(path2schema, "r") as myfile:
-            schema = myfile.read()
+        # Validate the file
+        windIO.validate(path2yaml, "turbine/IEAontology_schema")
 
-        # Run the validate class from the jsonschema library
-        validate(
-            yaml.load(inputs, Loader=yaml.FullLoader),
-            yaml.load(schema, Loader=yaml.FullLoader),
-        )
-
-        # Move it to a dictionary
-        _ = yaml.load(inputs, Loader=yaml.FullLoader)
-
-        return None
+        # Verify the file loads
+        windIO.load_yaml(path2yaml)
 
     def test_IEA_15_240_RWT_VolturnUS_S(self):
-        path2yaml = (
-            os.path.dirname(os.path.realpath(__file__))
-            + os.sep
-            + "IEA-15-240-RWT.yaml"
-        )
-        # Read the input yaml
-        with open(path2yaml, "r") as myfile:
-            inputs = myfile.read()
+        path2yaml = Path(__file__).parent / "IEA-15-240-RWT_VolturnUS-S.yaml"
 
-        # Read the schema
-        with open(path2schema, "r") as myfile:
-            schema = myfile.read()
+        # Validate the file
+        windIO.validate(path2yaml, "turbine/IEAontology_schema")
 
-        # Run the validate class from the jsonschema library
-        validate(
-            yaml.load(inputs, Loader=yaml.FullLoader),
-            yaml.load(schema, Loader=yaml.FullLoader),
-        )
-
-        # Move it to a dictionary
-        _ = yaml.load(inputs, Loader=yaml.FullLoader)
-
-        return None
+        # Verify the file loads
+        windIO.load_yaml(path2yaml)
     
     def test_valid_schema(self):
-        with open(path2schema, "r") as file:
-            schema = yaml.load(file, Loader=yaml.FullLoader)
-        
+        schema = windIO.load_yaml(
+            Path(windIO.schemas.turbine.__file__).parent / "IEAontology_schema.yaml",
+        )
+
         Draft7Validator.META_SCHEMA["additionalProperties"] = False
         Draft7Validator.META_SCHEMA["properties"]["definitions"]["additionalProperties"] = True
         Draft7Validator.META_SCHEMA["properties"]["units"] = dict(type="string")
@@ -95,14 +54,3 @@ class TestRegression(unittest.TestCase):
                             recursive_require_optional_in_properties(el, name_list+[name, iel])
                             
         recursive_require_optional_in_properties(schema)
-
-
-
-def suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestRegression))
-    return suite
-
-
-if __name__ == "__main__":
-    unittest.TextTestRunner().run(suite())

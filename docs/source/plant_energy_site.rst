@@ -7,7 +7,7 @@ natural phenomena, such as the wind energy resource available at the site. For t
 properties include :code:`name`, :code:`boundaries`, and :code:`energy_resource`. For details on the
 properites, see :ref:`below <site_properties>`
 
-.. literalinclude:: ../../examples/plant/plant_energy_site/IEA37_case_study_1_2_energy_site.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_site/IEA37_case_study_1_2_energy_site.yaml
     :start-at: name:
     :end-at: energy_resource:
 
@@ -28,11 +28,11 @@ Properties
     circle boundary. Examples of a :code:`polygons` and a :code:`circle` definition are
     given below.
 
-.. literalinclude:: ../../examples/plant/plant_energy_site/IEA37_case_study_1_2_energy_site.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_site/IEA37_case_study_1_2_energy_site.yaml
     :start-after: name:
     :end-before: energy_resource:
 
-.. literalinclude:: ../../examples/plant/plant_energy_site/IEA37_case_study_4_energy_site.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_site/IEA37_case_study_4_energy_site.yaml
     :start-after: name:
     :end-before: energy_resource:
 
@@ -69,7 +69,7 @@ IEA Wind Task 37 Case study 1+2, 16WT Plant Energy Site
 
 In this example, the IEA Wind Task 37 Case study 1+2, 16WT Plant Energy Site is defined.
 
-.. literalinclude:: ../../examples/plant/plant_energy_site/IEA37_case_study_1_2_energy_site.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_site/IEA37_case_study_1_2_energy_site.yaml
     :start-at: name:
     :end-at: energy_resource:
 
@@ -78,7 +78,7 @@ IEA Wind Task 37 Case study 3, 25WT Plant Energy Site
 
 In this example, the IEA Wind Task 37 Case study 3, 25WT Plant Energy Site is defined.
 
-.. literalinclude:: ../../examples/plant/plant_energy_site/IEA37_case_study_3_energy_site.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_site/IEA37_case_study_3_energy_site.yaml
     :start-at: name:
     :end-at: energy_resource:
 
@@ -87,6 +87,6 @@ IEA Wind Task 37 Case study 4, 81WT Plant Energy Site
 
 In this example, the IEA Wind Task 37 Case study 4, 81WT Plant Energy Site is defined.
 
-.. literalinclude:: ../../examples/plant/plant_energy_site/IEA37_case_study_4_energy_site.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_site/IEA37_case_study_4_energy_site.yaml
     :start-at: name:
     :end-at: energy_resource:

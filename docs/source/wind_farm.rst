@@ -5,7 +5,7 @@ The wind farm schema deals with parameters of the wind farm. Required are a :cod
 and a :code:`turbines` definition. Additional properties can be included as needed, but don't currently
 have associated schemas.
 
-.. literalinclude:: ../../examples/plant/plant_wind_farm/IEA37_case_study_3_wind_farm.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_wind_farm/IEA37_case_study_3_wind_farm.yaml
     :start-at: name:
     :end-at: turbines:
 
@@ -96,7 +96,7 @@ IEA Wind Task 37 Case study 1+2, 16WT Wind Farm
 
 In this example, the IEA Wind Task 37 Case study 1+2, 16WT Wind Farm is defined.
 
-.. literalinclude:: ../../examples/plant/plant_wind_farm/IEA37_case_study_1_2_wind_farm.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_wind_farm/IEA37_case_study_1_2_wind_farm.yaml
     :start-at: name:
     :end-at: rotor_diameter:
 
@@ -105,7 +105,7 @@ IEA Wind Task 37 Case study 3, 25WT Wind Farm
 
 In this example, the IEA Wind Task 37 Case study 3, 25WT Wind Farm is defined.
 
-.. literalinclude:: ../../examples/plant/plant_wind_farm/IEA37_case_study_3_wind_farm.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_wind_farm/IEA37_case_study_3_wind_farm.yaml
     :start-at: name:
     :end-at: turbines:
 
@@ -114,7 +114,7 @@ IEA Wind Task 37 Case study 4, 81WT Wind Farm
 
 In this example, the IEA Wind Task 37 Case study 4, 81WT Wind Farm is defined.
 
-.. literalinclude:: ../../examples/plant/plant_wind_farm/IEA37_case_study_4_wind_farm.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_wind_farm/IEA37_case_study_4_wind_farm.yaml
     :start-at: name:
     :end-at: turbines:
 
@@ -130,7 +130,7 @@ IEA Wind Task 37 3.35MW Reference Turbine
 In this example, the IEA 37 3.35MW reference turbine is specified using the rated power, rated/cut-in/cut-out
 wind speeds, the Ct curve, hub height, and rotor diameter.
 
-.. literalinclude:: ../../examples/plant/plant_energy_turbine/IEA37_3.35MW_turbine.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_turbine/IEA37_3.35MW_turbine.yaml
     :start-at: name:
     :end-at: rotor_diameter:
 
@@ -140,7 +140,7 @@ IEA Wind Task 37 10MW Reference Turbine
 In this example, the IEA 37 10MW reference turbine is specified using the rated power, rated/cut-in/cut-out
 wind speeds, the Ct curve, hub height, and rotor diameter.
 
-.. literalinclude:: ../../examples/plant/plant_energy_turbine/IEA37_10MW_turbine.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_turbine/IEA37_10MW_turbine.yaml
     :start-at: name:
     :end-at: rotor_diameter:
 
@@ -150,6 +150,6 @@ IEA Wind Task 37 15MW Reference Turbine
 In this example, the IEA 37 15MW reference turbine is specified using the Cp/Ct curves, 
 hub height, and rotor diameter.
 
-.. literalinclude:: ../../examples/plant/plant_energy_turbine/IEA37_15MW_turbine.yaml
+.. literalinclude:: ../../windIO/examples/plant/plant_energy_turbine/IEA37_15MW_turbine.yaml
     :start-at: name:
     :end-at: rotor_diameter:

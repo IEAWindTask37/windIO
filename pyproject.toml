@@ -27,9 +27,8 @@ classifiers = [
 ]
 dependencies = [
     'jsonschema',
-    'numpy',
     'pyyaml',
-    'xarray',
+    'xarray',       # TODO: this is used to load netcdf files through the validation function XrResourceLoader
     "netcdf4",
 ]
 
@@ -38,6 +37,7 @@ docs = [
     "sphinx",
 ]
 test = [
+    'numpy',
     "pytest",
     "pytest-subtests",
 ]
@@ -45,15 +45,15 @@ test = [
 [tool.setuptools.packages.find]
 exclude = [
     "docs*",
-    "examples*",
     "test*"
 ]
 
-# [tool.setuptools.package-data]
-# windIO = [
-#     "",
-#     ""
-# ]
+[tool.setuptools.package-data]
+windIO = [
+    "schemas/plant/*.yaml",     # Plant schema files
+    "schemas/turbine/*.yaml",   # Turbine schema files
+    "examples/**",              # WindIO examples
+]
 
 [project.urls]
 Homepage = "https://github.com/IEAWindSystems/windIO"
