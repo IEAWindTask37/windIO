@@ -1,5 +1,5 @@
 name: IEA Wind Task 37 Case study 3, 25WT Wind Farm
-site: !include ../plant_energy_site/IEA37_case_study_3_energy_site.yaml
+site: !include ../plant_energy_site/flow_case_weibull_pdf_site.yaml
 wind_farm: !include ../plant_wind_farm/IEA37_case_study_3_wind_farm.yaml
 attributes:
   analyses:
@@ -15,7 +15,7 @@ attributes:
           percentiles: [5, 10, 50, 90, 95]
       flow_field:
           directions: [0]
-          speeds: [8.11] 
+          speeds: [8] 
           output_variables:  
             - velocity_u
             - turbulence_intensity
